@@ -103,10 +103,10 @@ Software: Install docker desktop, and enable kubernetes
 
 </details> 
 
-<details>
-  <summary>MacOS Instructions</summary>
- * [MacOS Docker Desktop](https://docs.docker.com/docker-for-mac/install/)
- * Enable Kubernetes ![](docs/macos-dockerd-k8s.jpg)
+<details><summary>MacOS Instructions</summary>
+  
+ * [Install MacOS Docker Desktop](https://docs.docker.com/docker-for-mac/install/)
+ * Enable Kubernetes: ![](docs/macos-dockerd-k8s.jpg)
 </details>
 
 #### Steps:
