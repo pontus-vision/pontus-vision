@@ -69,7 +69,7 @@ All Pontus Vision components have been created as docker containers; the followi
 
 | Docker image                                         |Module   | Description                                     | Stateful            | Image Size | Min Memory |
 |------------------------------------------------------|---------|-------------------------------------------------|---------------------|------------|------------|
-|  pontusvisiongdpr/grafana:latest                     |Comply   | Dashboard - historical KPIs and data tables     | No                  | 383MiB     | 36.25MiB   |
+|  pontusvisiongdpr/grafana                            |Comply   | Dashboard - historical KPIs and data tables     | No                  | 383MiB     | 36.25MiB   |
 |  pontusvisiongdpr/pontus-comply-nginx-lgpd:latest    |Comply   | (optional) API Gateway                          | No                  | 183MB      | 4 MiB      |
 |  pontusvisiongdpr/pontus-lgpd-formio:latest          |Extract  | (optional) Forms Manager (Brazilian Portuguese) | No                  | 530MB      | 123MiB     |
 |  pontusvisiongdpr/pontus-lgpd-formio-mongodb:latest  |Extract  | (optional) Storage for Forms Manager            | Yes                 | 438MB      | 61MiB      |
