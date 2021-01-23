@@ -1,5 +1,5 @@
 # PontusVision
-[Pontus Vision](https://www.pontusvision.com) is a platform for data mapping and management of personal data. It is an open source project to help companies catalogue their data to help with data protection regulations, such as CCPA, LGPD and GDPR 
+[Pontus Vision](https://www.pontusvision.com) is an open source platform for data mapping and management of personal data. It helps companies comply with data protection regulations, such as CCPA, LGPD and GDPR.
 
 ## Why PontusVision
 Pontus Vison has the following benefits:
