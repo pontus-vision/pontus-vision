@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose -f lgpd-odb-grafana-latest.yml convert
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: pontus-extract-discovery-dataset
+  name: pontus-extract-discovery-dataset
+spec:
+  ports:
+  - name: "8288"
+    port: 8288
+    targetPort: 8288
+  selector:
+    io.kompose.service: pontus-extract-discovery-dataset
+status:
+  loadBalancer: {}

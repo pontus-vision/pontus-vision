@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.network/pontusvision: "true"
+    io.kompose.service: pontus-postgrest
+  name: pontus-postgrest
+spec:
+  containers:
+  - env:
+    - name: PGRST_DB_ANON_ROLE
+      valueFrom:
+        secretKeyRef:
+          name: pontus-postgrest
+          key: PGRST_DB_ANON_ROLE
+    - name: PGRST_DB_URI
+      valueFrom:
+        secretKeyRef:
+          name: pontus-postgrest
+          key: PGRST_DB_URI
+    image: pontusvisiongdpr/postgrest:latest
+    name: pontus-postgrest
+    resources: {}
+  hostname: pontus-postgrest
+  restartPolicy: OnFailure
+  subdomain: pontus-demo-com
+status: {}

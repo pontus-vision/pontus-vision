@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose -f lgpd-odb-grafana-latest.yml convert
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: pontus-formio-mongodb
+  name: pontus-formio-mongodb
+spec:
+  ports:
+  - name: "27017"
+    port: 27017
+    targetPort: 27017
+  selector:
+    io.kompose.service: pontus-formio-mongodb
+status:
+  loadBalancer: {}

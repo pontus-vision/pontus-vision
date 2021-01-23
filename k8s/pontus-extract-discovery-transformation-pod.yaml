@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.network/pontusvision: "true"
+    io.kompose.service: pontus-extract-discovery-transformation
+  name: pontus-extract-discovery-transformation
+spec:
+  containers:
+  - args:
+    - /bin/bash
+    - -c
+    - "\n   mkdir -p /tmp/AppData/Roaming/Talend/dataprep/store/datasets/metadata
+      \n   mkdir -p /tmp/AppData/Roaming/Talend/dataprep/store/preparations\n   mkdir
+      -p /tmp/AppData/Roaming/Talend/dataprep/store/users\n   mkdir -p /tmp/AppData/Roaming/Talend/dataprep/store/folders\n
+      \  mkdir -p /tmp/AppData/Roaming/Talend/dataprep/store/upgrade\n   echo Waiting
+      for pontus-nifi service start just to reduce the number of JVMs starting at
+      once...;\n   while ! nc -z pontus-nifi 8080;\n   do\n     sleep 1;\n   done;\n
+      \  java  -Dserver.port=8388  -Dspring.profiles.active=standalone -Dspring.mvc.favicon.enabled=false
+      -Dserver.compression.enabled=true -Dserver.compression.mime-types=text/plain,application/json
+      -Dspring.mvc.async.request-timeout=300000 -Dservice.documentation=false -Dservice.documentation.name='Talend
+      Data Preparation - API' -Dservice.documentation.description='This service exposes
+      high level services that may involve services orchestration.' -Dservice.paths=api
+      -Ddataset.records.limit=30000 -Ddataset.local.file.size.limit=2000000000 -Ddataset.list.limit=10
+      -Ddataset.imports=local -Ddataset.service.url=http://pontus-extract-discovery-dataset:8288/
+      -Dtransformation.service.url=http://pontus-extract-discovery-transformation:8388/
+      -Dpreparation.service.url=http://pontus-extract-discovery-preparation:8188/
+      -Ddataset.metadata.store=file -Dpreparation.store=file -Duser.data.store=file
+      -Dfolder.store=file -Dupgrade.store=file -Ddataset.metadata.store.file.location=/tmp/AppData/Roaming/Talend/dataprep/store/datasets/metadata/
+      -Dpreparation.store.file.location=/tmp/AppData/Roaming/Talend/dataprep/store/preparations/
+      -Duser.data.store.file.location=/tmp/AppData/Roaming/Talend/dataprep/store/users/
+      -Dfolder.store.file.location=/tmp/AppData/Roaming/Talend/dataprep/store/folders/
+      -Dupgrade.store.file.location=/tmp/AppData/Roaming/Talend/dataprep/store/upgrade
+      -Dcontent-service.store=local -Dcontent-service.store.local.path=/tmp/AppData/Roaming/Talend/dataprep/
+      -Dpreparation.store.remove.hours=24 -DluceneIndexStrategy=singleton -Ddataquality.indexes.file.location=/tmp/AppData/Roaming/Talend/dataprep/data-quality/2.5.1/org.talend.dataquality.semantic
+      -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5008 -jar /opt/pontus-extract/discovery/lib/dataprep-transformation.jar\n"
+    image: pontusvisiongdpr/pontus-extract-discovery-backend
+    name: pontus-extract-discovery-transformation
+    resources: {}
+    securityContext:
+      privileged: true
+  hostname: pontus-extract-discovery-transformation
+  restartPolicy: OnFailure
+  subdomain: pontus-demo-com
+status: {}
