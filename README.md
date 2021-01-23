@@ -1,5 +1,5 @@
 # PontusVision
-[Pontus Vision](https://www.pontusvision.com) is a platform for data mapping and management of personal data. It is an open source project to help companies catalogue their data to help with data protection regulations, such as CCPA, LGPD and GDPR 
+[Pontus Vision](https://www.pontusvision.com) is an open source platform for data mapping and management of personal data. It helps companies comply with data protection regulations, such as CCPA, LGPD and GDPR.
 
 ## Why PontusVision
 Pontus Vison has the following benefits:
@@ -19,6 +19,9 @@ Pontus Vison has the following benefits:
 ## Architecture (Modules)
 
 The Pontus Vision platform solves data mapping and management of personal data challenges in 3 modules:
+
+![](docs/arch-components.png)
+
 
 ### EXTRACT
 
@@ -66,7 +69,7 @@ All Pontus Vision components have been created as docker containers; the followi
 
 | Docker image                                         |Module   | Description                                     | Stateful            | Image Size | Min Memory |
 |------------------------------------------------------|---------|-------------------------------------------------|---------------------|------------|------------|
-|  pontusvisiongdpr/grafana:latest                     |Comply   | Dashboard - historical KPIs and data tables     | No                  | 383MiB     | 36.25MiB   |
+|  pontusvisiongdpr/grafana                            |Comply   | Dashboard - historical KPIs and data tables     | No                  | 383MiB     | 36.25MiB   |
 |  pontusvisiongdpr/pontus-comply-nginx-lgpd:latest    |Comply   | (optional) API Gateway                          | No                  | 183MB      | 4 MiB      |
 |  pontusvisiongdpr/pontus-lgpd-formio:latest          |Extract  | (optional) Forms Manager (Brazilian Portuguese) | No                  | 530MB      | 123MiB     |
 |  pontusvisiongdpr/pontus-lgpd-formio-mongodb:latest  |Extract  | (optional) Storage for Forms Manager            | Yes                 | 438MB      | 61MiB      |
@@ -94,25 +97,26 @@ Software: Install docker desktop, and enable kubernetes
  * [Install Windows WSL2 Ubuntu 20.04](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
  * [Install Windows Docker desktop](https://docs.docker.com/docker-for-windows/install/) 
  * Enable Kubernetes on Docker Desktop:
-   * <details><summary>[Settings>Enable WSL2 Integration](docs/windows-docker-desktop-settings.jpg)</summary>
-      
-     </details
+   * Use WSL Engine: ![](docs/windows-docker-desktop-settings.jpg)
+   * Enable WSL2 Integration: ![](docs/windows-docker-desktop-wsl-integration.jpg)
+   * Enable Kubernetes: ![](docs/windows-docker-desktop-kubernetes.jpg)
+
 </details> 
 
-<details>
-  <summary>MacOS Instructions</summary>
- * [MacOS Docker Desktop](https://docs.docker.com/docker-for-mac/install/)
-
+<details><summary>MacOS Instructions</summary>
+  
+ * [Install MacOS Docker Desktop](https://docs.docker.com/docker-for-mac/install/)
+ * Enable Kubernetes: ![](docs/macos-dockerd-k8s.jpg)
 </details>
 
 #### Steps:
-```
-git clone https://github.com/pontus-vision/pontus-vision.git
-cd pontus-vision/k8s
-
-```
-[k8s/README.md]
-
+1) run the following commands:
+    ```bash
+    git clone https://github.com/pontus-vision/pontus-vision.git
+    cd pontus-vision/k8s
+    ```
+1) Follow the instructions [here](k8s/README.md)
+1) point a browser to http://localhost:18443/gateway/sandbox/pvgdpr_gui/   (note: DO NOT FORGET the / at the end)
 
 
 

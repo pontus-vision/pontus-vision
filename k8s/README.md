@@ -1,5 +1,5 @@
 
-# Getting Started
+# Kubernetes Instructions
 
 To run the Pontus Vision LGPD / GDPR platform from kubernetes, please follow the instructions below:
 1) go to the k8s folder (the same directory as this README.md file)
