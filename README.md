@@ -16,10 +16,9 @@ Pontus Vison has the following benefits:
 
 
 
-## Architecture
+## Architecture (Modules)
 
-We solve data mapping and management of personal data challenges in 3 modules:
-
+The Pontus Vision platform solves data mapping and management of personal data challenges in 3 modules:
 
 ### EXTRACT
 
@@ -60,6 +59,32 @@ The solution gathers links to all personal data within an organization, with gra
 All forms and reports are managed in real time, showing the areas of the organization that have personal data.
 </details>
 
+
+## Architecture (Components)
+All Pontus Vision components have been created as docker containers; the following table summarises the key components:
+
+
+| | Docker image                                        | Description                                     | Stateful            | Image Size | Min Memory | |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| |-----------------------------------------------------|-------------------------------------------------|---------------------|------------|------------| |
+| | pontusvisiongdpr/grafana:latest                     | Dashboard - historical KPIs and data tables     | No                  | 383MiB     | 36.25MiB   | |
+| | pontusvisiongdpr/pontus-comply-nginx-lgpd:latest    | (opcional) API Gateway                          | No                  | 183MB      | 4 MiB      | |
+| | pontusvisiongdpr/pontus-lgpd-formio:latest          | (opcional) Forms Manager (Brazilian Portuguese) | No                  | 530MB      | 123MiB     | |
+| | pontusvisiongdpr/pontus-lgpd-formio-mongodb:latest  | (opcional) Storage for Forms Manager            | Yes                 | 438MB      | 61MiB      | |
+| | pontusvisiongdpr/pontus-comply-keycloak:latest      | (opcional) Authenticator - creates JWT token    | Yes                 | 1.21GB     | 437MiB     | |
+| | pontusvisiongdpr/pontus-track-graphdb-odb-pt:latest | Graph Database to store data in the POLE model  | Yes                 | 2.27GB     | 5.611GiB   | |
+| | pontusvisiongdpr/timescaledb:latest                 | Historical time series database                 | Yes                 | 57.6MB     | 22MiB      | |
+| | pontusvisiongdpr/postgrest:latest                   | REST API front end to timescale db              | No                  | 115MB      | 30MiB      | |
+| | pontusvisiongdpr/pontus-extract-nifi:latest         | Workflow tool to convert data to the POLE model | Depends on Workflow | 2.56GB     |  2.805GiB  | |
+| | jgontrum/spacyapi:all_v2                            | Natural language processor                      | No                  | 1.48GB     | 1.186GiB   | |
+
+## Getting Started
+
+### Kubernetes
+The easiest way to deploy the Pontus Vision platform locally is to start a docker desktop local kubernetes cluster, which takes care of running the docker images above starting them in the correct order, and creating the correct host names for a small environment.
+
+
+The following link has the detailed instructions of how to start everything:
 
 
 
