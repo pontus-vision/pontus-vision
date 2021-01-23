@@ -59,6 +59,7 @@ The solution gathers links to all personal data within an organization, with gra
 All forms and reports are managed in real time, showing the areas of the organization that have personal data.
 </details>
 
+![](docs/arch-components.png)
 
 ## Architecture (Components)
 All Pontus Vision components have been created as docker containers; the following table summarises the key components:
@@ -94,15 +95,16 @@ Software: Install docker desktop, and enable kubernetes
  * [Install Windows WSL2 Ubuntu 20.04](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
  * [Install Windows Docker desktop](https://docs.docker.com/docker-for-windows/install/) 
  * Enable Kubernetes on Docker Desktop:
-   * <details><summary>[Settings>Enable WSL2 Integration](docs/windows-docker-desktop-settings.jpg)</summary>
-      
-     </details
+   * Use WSL Engine: ![](docs/windows-docker-desktop-settings.jpg)
+   * Enable WSL2 Integration: ![](docs/windows-docker-desktop-wsl-integration.jpg)
+   * Enable Kubernetes: ![](docs/windows-docker-desktop-kubernetes.jpg)
+
 </details> 
 
 <details>
   <summary>MacOS Instructions</summary>
  * [MacOS Docker Desktop](https://docs.docker.com/docker-for-mac/install/)
-
+ * Enable Kubernetes ![](docs/macos-dockerd-k8s.jpg)
 </details>
 
 #### Steps:
@@ -111,7 +113,7 @@ git clone https://github.com/pontus-vision/pontus-vision.git
 cd pontus-vision/k8s
 
 ```
-[k8s/README.md]
+Then follow the instructions [here](k8s/README.md)
 
 
 
