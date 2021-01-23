@@ -20,6 +20,9 @@ Pontus Vison has the following benefits:
 
 The Pontus Vision platform solves data mapping and management of personal data challenges in 3 modules:
 
+![](docs/arch-components.png)
+
+
 ### EXTRACT
 
 Extract Structured Personal Data in Databases, CRM, ERP, and proprietary systems. Also works with unstructured data, such as, emails, PDFs, Word, and Excel.
@@ -59,7 +62,6 @@ The solution gathers links to all personal data within an organization, with gra
 All forms and reports are managed in real time, showing the areas of the organization that have personal data.
 </details>
 
-![](docs/arch-components.png)
 
 ## Architecture (Components)
 All Pontus Vision components have been created as docker containers; the following table summarises the key components:
