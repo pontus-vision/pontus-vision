@@ -64,26 +64,56 @@ All forms and reports are managed in real time, showing the areas of the organiz
 All Pontus Vision components have been created as docker containers; the following table summarises the key components:
 
 
-| Docker image                                         | Description                                     | Stateful            | Image Size | Min Memory |
-|------------------------------------------------------|-------------------------------------------------|---------------------|------------|------------|
-|  pontusvisiongdpr/grafana:latest                     | Dashboard - historical KPIs and data tables     | No                  | 383MiB     | 36.25MiB   |
-|  pontusvisiongdpr/pontus-comply-nginx-lgpd:latest    | (optional) API Gateway                          | No                  | 183MB      | 4 MiB      |
-|  pontusvisiongdpr/pontus-lgpd-formio:latest          | (optional) Forms Manager (Brazilian Portuguese) | No                  | 530MB      | 123MiB     |
-|  pontusvisiongdpr/pontus-lgpd-formio-mongodb:latest  | (optional) Storage for Forms Manager            | Yes                 | 438MB      | 61MiB      |
-|  pontusvisiongdpr/pontus-comply-keycloak:latest      | (optional) Authenticator - creates JWT token    | Yes                 | 1.21GB     | 437MiB     |
-|  pontusvisiongdpr/pontus-track-graphdb-odb-pt:latest | Graph Database to store data in the POLE model  | Yes                 | 2.27GB     | 5.611GiB   |
-|  pontusvisiongdpr/timescaledb:latest                 | Historical time series database                 | Yes                 | 57.6MB     | 22MiB      |
-|  pontusvisiongdpr/postgrest:latest                   | REST API front end to timescale db              | No                  | 115MB      | 30MiB      |
-|  pontusvisiongdpr/pontus-extract-nifi:latest         | Workflow tool to convert data to the POLE model | Depends on Workflow | 2.56GB     | 2.805GiB   |
-|  jgontrum/spacyapi:all_v2                            | (optional) Natural language processor           | No                  | 1.48GB     | 1.186GiB   |
+| Docker image                                         |Module   | Description                                     | Stateful            | Image Size | Min Memory |
+|------------------------------------------------------|---------|-------------------------------------------------|---------------------|------------|------------|
+|  pontusvisiongdpr/grafana:latest                     |Comply   | Dashboard - historical KPIs and data tables     | No                  | 383MiB     | 36.25MiB   |
+|  pontusvisiongdpr/pontus-comply-nginx-lgpd:latest    |Comply   | (optional) API Gateway                          | No                  | 183MB      | 4 MiB      |
+|  pontusvisiongdpr/pontus-lgpd-formio:latest          |Extract  | (optional) Forms Manager (Brazilian Portuguese) | No                  | 530MB      | 123MiB     |
+|  pontusvisiongdpr/pontus-lgpd-formio-mongodb:latest  |Extract  | (optional) Storage for Forms Manager            | Yes                 | 438MB      | 61MiB      |
+|  pontusvisiongdpr/pontus-comply-keycloak:latest      |Comply   | (optional) Authenticator - creates JWT token    | Yes                 | 1.21GB     | 437MiB     |
+|  pontusvisiongdpr/pontus-track-graphdb-odb-pt:latest |Track    | Graph Database to store data in the POLE model  | Yes                 | 2.27GB     | 5.611GiB   |
+|  pontusvisiongdpr/timescaledb:latest                 |Track    | Historical time series database                 | Yes                 | 57.6MB     | 22MiB      |
+|  pontusvisiongdpr/postgrest:latest                   |Track    | REST API front end to timescale db              | No                  | 115MB      | 30MiB      |
+|  pontusvisiongdpr/pontus-extract-nifi:latest         |Extract  | Workflow tool to convert data to the POLE model | Depends on Workflow | 2.56GB     | 2.805GiB   |
+|  jgontrum/spacyapi:all_v2                            |Extract  | (optional) Natural language processor           | No                  | 1.48GB     | 1.186GiB   |
+
+
 
 ## Getting Started
 
 ### Kubernetes
-The easiest way to deploy the Pontus Vision platform locally is to start a docker desktop local kubernetes cluster, which takes care of running the docker images above starting them in the correct order, and creating the correct host names for a small environment.
+The easiest way to deploy the Pontus Vision platform locally is to start a docker desktop local kubernetes cluster, and follow the instructions below:
+
+#### Pre-requisites:
+
+Hardware: 16GB of memory, 256GB, and 4 cores
+
+Software: Install docker desktop, and enable kubernetes
+<details><summary>Windows Instructions</summary>
+
+ * [Install Windows WSL2 Ubuntu 20.04](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+ * [Install Windows Docker desktop](https://docs.docker.com/docker-for-windows/install/) 
+ * Enable Kubernetes on Docker Desktop:
+   * <details><summary>[Settings>Enable WSL2 Integration](docs/windows-docker-desktop-settings.jpg)</summary>
+      
+     </details
+</details> 
+
+<details>
+  <summary>MacOS Instructions</summary>
+ * [MacOS Docker Desktop](https://docs.docker.com/docker-for-mac/install/)
+
+</details>
+
+#### Steps:
+```
+git clone https://github.com/pontus-vision/pontus-vision.git
+cd pontus-vision/k8s
+
+```
+[k8s/README.md]
 
 
-The following link has the detailed instructions of how to start everything:
 
 
 
