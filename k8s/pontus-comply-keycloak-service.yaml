@@ -21,5 +21,7 @@ spec:
     targetPort: 8080
   selector:
     io.kompose.service: pontus-comply-keycloak
+# enable the type: LoadBalancer to access keycloak directly from localhost:8080
+# type: LoadBalancer
 status:
   loadBalancer: {}
