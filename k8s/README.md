@@ -25,7 +25,10 @@ pontus-nifi-9696c6f78-k52zs   0/1     ContainerCreating   0          9m25s
 pontus-postgrest              1/1     Running             0          9m25s
 pontus-timescaledb            1/1     Running             0          9m25s
 spacyapi                      1/1     Running             0          9m25s
+
 ```
+Note that the very first time, the pontus-nifi pod may be stuck awaiting for others; if it does not start after 10 minutes or so, run ./stop-env.sh followed by ./start-env.sh to restart it.
+
 5) to see the logs, run the tail-logs.sh command:
 ```
 ./tail-logs.sh
