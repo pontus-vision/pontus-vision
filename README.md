@@ -116,7 +116,8 @@ Software: Install docker desktop, and enable kubernetes
     cd pontus-vision/k8s
     ```
 1) Follow the instructions [here](k8s/README.md)
-1) point a browser to http://localhost:18443/gateway/sandbox/pvgdpr_gui/   (note: DO NOT FORGET the / at the end)
+1) point a browser to http://localhost:18443/grafana/   (note: DO NOT FORGET the / at the end)
+1) Use the user name lmartins@pontusnetworks.com and the default password pa55word
 
 
 
