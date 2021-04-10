@@ -104,16 +104,16 @@ Software: Install docker desktop, and enable kubernetes
 </details> 
 
 <details><summary>MacOS Instructions</summary>
-  
  * [Install MacOS Docker Desktop](https://docs.docker.com/docker-for-mac/install/)
  * Enable Kubernetes: ![](docs/macos-dockerd-k8s.jpg)
 </details>
 
 <details><summary>Linux Instructions</summary>
-  
  * [Install Kubernetes](https://ubuntu.com/kubernetes/install)
 </details>
+
 #### Steps:
+
 1) run the following commands:
     ```bash
     git clone https://github.com/pontus-vision/pontus-vision.git
