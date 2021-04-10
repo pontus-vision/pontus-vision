@@ -109,6 +109,10 @@ Software: Install docker desktop, and enable kubernetes
  * Enable Kubernetes: ![](docs/macos-dockerd-k8s.jpg)
 </details>
 
+<details><summary>Linux Instructions</summary>
+  
+ * [Install Kubernetes](https://ubuntu.com/kubernetes/install)
+</details>
 #### Steps:
 1) run the following commands:
     ```bash
