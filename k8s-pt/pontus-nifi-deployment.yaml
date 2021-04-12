@@ -32,6 +32,7 @@ spec:
             export RES=$(/usr/bin/curl -s  -H 'Content-Type: application/json' -X POST -d '' http://graphdb-nifi:3001/home/vertex_labels);
             echo Waiting for vertex_labels... got this: $RES;
             echo Connected!;
+            export LANG=pt
             /opt/nifi/scripts/start.sh
         image: pontusvisiongdpr/pontus-extract-nifi:1.13.2
         name: pontus-nifi

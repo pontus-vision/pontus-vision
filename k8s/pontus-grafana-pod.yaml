@@ -28,7 +28,7 @@ spec:
         secretKeyRef:
           name: pontus-grafana
           key: GF_PATHS_CONFIG
-    image: pontusvisiongdpr/grafana-pt:latest
+    image: pontusvisiongdpr/grafana:1.13.2
     name: pontus-grafana
     resources: {}
   hostname: pontus-grafana

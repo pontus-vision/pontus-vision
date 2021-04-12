@@ -38,7 +38,7 @@ spec:
         secretKeyRef:
           name: pontus-graphdb
           key: AWS_SECRET_ACCESS_KEY
-    image: pontusvisiongdpr/pontus-track-graphdb-odb-pt:1.12.1
+    image: pontusvisiongdpr/pontus-track-graphdb-odb:1.13.2
     securityContext:
       privileged: true        # cannot be changed, or Object Storage Service Bucket cannot be attached
 
