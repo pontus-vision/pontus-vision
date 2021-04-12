@@ -114,11 +114,17 @@ Software: Install docker desktop, and enable kubernetes
 
 #### Steps:
 
-1) run the following commands:
+1) run the following commands (GDPR Demo):
     ```bash
     git clone https://github.com/pontus-vision/pontus-vision.git
     cd pontus-vision/k8s
     ```
+    or  here is the LGPD Demo:
+    ```bash
+    git clone https://github.com/pontus-vision/pontus-vision.git
+    cd pontus-vision/k8s-pt
+    ```
+
 1) Follow the instructions [here](k8s/README.md)
 1) point a browser to http://localhost:18443/grafana/   (note: DO NOT FORGET the / at the end)
 1) Use the user name lmartins@pontusnetworks.com and the default password pa55word
