@@ -8,18 +8,37 @@ To run the Pontus Vision LGPD / GDPR platform from kubernetes, please follow the
 ```
  ./start-env.sh
 ```
-4) to reduce the memory footprint, after about 30 seconds, run the following command:
+4) The first time around, it will take ~10-15 mins to download all the docker images.  Please run the following command to check the status:
 ```
-./stop-discovery.sh
+kubectl get pods
 ```
+That should produce a similar output to this:
+```
+NAME                          READY   STATUS              RESTARTS   AGE
+graphdb-nifi                  1/1     Running             0          9m26s
+pontus-comply-keycloak        1/1     Running             0          9m26s
+pontus-formio                 1/1     Running             0          9m26s
+pontus-formio-mongodb         1/1     Running             0          9m26s
+pontus-grafana                1/1     Running             0          9m25s
+pontus-lgpd                   1/1     Running             0          9m25s
+pontus-nifi-9696c6f78-k52zs   0/1     ContainerCreating   0          9m25s
+pontus-postgrest              1/1     Running             0          9m25s
+pontus-timescaledb            1/1     Running             0          9m25s
+spacyapi                      1/1     Running             0          9m25s
+
+```
+Note that the very first time, the pontus-nifi pod may be stuck awaiting for others; if it does not start after 10 minutes or so, run ./stop-env.sh followed by ./start-env.sh to restart it.
+
 5) to see the logs, run the tail-logs.sh command:
 ```
 ./tail-logs.sh
 ```
-6) to login, go to the following URL:
+6) to login, go to the following URL  (note: DO NOT FORGET the / at the end):
 ```
-http://localhost:18443/gateway/sandbox/pvgdpr_gui/
+http://localhost:18443/grafana/  
 ```
+7) Use the user name lmartins@pontusnetworks.com and the default password pa55word
+
 ## Secret Files
 Please create a directory structure similar to the following:
 ```

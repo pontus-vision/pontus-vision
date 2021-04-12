@@ -104,19 +104,24 @@ Software: Install docker desktop, and enable kubernetes
 </details> 
 
 <details><summary>MacOS Instructions</summary>
-  
  * [Install MacOS Docker Desktop](https://docs.docker.com/docker-for-mac/install/)
  * Enable Kubernetes: ![](docs/macos-dockerd-k8s.jpg)
 </details>
 
+<details><summary>Linux Instructions</summary>
+ * [Install Kubernetes](https://ubuntu.com/kubernetes/install)
+</details>
+
 #### Steps:
+
 1) run the following commands:
     ```bash
     git clone https://github.com/pontus-vision/pontus-vision.git
     cd pontus-vision/k8s
     ```
 1) Follow the instructions [here](k8s/README.md)
-1) point a browser to http://localhost:18443/gateway/sandbox/pvgdpr_gui/   (note: DO NOT FORGET the / at the end)
+1) point a browser to http://localhost:18443/grafana/   (note: DO NOT FORGET the / at the end)
+1) Use the user name lmartins@pontusnetworks.com and the default password pa55word
 
 
 
