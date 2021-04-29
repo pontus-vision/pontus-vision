@@ -54,6 +54,13 @@ spec:
     - mountPath: /run/secrets/mapping-salesforce-graph
       subPath: mapping-salesforce-graph
       name: mapping-salesforce-graph
+    - mountPath: /orientdb/databases
+      name: orientdb-data
+      subPath: databases
+    - mountPath: /orientdb/backup
+      name: orientdb-data
+      subPath: backup
+
   hostname: graphdb-nifi
   restartPolicy: OnFailure
   subdomain: pontus-demo-com
@@ -61,4 +68,9 @@ spec:
   - name: mapping-salesforce-graph
     secret:
       secretName: mapping-salesforce-graph
+
+  - name: orientdb-data
+    persistentVolumeClaim:
+      claimName: pontus-track-claim0
+
 status: {}

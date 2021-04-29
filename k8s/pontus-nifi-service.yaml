@@ -21,5 +21,6 @@ spec:
     targetPort: 5007
   selector:
     io.kompose.service: pontus-nifi
+#  type: LoadBalancer
 status:
   loadBalancer: {}
