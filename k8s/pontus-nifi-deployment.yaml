@@ -17,6 +17,7 @@ spec:
       labels:
         app: pontus-nifi
         io.kompose.service: pontus-nifi
+        io.kompose.network/pontusvision: "true"
     spec:
       containers:
       - command:
@@ -79,7 +80,7 @@ spec:
           name: pontus-nifi-claim0
       hostname: pontus-nifi
       #restartPolicy: OnFailure
-      subdomain: pontus-demo-com
+      #subdomain: pontus-demo-com
       volumes:
       - name: s3-creds
         secret:
