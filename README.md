@@ -108,8 +108,87 @@ Software: Install docker desktop, and enable kubernetes
  * Enable Kubernetes: ![](docs/macos-dockerd-k8s.jpg)
 </details>
 
-<details><summary>Linux Instructions</summary>
- * [Install Kubernetes](https://ubuntu.com/kubernetes/install)
+<details><summary>Linux Instructions (Ubuntu 20.04)</summary>
+ * [Install Docker](https://docs.docker.com/engine/install/ubuntu/)
+ * [Install Kubernetes](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+ * here are instructions from scratch:
+   ```
+sudo apt-get update
+sudo apt-get install -y apt-transport-https ca-certificates curl
+sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update
+sudo apt-get install -y kubelet kubeadm kubectl
+sudo apt-mark hold kubelet kubeadm kubectl
+
+cat  <<EOF > /tmp/kubeadm-config.yaml
+# kubeadm-config.yaml
+kind: ClusterConfiguration
+apiVersion: kubeadm.k8s.io/v1beta2
+kubernetesVersion: v1.21.0
+---
+kind: KubeletConfiguration
+apiVersion: kubelet.config.k8s.io/v1beta1
+cgroupDriver: systemd
+sudo kubeadm init --pod-network-cidr=
+EOF
+sudo mkdir /etc/docker
+cat <<EOF | sudo tee /etc/docker/daemon.json
+{
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m"
+  },
+  "storage-driver": "overlay2"
+}
+EOF
+sudo systemctl enable docker
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+
+sudo swapoff -a
+
+cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
+overlay
+br_netfilter
+EOF
+
+sudo modprobe overlay
+sudo modprobe br_netfilter
+
+# Setup required sysctl params, these persist across reboots.
+cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
+net.bridge.bridge-nf-call-iptables  = 1
+net.ipv4.ip_forward                 = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+EOF
+
+# Apply sysctl params without reboot
+sudo sysctl --system
+```
+## systemd cgroup driver:
+  To use the systemd cgroup driver in /etc/containerd/config.toml with runc, set
+```
+[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+  ...
+  [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
+    SystemdCgroup = true
+```
+If you apply this change make sure to restart containerd again:
+```
+sudo systemctl restart containerd
+```
+
+## Cluster creation:
+```
+sudo kubeadm init --config=/tmp/kubeadm-config.yaml
+kubectl taint nodes --all node-role.kubernetes.io/master-
+kubectl apply -f  https://docs.projectcalico.org/manifests/calico.yaml
+
+```
+
+
 </details>
 
 #### Steps:
