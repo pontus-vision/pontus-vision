@@ -25,10 +25,12 @@ spec:
   - name: "2480"
     port: 2480
     targetPort: 2480
-  - name: "5009"
-    port: 5009
-    targetPort: 5007
+  #- name: "5009"
+    #port: 5009
+    #targetPort: 5007
   selector:
     io.kompose.service: graphdb-nifi
+#  type: LoadBalancer
+
 status:
   loadBalancer: {}
