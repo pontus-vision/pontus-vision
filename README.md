@@ -104,15 +104,18 @@ Software: Install docker desktop, and enable kubernetes
 </details> 
 
 <details><summary>MacOS Instructions</summary>
+  
  * [Install MacOS Docker Desktop](https://docs.docker.com/docker-for-mac/install/)
  * Enable Kubernetes: ![](docs/macos-dockerd-k8s.jpg)
+ 
 </details>
 
 <details><summary>Linux Instructions (Ubuntu 20.04)</summary>
+  
  * [Install Docker](https://docs.docker.com/engine/install/ubuntu/)
  * [Install Kubernetes](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
  * here are instructions from scratch:
-   ```
+```
 sudo apt-get update
 sudo apt-get install -y apt-transport-https ca-certificates curl
 sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
@@ -167,7 +170,7 @@ EOF
 # Apply sysctl params without reboot
 sudo sysctl --system
 ```
-## systemd cgroup driver:
+##### systemd cgroup driver:
   To use the systemd cgroup driver in /etc/containerd/config.toml with runc, set
 ```
 [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
@@ -180,14 +183,13 @@ If you apply this change make sure to restart containerd again:
 sudo systemctl restart containerd
 ```
 
-## Cluster creation:
+##### Cluster creation:
 ```
 sudo kubeadm init --config=/tmp/kubeadm-config.yaml
 kubectl taint nodes --all node-role.kubernetes.io/master-
 kubectl apply -f  https://docs.projectcalico.org/manifests/calico.yaml
 
 ```
-
 
 </details>
 
