@@ -33,7 +33,15 @@ Note that the very first time, the pontus-nifi pod may be stuck awaiting for oth
 ```
 ./tail-logs.sh
 ```
-6) to login, go to the following URL  (note: DO NOT FORGET the / at the end):
+6) (*Optional*) Depending on how the Kubernetes cluster was created, you may need to forward the port using the following command:
+```
+kubectl port-forward pontus-lgpd 18443:18443 
+```
+If you are logging into a remote linux machine, you may then need to forward port 18443 to your localhost:
+```
+ssh <user>@<remote host> -L 18443:localhost:18443
+```
+7) to login, go to the following URL  (note: DO NOT FORGET the / at the end):
 ```
 http://localhost:18443/grafana/  
 ```
