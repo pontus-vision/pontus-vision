@@ -48,7 +48,8 @@ http://localhost:18443/grafana/
 8) Use the user name lmartins@pontusnetworks.com and the default password pa55word
 
 ## Secret Files
-This demo uses Kubernetes secrets to store various sensitive passwords and credentials.  You'll need to create your own, but to get you started, we have created a tar file with sample formats.  Please create a directory structure similar to the following [here is a sample tar file](/sample-secrets.tar.gz):
+This demo uses Kubernetes secrets to store various sensitive passwords and credentials.  You'll need to create your own, but to get you started, we have created a tar file with sample formats.  
+
 9) Download this file  [here is a sample tar file](/sample-secrets.tar.gz), and run 
 ```
 tar xzvf sample-secrets.tar.gz
