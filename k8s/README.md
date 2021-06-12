@@ -45,7 +45,7 @@ ssh <user>@<remote host> -L 18443:localhost:18443
 ```
 http://localhost:18443/grafana/  
 ```
-7) Use the user name lmartins@pontusnetworks.com and the default password pa55word
+8) Use the user name lmartins@pontusnetworks.com and the default password pa55word
 
 ## Secret Files
 Please create a directory structure similar to the following [here is a sample tar file](/sample-secrets.tar.gz):
