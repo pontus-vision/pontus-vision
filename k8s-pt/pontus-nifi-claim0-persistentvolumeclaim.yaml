@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -6,9 +7,11 @@ metadata:
     io.kompose.service: pontus-nifi-claim0
   name: pontus-nifi-claim0
 spec:
+  volumeName: pv-volume-nifi
+  storageClassName: local-storage
   accessModes:
   - ReadWriteOnce
   resources:
     requests:
-      storage: 100Mi
+      storage: 6Gi
 status: {}
