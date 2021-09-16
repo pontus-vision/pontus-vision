@@ -133,8 +133,9 @@ kubernetesVersion: v1.21.0
 kind: KubeletConfiguration
 apiVersion: kubelet.config.k8s.io/v1beta1
 cgroupDriver: systemd
-sudo kubeadm init --pod-network-cidr=
 EOF
+#  sudo kubeadm init --pod-network-cidr=
+
 sudo mkdir /etc/docker
 cat <<EOF | sudo tee /etc/docker/daemon.json
 {
