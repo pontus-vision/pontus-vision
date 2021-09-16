@@ -128,7 +128,7 @@ cat  <<EOF > /tmp/kubeadm-config.yaml
 # kubeadm-config.yaml
 kind: ClusterConfiguration
 apiVersion: kubeadm.k8s.io/v1beta2
-kubernetesVersion: v1.21.0
+kubernetesVersion: v1.22.2
 ---
 kind: KubeletConfiguration
 apiVersion: kubelet.config.k8s.io/v1beta1
