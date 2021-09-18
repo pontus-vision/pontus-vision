@@ -212,10 +212,10 @@ kubeadm join 192.xx.xx.xx:6443 --token xxxxx.yyyyyyyyyyyyyy \
         --discovery-token-ca-cert-hash sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
   
 ```
-  
+If running on a single cluster, you may have to run the following commands (to enable the master node and to add a network:
 ```
-kubectl taint nodes --all node-role.kubernetes.io/master-
 kubectl apply -f  https://docs.projectcalico.org/manifests/calico.yaml
+kubectl taint nodes --all node-role.kubernetes.io/master-
 
 ```
 
