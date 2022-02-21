@@ -113,7 +113,7 @@ O *helm chart* usado para configurar a plataforma LGPD Pontus Vision existe nest
 
 ```
 cd ~/work/client
-git clone https://github.com/client/pontus-vision-k8s.git
+git clone https://github.com/pontus-vision/pontus-vision.git
 ```
 
 Para executar a plataforma Pontus Vision LGPD / GDPR no kubernetes, siga as instruções abaixo:
