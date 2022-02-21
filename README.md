@@ -585,18 +585,18 @@ cd ~/storage
 mkdir -p extract/email \
 	extract/CRM \
 	extract/ERP \
-  microsoft/data-breaches \
-  microsoft/dsar \
-  microsoft/fontes-de-dados \
-  microsoft/legal-actions \
-  microsoft/mapeamentos \
-  google/meetings \
-  google/policies \
-  google/privacy-docs \
-  google/privacy-notice \
-  google/risk \
-  google/risk-mitigations \
-  google/treinamentos \
+  	microsoft/data-breaches \
+  	microsoft/dsar \
+  	microsoft/fontes-de-dados \
+  	microsoft/legal-actions \
+  	microsoft/mapeamentos \
+  	google/meetings \
+  	google/policies \
+  	google/privacy-docs \
+  	google/privacy-notice \
+  	google/risk \
+  	google/risk-mitigations \
+  	google/treinamentos \
 	db \
 	grafana \
 	keycloak \
