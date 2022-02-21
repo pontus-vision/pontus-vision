@@ -1,0 +1,13 @@
+# Default values for pv-lgpd.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+pvvals:
+  imageVers:
+    graphdb: 1.14.1
+  storagePath: "/home/$HOSTNAME/storage"
+  hostname: "$HOSTNAME"  
+  APIUrlPrefix: "https://api"
+  # to get the keycloak public key, do an HTTP GET to the following URL: https://<hostname>/auth/realms/pontus
+  keycloakPubKey: "**************************************************************" 
+  

@@ -1,0 +1,105 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: "pv-volume-keycloak"
+  labels:
+    type: local
+spec:
+  storageClassName: local-path
+  capacity:
+    storage: "5Gi"
+  accessModes:
+    - "ReadWriteOnce"
+  hostPath:
+    path: {{ .Values.pvvals.storagePath }}/keycloak
+  persistentVolumeReclaimPolicy: Recycle
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: pontus-keycloak-claim0
+  name: pontus-keycloak-claim0
+spec:
+  volumeName: pv-volume-keycloak
+  #storageClassName: local-storage
+  storageClassName: local-path
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+status: {}
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.network/pontusvision: "true"
+    io.kompose.service: pontus-comply-keycloak
+  name: pontus-comply-keycloak
+spec:
+  containers:
+  - image: pontusvisiongdpr/pontus-comply-keycloak:latest
+    command:
+    - bash
+    - -c
+    - |2+
+        if [[ ! -f /mnt/keycloak/keycloak.mv.db ]]; then cp -a /opt/jboss/keycloak/standalone/data/* /mnt/keycloak/; fi
+        /opt/jboss/tools/docker-entrypoint.sh -b 0.0.0.0
+
+    env:
+      - name: KEYCLOAK_FRONTEND_URL
+        value: "https://{{ .Values.pvvals.hostname }}/auth"
+      - name: PROXY_ADDRESS_FORWARDING
+        value: "true"
+      - name: JAVA_OPTS
+        value: "-server -Xms64m -Xmx512m -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=org.jboss.byteman -Djava.awt.headless=true   --add-exports=java.base/sun.nio.ch=ALL-UNNAMED --add-exports=jdk.unsupported/sun.misc=ALL-UNNAMED --add-exports=jdk.unsupported/sun.reflect=ALL-UNNAMED -Djboss.server.data.dir=/mnt/keycloak"
+    name: pontus-comply-keycloak
+    ports:
+    - containerPort: 8080
+    resources: {}
+    securityContext:
+      privileged: true
+    volumeMounts:
+    - mountPath: /mnt/keycloak
+      name: keycloak-data
+  hostname: pontus-comply-keycloak
+  volumes:
+  - name: keycloak-data
+    persistentVolumeClaim:
+      claimName: pontus-keycloak-claim0
+  restartPolicy: OnFailure
+  subdomain: pontus-demo-com
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose -f lgpd-odb-keycloak-latest.yml convert
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: pontus-comply-keycloak
+  name: pontus-comply-keycloak
+spec:
+  ports:
+  - name: "5005"
+    port: 5005
+    targetPort: 8080
+  selector:
+    io.kompose.service: pontus-comply-keycloak
+  ports:
+  - name: "8080"
+    port: 8080
+    targetPort: 8080
+  selector:
+    io.kompose.service: pontus-comply-keycloak
+# enable the type: LoadBalancer to access keycloak directly from localhost:8080
+# type: LoadBalancer
+status:
+  loadBalancer: {}
