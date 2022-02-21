@@ -113,7 +113,7 @@ The helm chart used to configure the Pontus Vision LGPD platform exists in this 
 
 ```
 cd ~/work/client
-git clone https://github.com/client/pontus-vision-k8s.git
+git clone https://github.com/pontus-vision/pontus-vision.git
 # Also create the cert-manager namespace and install cert manager:
 kubectl create namespace cert-manager
 helm install \
