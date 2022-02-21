@@ -88,7 +88,6 @@ All Pontus Vision components have been created as docker containers; the followi
 
 # Installation
 
-<!--
 The easiest way to deploy the Pontus Vision platform locally is to start a docker desktop local kubernetes cluster, and follow the instructions below:
 
 **<details><summary>Docker 🐳</summary>**
@@ -227,8 +226,6 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
 </details>
 
 </details>
-
--->
 
 **<details><summary>OS package manager</summary>**
 Before the `k3s` installation, remove `Snap` package manager, as it consumes too much CPU on small servers; this can be done by running the following:
@@ -560,19 +557,19 @@ This step is important to ensure k3s data is kept by using **persistent volumes*
 │   ├── CRM                   
 │   ├── ERP                  
 |   ├── microsoft
-|	|   ├── data-breaches
-|	|   ├── dsar
-|	|   ├── fontes-de-dados
-|	|   ├── legal-actions
-|	|   └── mapeamentos
+|   |   ├── data-breaches
+|   |   ├── dsar
+|   |   ├── fontes-de-dados
+|   |   ├── legal-actions
+|   |   └── mapeamentos
 |   └── google
-|	    ├── meetings
-|	    ├── policies
-|	    ├── privacy-docs
-|	    ├── privacy-notice
-|	    ├── risk
-|	    ├── risk-mitigations
-|	    └── treinamentos
+|       ├── meetings
+|       ├── policies
+|       ├── privacy-docs
+|       ├── privacy-notice
+|       ├── risk
+|       ├── risk-mitigations
+|       └── treinamentos
 ├── db                       
 ├── grafana                       
 ├── keycloak                      
