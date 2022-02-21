@@ -1,0 +1,119 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: "pv-volume-extract-email"
+  labels:
+    type: local
+spec:
+  storageClassName: local-path
+  capacity:
+    storage: 100Mi
+  accessModes:
+    - "ReadWriteOnce"
+  hostPath:
+    path: {{ .Values.pvvals.storagePath }}/extract/email
+  persistentVolumeReclaimPolicy: Recycle
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: pontus-extract-office365-email-pv-claim0
+  name: pontus-extract-office365-email-pv-claim0
+spec:
+  volumeName: pv-volume-extract-email
+  storageClassName: local-path
+  #storageClassName: local-storage
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+status: {}
+---
+#apiVersion: batch/v1beta1
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: pv-extract-office365-email
+spec:
+  schedule: "*/5 * * * *"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          name: pv-extract-office365-email
+          labels:
+            io.kompose.network/pontusvision: "true"
+            io.kompose.service: pv-extract-office365-email
+        spec:
+          containers:
+          - name: pv-extract-email
+            image: pontusvisiongdpr/pv-extract-wrapper:1.13.2
+            env:
+            - name: PV_TIMEOUT_MS
+              value: "3000000"
+            - name: PV_GRAPHDB_URL_PREFIX
+              value: "http://graphdb-nifi:3001"
+            - name: pv-office-365-json
+              value: "/run/secrets/pv-office-365-json"
+            #- name: PV_GRAPHDB_INPUT_JSONPATH
+              #value: "$.queryResp[*].fields"
+            #- name: PV_GRAPHDB_INPUT_RULE
+              #value: "pv_email"
+            - name: PV_OFFICE_365_ONPREM_CREDS_FILE
+              value: "/run/secrets/pv-office-365-json"
+            - name: PV_STATE_FILE
+              value: "/mnt/pv-extract-lambda/state"
+            - name: PV_TIKA_SERVER_PREFIX
+              value: "http://pv-extract-tika-server:3001"
+            - name: PV_SPACY_SERVER_PREFIX
+              value: "http://spacyapi:8080"
+            #- name: PV_EMAIL_USER_FILTER
+              #value: "startswith(mail,'lmartins')"
+             # value: "startswith(mail,'leonardo.martins')"
+            #- name: PV_OFFICE_365_ONPREM_CREDS_FILE
+              #value: o365-config.json
+            #- name: PV_ROOT_PATH
+              #value: test-data
+            #- name: PV_STATE_FILE
+              #value: state
+            - name: PV_EMAIL_USER_FILTER
+              value: "startswith(mail,'work')"
+            - name: PV_EMAIL_REGEX_FILTER
+              value: "^work"
+            #- name: PV_GRAPHDB_URL_PREFIX
+              #value: http://localhost:3010
+            - name: PV_MAX_EMAIL_MESSAGES # max number per task run; defaults to 10 emails.
+              value: "100"
+            - name: PV_LANG # max number per task run; defaults to 10 emails.
+              value: "pt_core_news_lg"
+
+            imagePullPolicy: Always
+            command:
+            - /usr/bin/node
+            - dist/office365/email/app.js
+            volumeMounts:
+            - mountPath: "/run/secrets/pv-office-365-json"
+              subPath: pv-office-365-json
+              name: pv-office-365-json
+            - mountPath: "/mnt/pv-extract-lambda/"
+              name: pontus-extract-office365-email-pv-claim0
+
+          volumes:
+          - name: pv-office-365-json
+            secret:
+              secretName: pv-office-365-json
+          - name: pontus-extract-office365-email-pv-claim0
+            persistentVolumeClaim:
+              claimName: pontus-extract-office365-email-pv-claim0
+
+          restartPolicy: OnFailure
+          #£concurrencyPolicy: Forbid
+

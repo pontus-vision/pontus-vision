@@ -1,0 +1,12 @@
+# Default values for pv-lgpd.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+pvvals:
+  imageVers:
+    graphdb: 1.13.19
+  storagePath: "/home/lgpd/storage"
+  hostname: "scrlgpd"  
+  protheusUrlPrefix: "https://protheus-ws.sunnyvale.com.br:8006/pontusvision/pontusvision-lgpd-totvs-protheus/1.0.0"
+  # to get the keycloak public key, do an HTTP GET to the following URL: https://scrlgpd/auth/realms/pontus
+  keycloakPubKey: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArJuN1VQe25ag3ZUIbiHeW/GpYHOTZXoVE2CllL/WRUXWJGX6+mGMnwqqxw+Cvu8NmXfiQYo812xTupI9lcx0Zavrcf1kVJ2phgPFybMT+w1x9lZ0mvRmW76oyVrvZfSEe1HHGFflxz6kMcxHMtw+7FXDbvMOKHDBEBqxVKF7+mBbPuoV+bq7+1MyDAx5EJ9WLSGUUn/zDNkF0vFWh2zN0xvTodgQnYndOaI4ZTYKr54DeniyVqL0hQVO9/m2Y2DecYi76+HVbWl91hbk8a0BZK+/oF2xUToxAhiIAIPUIW1ctp+GvRsK/kttJQunR9KXz+BMjy0M2ruPWoUd79clZQIDAQAB" 

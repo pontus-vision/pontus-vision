@@ -1,0 +1,349 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: "pv-volume-grafana"
+  labels:
+    type: local
+spec:
+  storageClassName: local-path
+  capacity:
+    storage: "5Gi"
+  accessModes:
+    - "ReadWriteOnce"
+  hostPath:
+    path: {{ .Values.pvvals.storagePath }}/grafana
+  persistentVolumeReclaimPolicy: Recycle
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: pontus-grafana-claim0
+  name: pontus-grafana-claim0
+spec:
+  volumeName: pv-volume-grafana
+  #storageClassName: local-storage
+  storageClassName: local-path
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+status: {}
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.network/pontusvision: "true"
+    io.kompose.service: pontus-grafana
+  name: pontus-grafana
+spec:
+  containers:
+  - command:
+    - bash
+    - -c
+    - |2+
+        cp /etc/grafana/grafana.ini /tmp/grafana.ini
+        sed -i 's#http://localhost:18443#https://{{ .Values.pvvals.hostname }}#g' /tmp/grafana.ini
+        sed -i 's#\[auth.generic_oauth\]#\[auth.generic_oauth\]\ntls_skip_verify_insecure = true#g' /tmp/grafana.ini 
+        sed -i 's#;path = grafana.db#path = /mnt/grafana/grafana.db#g' /tmp/grafana.ini 
+        if [[ ! -f /mnt/grafana/grafana.db ]]; then cp /var/lib/grafana/grafana.db /mnt/grafana/grafana.db; fi
+        cat /tmp/grafana.ini > /etc/grafana/grafana.ini
+        #getent hosts pontus-lgpd &&
+        # we need to do this hack to redirect localhost:18443 to the pontus-lgpd gateway to get
+        # the JWT token.
+        #rm -f /tmp/f; mkfifo /tmp/f
+        #while $(cat /tmp/f |nc pontus-lgpd 18443 | nc -l 127.0.0.1 18443 > /tmp/f) || true; do true; done &
+        #while nc.traditional -l -p 18443 -k -c 'nc.traditional pontus-lgpd 18443' || true; do true; done &
+        #while nc.traditional -l -p 18443 -k -c 'nc.traditional pontus-comply-keycloak 8080' || true; do true; done &
+        /run.sh
+
+    env:
+    - name: GF_SERVER_ROOT_URL
+      value: "https://{{ .Values.pvvals.hostname }}/grafana"
+    - name: GF_SERVER_SERVE_FROM_SUB_PATH
+      value: "true"
+      #    - name: GF_PATHS_CONFIG
+      #valueFrom:
+      #  #configMapKeyRef:
+      #  secretKeyRef:
+      #    name: pontus-grafana
+      #    key: GF_PATHS_CONFIG
+    image: pontusvisiongdpr/grafana-pt:1.13.2
+    imagePullPolicy: "Always"
+    name: pontus-grafana
+    resources: {}
+    volumeMounts:
+    - mountPath: /mnt/grafana
+      name: grafana-data
+      #      subPath: grafana
+  hostname: pontus-grafana
+  restartPolicy: OnFailure
+  subdomain: pontus-demo-com
+  volumes:
+  - name: grafana-data
+    persistentVolumeClaim:
+      claimName: pontus-grafana-claim0
+
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose -f lgpd-odb-grafana-latest.yml convert
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: pontus-grafana
+  name: pontus-grafana
+spec:
+  ports:
+  - name: "3000"
+    port: 3000
+    targetPort: 3000
+  selector:
+    io.kompose.service: pontus-grafana
+  type:
+    LoadBalancer
+
+status:
+  loadBalancer:
+    ingress:
+      - ip: 192.168.1.67
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: grafana-tls
+  namespace: default
+spec:
+  keystores:
+    jks:
+      create: true
+      passwordSecretRef:
+        name: jks-pass
+        key: jks-pass
+    pkcs12:
+      create: true
+      passwordSecretRef:
+        name: jks-pass
+        key: jks-pass
+
+  # Secret names are always required.
+  secretName: grafana-tls
+
+  # Secret template is optional. If set, these annotations
+  # and labels will be copied to the secret named example-com-tls.
+
+  # Note: Labels and annotations from the template are only synced to the Secret at the time when the certificate
+  # is created or renewed. Currently labels and annotations can only be added, but not removed. Removing any
+  # labels or annotations from the template or removing the template itself will have no effect.
+  # See https://github.com/jetstack/cert-manager/issues/4292.
+  #  secretTemplate:
+  #  annotations:
+  #    my-secret-annotation-1: "foo"
+  #    my-secret-annotation-2: "bar"
+  #  labels:
+  #    my-secret-label: foo
+
+  duration: 21600h # 900d
+  renewBefore: 360h # 15d
+  subject:
+    organizations:
+      - sunnyvale
+  # The use of the common name field has been deprecated since 2000 and is
+  # discouraged from being used.
+  commonName: {{ .Values.pvvals.hostname }}
+  isCA: false
+  privateKey:
+    algorithm: RSA
+    encoding: PKCS1
+    size: 2048
+  usages:
+    - server auth
+    - client auth
+  # At least one of a DNS Name, URI, or IP address is required.
+  dnsNames:
+    - {{ .Values.pvvals.hostname }}
+  #uris:
+    #- spiffe://cluster.local/ns/sandbox/sa/example
+  ipAddresses:
+    - 192.168.1.67
+  # Issuer references are always required.
+  issuerRef:
+    name: self-signed-issuer
+    # We can reference ClusterIssuers by changing the kind here.
+    # The default value is Issuer (i.e. a locally namespaced Issuer)
+    kind: ClusterIssuer
+    # This is optional since cert-manager will default to this value however
+    # if you are using an external issuer, change this to that issuer group.
+    #group: cert-manager.io
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: grafana-tls
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+    cert-manager.io/cluster-issuer: self-signed-issuer
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.tls.options: "default"
+spec:
+  tls:
+  - hosts:
+    - {{ .Values.pvvals.hostname }}
+    secretName: grafana-tls
+  rules:
+    - host: {{ .Values.pvvals.hostname }}
+      http:
+        paths:
+          - path: /auth
+            pathType: Prefix
+            backend:
+              service:
+                name: pontus-comply-keycloak
+                port:
+                  number: 8080
+          - path: /grafana
+            pathType: Prefix
+            backend:
+              service:
+                name: pontus-grafana
+                port:
+                  number: 3000
+          - path: /home
+            pathType: Prefix
+            backend:
+              service:
+                name: graphdb-nifi
+                port:
+                  number: 3001
+          - path: /pv
+            pathType: Prefix
+            backend:
+              service:
+                name: graphdb-nifi
+                port:
+                  number: 3001
+  defaultBackend:
+    service:
+      name: pontus-grafana
+      port:
+        number: 3000
+#---
+#apiVersion: traefik.containo.us/v1alpha1
+#kind: TLSOption
+#metadata:
+#  name: default
+#  namespace: default
+#
+#spec:
+#  clientAuth:
+#    # the CA certificate is extracted from key `tls.ca` or `ca.crt` of the given secrets.
+#    secretNames:
+#      - md2-client-com-tls
+#    clientAuthType: RequireAndVerifyClientCert
+
+#---
+## This is the cert for client-side mtls; the only clients allowed will have to use this cert.
+# This creates the cerficates, and then stores them in the md2-client-com-tls secret as follows:
+# Name:         md2-client-com-tls
+#Namespace:    default
+#Labels:       <none>
+#Annotations:  cert-manager.io/alt-names: mdmtemplate
+#              cert-manager.io/certificate-name: md2-client-com
+#              cert-manager.io/common-name: mdmtemplate
+#              cert-manager.io/ip-sans: 192.168.0.219
+#              cert-manager.io/issuer-group:
+#              cert-manager.io/issuer-kind: ClusterIssuer
+#              cert-manager.io/issuer-name: self-signed-issuer
+#              cert-manager.io/uri-sans:
+#
+#Type:  kubernetes.io/tls
+#
+#Data
+#====
+#tls.crt:         1143 bytes
+#tls.key:         1679 bytes
+#truststore.jks:  861 bytes
+#truststore.p12:  1034 bytes
+#ca.crt:          1143 bytes
+#keystore.jks:    2989 bytes
+#keystore.p12:    3247 bytes
+#
+# unfortunately, the tls.ca file, which our current version of traefik needs is not created, so we must run the following
+# to create it:
+#
+# export TLS_CA=$(kubectl get secrets/md2-client-com-tls -o jsonpath="{.data['ca\.crt']}")
+# kubectl patch secret md2-client-com-tls  -p="{\"data\":{\"tls.ca\": \"${TLS_CA}\"}}" -v=1
+# After this is created, we need to then export the trust/keystores and send them to the customers:
+#
+# kubectl get secrets/md2-client-com-tls -o jsonpath="{.data['truststore\.jks']}" | base64 -d > truststore.jks
+# kubectl get secrets/md2-client-com-tls -o jsonpath="{.data['keystore\.jks']}" | base64 -d > keystore.jks
+#
+# Note that these are encrypted with the password that is found in the secret  'jks-pass'.  To get this password,
+# run the following:
+# kubectl get secrets/jks-pass -o jsonpath="{.data['jks-pass']}" | base64 -d
+
+#apiVersion: cert-manager.io/v1
+#kind: Certificate
+#metadata:
+#  name: md2-client-com
+#  namespace: default
+#spec:
+#  keystores:
+#    jks:
+#      create: true
+#      passwordSecretRef:
+#        name: jks-pass
+#        key: jks-pass
+#    pkcs12:
+#      create: true
+#      passwordSecretRef:
+#        name: jks-pass
+#        key: jks-pass
+#
+#  # Secret names are always required.
+#  secretName: md2-client-com-tls
+#
+#  duration: 21600h # 900d
+#  renewBefore: 360h # 15d
+#  subject:
+#    organizations:
+#      - md2
+#  # The use of the common name field has been deprecated since 2000 and is
+#  # discouraged from being used.
+#  commonName: mdmtemplate
+#  isCA: false
+#  privateKey:
+#    algorithm: RSA
+#    encoding: PKCS1
+#    size: 2048
+#  usages:
+#    - server auth
+#    - client auth
+#  # At least one of a DNS Name, URI, or IP address is required.
+#  dnsNames:
+#    - mdmtemplate
+#  #uris:
+#    #- spiffe://cluster.local/ns/sandbox/sa/example
+#  ipAddresses:
+#    - 192.168.0.219
+#  # Issuer references are always required.
+#  issuerRef:
+#    name: self-signed-issuer
+#    # We can reference ClusterIssuers by changing the kind here.
+#    # The default value is Issuer (i.e. a locally namespaced Issuer)
+#    kind: ClusterIssuer
+#    # This is optional since cert-manager will default to this value however
+#    # if you are using an external issuer, change this to that issuer group.
+#    #group: cert-manager.io
+
