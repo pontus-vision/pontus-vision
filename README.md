@@ -65,10 +65,10 @@ All forms and reports are managed in real time, showing the areas of the organiz
 # Pre-requisites
  - Linux Ubuntu 20.04
    - ensure that all packages are up to date
-
    - ensure that the `git` client is installed 
  - 8-core CPU            
- - 32GB RAM          
+ - 32GB RAM
+ - 250GB Disk
 
 ## Architecture (Components)
 All Pontus Vision components have been created as docker containers; the following table summarises the key components:
