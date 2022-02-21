@@ -1,5 +1,5 @@
 
-# Pontus Vision Brasil
+# Pontus Vision
 
 [Pontus Vision](https://www.pontusvision.com) is an open source platform for data mapping and management of personal data. It helps companies comply with data protection regulations, such as California's **CCPA**, Brazil's **LGPD** and EU's **GDPR**.
 
@@ -48,8 +48,6 @@ Scalability is extremely important as the number of data on natural persons grow
 Pontus Vision is based on the POLE (Person, Object, Location, Event) data model to Track data. This is a model used by the UK Government to associate data with individuals. The POLE model creates relationships between People, Objects, Locations and Events, forming the basis of a robust intelligence structure.
 </details>
 
-
-
 ### COMPLY
 
 Gathers links to all personal data within an organization, with graphical or textual reports, using a scoring system based on the ICO’s 12 steps to GDPR compliance.
@@ -79,7 +77,7 @@ All Pontus Vision components have been created as docker containers; the followi
 | Docker image                                         |Module   | Description                                     | Stateful            | Image Size | Min Memory |
 |------------------------------------------------------|---------|-------------------------------------------------|---------------------|------------|------------|
 |  pontusvisiongdpr/grafana                            |Comply   | Dashboard - historical KPIs and data tables     | No                  | 383MiB     | 36.25MiB   |
-|  pontusvisiongdpr/pontus-comply-nginx-lgpd:latest    |Comply   | (optional) API Gateway                          | No                  | 183MB      | 4 MiB      |
+|  pontusvisiongdpr/pontus-comply-nginx:latest    |Comply   | (optional) API Gateway                          | No                  | 183MB      | 4 MiB      |
 |  pontusvisiongdpr/pontus-comply-keycloak:latest      |Comply   | (optional) Authenticator - creates JWT token    | Yes                 | 1.21GB     | 437MiB     |
 |  pontusvisiongdpr/pontus-track-graphdb-odb-pt:latest |Track    | Graph Database to store data in the POLE model  | Yes                 | 2.27GB     | 5.611GiB   |
 |  pontusvisiongdpr/timescaledb:latest                 |Track    | Historical time series database                 | Yes                 | 57.6MB     | 22MiB      |
@@ -89,6 +87,148 @@ All Pontus Vision components have been created as docker containers; the followi
 <br/>
 
 # Installation
+
+<!--
+The easiest way to deploy the Pontus Vision platform locally is to start a docker desktop local kubernetes cluster, and follow the instructions below:
+
+**<details><summary>Docker 🐳</summary>**
+
+<details><summary>Windows Instructions</summary>
+
+ * [Install Windows WSL2 Ubuntu 20.04](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+ * [Install Windows Docker desktop](https://docs.docker.com/docker-for-windows/install/) 
+ * Enable Kubernetes on Docker Desktop:
+   * Use WSL Engine: ![](images-README/windows-docker-desktop-settings.jpg)
+   * Enable WSL2 Integration: ![](images-README/windows-docker-desktop-wsl-integration.jpg)
+   * Enable Kubernetes: ![](images-README/windows-docker-desktop-kubernetes.jpg)
+
+</details> 
+
+<details><summary>MacOS Instructions</summary>
+  
+ * [Install MacOS Docker Desktop](https://docs.docker.com/docker-for-mac/install/)
+ * Enable Kubernetes: ![](images-README/macos-dockerd-k8s.jpg)
+ 
+</details>
+
+<details><summary>Linux Instructions (Ubuntu 20.04)</summary>
+  
+ * [Install Docker](https://docs.docker.com/engine/install/ubuntu/)
+ * [Install Kubernetes](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+ * here are instructions from scratch:
+```
+sudo apt-get update
+sudo apt-get install -y apt-transport-https ca-certificates curl
+sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update
+sudo apt-get install -y kubelet kubeadm kubectl
+sudo apt-mark hold kubelet kubeadm kubectl
+
+cat  <<EOF > /tmp/kubeadm-config.yaml
+# kubeadm-config.yaml
+kind: ClusterConfiguration
+apiVersion: kubeadm.k8s.io/v1beta2  // k8s OR k3s
+kubernetesVersion: v1.22.2
+---
+kind: KubeletConfiguration
+apiVersion: kubelet.config.k8s.io/v1beta1  //k8s SHOULDNT be k3s
+cgroupDriver: systemd
+EOF
+#  sudo kubeadm init --pod-network-cidr=
+
+sudo mkdir /etc/docker
+cat <<EOF | sudo tee /etc/docker/daemon.json
+{
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m"
+  },
+  "storage-driver": "overlay2"
+}
+EOF
+sudo systemctl enable docker
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+
+sudo swapoff -a
+
+cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
+overlay
+br_netfilter
+EOF
+
+sudo modprobe overlay
+sudo modprobe br_netfilter
+
+# Setup required sysctl params, these persist across reboots.
+cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
+net.bridge.bridge-nf-call-iptables  = 1
+net.ipv4.ip_forward                 = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+EOF
+
+# Apply sysctl params without reboot
+sudo sysctl --system
+```
+##### systemd cgroup driver:
+  To use the systemd cgroup driver in /etc/containerd/config.toml with runc, set
+```
+[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+  ...
+  [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
+    SystemdCgroup = true
+```
+If you apply this change make sure to restart containerd again:
+```
+sudo systemctl restart containerd
+```
+
+##### Cluster creation:
+```
+sudo kubeadm init --config=/tmp/kubeadm-config.yaml
+```
+If all goes well, you should see something similar to this:
+```
+Your Kubernetes control-plane has initialized successfully!
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Alternatively, if you are the root user, you can run:
+
+  export KUBECONFIG=/etc/kubernetes/admin.conf
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 192.xx.xx.xx:6443 --token xxxxx.yyyyyyyyyyyyyy \
+        --discovery-token-ca-cert-hash sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  
+```
+If running on a single cluster, you may have to run the following commands (to enable the master node and to add a network:
+```
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+kubectl apply -f  https://docs.projectcalico.org/manifests/calico.yaml
+kubectl taint nodes --all node-role.kubernetes.io/master-
+
+```
+
+</details>
+
+</details>
+
+-->
 
 **<details><summary>OS package manager</summary>**
 Before the `k3s` installation, remove `Snap` package manager, as it consumes too much CPU on small servers; this can be done by running the following:
@@ -125,6 +265,8 @@ sudo apt install git
 </details>
 
 **<details><summary>Lightweight Kubernetes (k3s) installation</summary>**
+
+K3s - Lightweight Kubernetes. Easy to install, half the memory, all in a binary of less than 100 MB. For more info follow the [link](https://github.com/k3s-io/k3s/blob/master/README.md).
 
 ```bash
 mkdir -p ~/work/client/
@@ -179,13 +321,23 @@ chmod 700 get_helm.sh
 
 </details>
 
-**<details><summary>Pontus Vision LGPD Solution installation</summary>**
-The helm chart used to configure the Pontus Vision LGPD platform exists in this repository.  To get it, clone this repository as follows:
+**<details><summary>Pontus Vision Solution installation</summary>**
+The helm chart used to configure the Pontus Vision platform exists in this repository.  To get it, clone this repository as follows:
 
-```
-cd ~/work/client
+for GDPR Demo:
+```bash
 git clone https://github.com/pontus-vision/pontus-vision.git
-# Also create the cert-manager namespace and install cert manager:
+cd pontus-vision/k3s
+```
+
+for LGPD Demo:
+```bash
+git clone https://github.com/pontus-vision/pontus-vision.git
+cd pontus-vision/k3s-pt
+```
+
+Also create the cert-manager namespace and install cert manager:
+```
 kubectl create namespace cert-manager
 helm install \
   cert-manager jetstack/cert-manager \
@@ -195,8 +347,6 @@ helm install \
   --set installCRDs=true
 ```
 
-To run the Pontus Vision LGPD / GDPR platform from kubernetes, follow the instructions below:
-
 Go to the k3s folder (the same directory as this README.md file)
 
 **Edit the secret Files structure**
@@ -204,7 +354,7 @@ Go to the k3s folder (the same directory as this README.md file)
 Please create a directory structure similar to the following:
 
 ```
-k3s-extra-light/secrets/          
+k3s(-pt)/secrets/          
 ├── env                           
 │   ├── pontus-grafana            
 │   │   └── GF_PATHS_CONFIG       
@@ -381,7 +531,7 @@ This json has Google's secrets for connection. For more information on how to ge
 
 **<details><summary>Configure the helm values</summary>**
 
-The values files `pontus-vision-k8s/k3s-extra-light/helm/values-prod.yaml` and `pontus-vision-k8s/k3s-extra-light/helm/values-test.yaml` have configuration details that vary from environment to environment.  Here's an example:
+The values files `pontus-vision/k3s(-pt)/helm/values-prod.yaml` and `pontus-vision/k3s(-pt)/helm/values-test.yaml` have configuration details that vary from environment to environment.  Here's an example:
 
 ```yaml
 # Default values for pv-lgpd.
@@ -429,7 +579,7 @@ This step is important to ensure k3s data is kept by using **persistent volumes*
 └── timescaledb                   
 ```
 
-Make sure that the value for the `storagePath` key @ `pontus-vision-k8s/k3s-extra-light/helm/values-prod.yaml` and `pontus-vision-k8s/k3s-extra-light/helm/values-test.yaml` is the root of the directory structure above.	
+Make sure that the value for the `storagePath` key @ `pontus-vision/k3s(-pt)/helm/values-prod.yaml` and `pontus-vision/k3s(-pt)/helm/values-test.yaml` is the root of the directory structure above.	
 Here is a set of commands that can create this structure if the value of `storagePath` is set to `~/storage`:
 	
 ```bash
@@ -462,6 +612,12 @@ mkdir -p extract/email \
 <br/>
 
 # Management
+
+
+**Accessing Grafana (Pontus Vision Dashboard)**
+
+1. point a browser to [http://localhost($HOSTNAME)/pv](http://localhost($HOSTNAME)/pv)
+2. Use the user name `lmartins@pontusnetworks.com` and the default password `pa55word`
 
 ## Start
 
@@ -509,7 +665,7 @@ Make sure to always have the `:latest` container cronjob running, copy the below
 
 **<details><summary>Pontus Vision imageVers</summary>**
 
-Pontus Vision is constantly upgrading and updating its container images to keep up with the latest tech and security patches. To change versions simply change the `imageVers` value @ `pontus-vision-k8s/k3s-extra-light/helm/values-prod.yaml` and `pontus-vision-k8s/k3s-extra-light/helm/values-test.yaml` then restart k3s env (look bellow @ **Restart k3s env** section).
+Pontus Vision is constantly upgrading and updating its container images to keep up with the latest tech and security patches. To change versions simply change the `imageVers` value @ `pontus-vision/k3s(-pt)/helm/values-prod.yaml` and `pontus-vision/k3s(-pt)/helm/values-test.yaml` then restart k3s env (look bellow @ **Restart k3s env** section).
 
 **Json File**:
 
@@ -531,7 +687,7 @@ pvvals:
 
 **<details><summary>Secrets</summary>**
 
-To update any secrets or credentials, go to the `pontus-vision-k8s/k3s-extra-light/secrets` folder, update the relevant files, and run  `./start-env-prod.sh` to update the secrets's values.
+To update any secrets or credentials, go to the `pontus-vision/k3s(-pt)/secrets` folder, update the relevant files, and run  `./start-env-prod.sh` to update the secrets's values.
 
 </details>
 
@@ -817,171 +973,3 @@ Here's some screenshots steps on how to reset a user's password:
 > After loading, the page will reload and a green popup will appear with the message **Success**.
 
 </details>
-
-
--------------------------------------------------------------------------  orig ----------------------------------------------------------------------------
-
-
-## Getting Started
-
-### Kubernetes
-The easiest way to deploy the Pontus Vision platform locally is to start a docker desktop local kubernetes cluster, and follow the instructions below:
-
-#### Pre-requisites:
-
-Hardware: 16GB of memory, 256GB, and 4 cores
-
-Software: Install docker desktop, and enable kubernetes
-<details><summary>Windows Instructions</summary>
-
- * [Install Windows WSL2 Ubuntu 20.04](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
- * [Install Windows Docker desktop](https://docs.docker.com/docker-for-windows/install/) 
- * Enable Kubernetes on Docker Desktop:
-   * Use WSL Engine: ![](images-README/windows-docker-desktop-settings.jpg)
-   * Enable WSL2 Integration: ![](images-README/windows-docker-desktop-wsl-integration.jpg)
-   * Enable Kubernetes: ![](images-README/windows-docker-desktop-kubernetes.jpg)
-
-</details> 
-
-<details><summary>MacOS Instructions</summary>
-  
- * [Install MacOS Docker Desktop](https://docs.docker.com/docker-for-mac/install/)
- * Enable Kubernetes: ![](images-README/macos-dockerd-k8s.jpg)
- 
-</details>
-
-<details><summary>Linux Instructions (Ubuntu 20.04)</summary>
-  
- * [Install Docker](https://docs.docker.com/engine/install/ubuntu/)
- * [Install Kubernetes](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
- * here are instructions from scratch:
-```
-sudo apt-get update
-sudo apt-get install -y apt-transport-https ca-certificates curl
-sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
-echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
-sudo apt-get update
-sudo apt-get install -y kubelet kubeadm kubectl
-sudo apt-mark hold kubelet kubeadm kubectl
-
-cat  <<EOF > /tmp/kubeadm-config.yaml
-# kubeadm-config.yaml
-kind: ClusterConfiguration
-apiVersion: kubeadm.k8s.io/v1beta2
-kubernetesVersion: v1.22.2
----
-kind: KubeletConfiguration
-apiVersion: kubelet.config.k8s.io/v1beta1
-cgroupDriver: systemd
-EOF
-#  sudo kubeadm init --pod-network-cidr=
-
-sudo mkdir /etc/docker
-cat <<EOF | sudo tee /etc/docker/daemon.json
-{
-  "exec-opts": ["native.cgroupdriver=systemd"],
-  "log-driver": "json-file",
-  "log-opts": {
-    "max-size": "100m"
-  },
-  "storage-driver": "overlay2"
-}
-EOF
-sudo systemctl enable docker
-sudo systemctl daemon-reload
-sudo systemctl restart docker
-
-sudo swapoff -a
-
-cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
-overlay
-br_netfilter
-EOF
-
-sudo modprobe overlay
-sudo modprobe br_netfilter
-
-# Setup required sysctl params, these persist across reboots.
-cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
-net.bridge.bridge-nf-call-iptables  = 1
-net.ipv4.ip_forward                 = 1
-net.bridge.bridge-nf-call-ip6tables = 1
-EOF
-
-# Apply sysctl params without reboot
-sudo sysctl --system
-```
-##### systemd cgroup driver:
-  To use the systemd cgroup driver in /etc/containerd/config.toml with runc, set
-```
-[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
-  ...
-  [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
-    SystemdCgroup = true
-```
-If you apply this change make sure to restart containerd again:
-```
-sudo systemctl restart containerd
-```
-
-##### Cluster creation:
-```
-sudo kubeadm init --config=/tmp/kubeadm-config.yaml
-```
-If all goes well, you should see something similar to this:
-```
-Your Kubernetes control-plane has initialized successfully!
-
-To start using your cluster, you need to run the following as a regular user:
-
-  mkdir -p $HOME/.kube
-  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-  sudo chown $(id -u):$(id -g) $HOME/.kube/config
-
-Alternatively, if you are the root user, you can run:
-
-  export KUBECONFIG=/etc/kubernetes/admin.conf
-
-You should now deploy a pod network to the cluster.
-Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
-  https://kubernetes.io/docs/concepts/cluster-administration/addons/
-
-Then you can join any number of worker nodes by running the following on each as root:
-
-kubeadm join 192.xx.xx.xx:6443 --token xxxxx.yyyyyyyyyyyyyy \
-        --discovery-token-ca-cert-hash sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-  
-```
-If running on a single cluster, you may have to run the following commands (to enable the master node and to add a network:
-```
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
-
-kubectl apply -f  https://docs.projectcalico.org/manifests/calico.yaml
-kubectl taint nodes --all node-role.kubernetes.io/master-
-
-```
-
-</details>
-
-#### Steps:
-
-1) run the following commands (GDPR Demo):
-    ```bash
-    git clone https://github.com/pontus-vision/pontus-vision.git
-    cd pontus-vision/k8s
-    ```
-    or  here is the LGPD Demo:
-    ```bash
-    git clone https://github.com/pontus-vision/pontus-vision.git
-    cd pontus-vision/k8s-pt
-    ```
-
-1) Follow the instructions [here](k8s/README.md)
-1) point a browser to http://localhost:18443/grafana/   (note: DO NOT FORGET the / at the end)
-1) Use the user name lmartins@pontusnetworks.com and the default password pa55word
-
-
-
-
