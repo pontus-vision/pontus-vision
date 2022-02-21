@@ -4,10 +4,10 @@
 
 pvvals:
   imageVers:
-    graphdb: 1.13.20
-  storagePath: "/home/lgpdtst/storage"
-  hostname: "lgpdtst"  
-  protheusUrlPrefix: "https://protheus-ws.sunnyvale.com.br:8009/pontusvision/pontusvision-lgpd-totvs-protheus/1.0.0"
-  # to get the keycloak public key, do an HTTP GET to the following URL: https://lgpdtest/auth/realms/pontus
-  keycloakPubKey: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoz6BdHq5IOWZ/Cxslf29U0l8DMeig3ecKu84RsjgJ8rTSzhSAUM7AhtmZWQAmgyU5gtywQGawyOadgIgzD72/pYaFmR58hbhSgjCXAQSWmRXXAOSk/T8KYiCBcKc1SXTyz+ryg72DARS9wNYHg7NGuYaadoi6NIfeCPPBkHAxAYA/FvTD1IVz5yE6/8H3N0uzPPCCmDEwiXrlNxbycM+gYPdmN5P9E+viGVRwmyrMEznwLNdHx7Gt1saO7wHluDdA7+JL2hhes4sJOu3BvebYe34mVutBprV6UADneNZzN6yidYxJjW3W/vgSbU0+OpvOc6GNYl73v5DGArhazss6wIDAQAB" 
+    graphdb: 1.14.1
+  storagePath: "/home/$HOSTNAME/storage"
+  hostname: "$HOSTNAME"  
+  APIUrlPrefix: "https://api"
+  # to get the keycloak public key, do an HTTP GET to the following URL: https://<hostname>/auth/realms/pontus
+  keycloakPubKey: "**************************************************************" 
   

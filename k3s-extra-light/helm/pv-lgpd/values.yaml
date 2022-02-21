@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 pvvals:
-  storagePath: "/home/lgpdtst/storage"
-  hostname: "lgpdtst"  
-  protheusUrlPrefix: "https://protheus-sa2-fornecedor-ws.sunnyvale.com.br:8009/pontusvision/pontusvision-lgpd-totvs-proteus/1.0.0"
+  storagePath: "/home/$HOSTNAME/storage"
+  hostname: "$HOSTNAME"  
+  APIUrlPrefix: "https://api"
   

@@ -360,6 +360,18 @@ cd ~/storage
 mkdir -p extract/email \
 	extract/CRM \
 	extract/ERP \
+  microsoft/data-breaches \
+  microsoft/dsar \
+  microsoft/fontes-de-dados \
+  microsoft/legal-actions \
+  microsoft/mapeamentos \
+  google/meetings \
+  google/policies \
+  google/privacy-docs \
+  google/privacy-notice \
+  google/risk \
+  google/risk-mitigations \
+  google/treinamentos \
 	db \
 	grafana \
 	keycloak \
@@ -789,13 +801,10 @@ All Pontus Vision components have been created as docker containers; the followi
 |------------------------------------------------------|---------|-------------------------------------------------|---------------------|------------|------------|
 |  pontusvisiongdpr/grafana                            |Comply   | Dashboard - historical KPIs and data tables     | No                  | 383MiB     | 36.25MiB   |
 |  pontusvisiongdpr/pontus-comply-nginx-lgpd:latest    |Comply   | (optional) API Gateway                          | No                  | 183MB      | 4 MiB      |
-|  pontusvisiongdpr/pontus-lgpd-formio:latest          |Extract  | (optional) Forms Manager (Brazilian Portuguese) | No                  | 530MB      | 123MiB     |
-|  pontusvisiongdpr/pontus-lgpd-formio-mongodb:latest  |Extract  | (optional) Storage for Forms Manager            | Yes                 | 438MB      | 61MiB      |
 |  pontusvisiongdpr/pontus-comply-keycloak:latest      |Comply   | (optional) Authenticator - creates JWT token    | Yes                 | 1.21GB     | 437MiB     |
 |  pontusvisiongdpr/pontus-track-graphdb-odb-pt:latest |Track    | Graph Database to store data in the POLE model  | Yes                 | 2.27GB     | 5.611GiB   |
 |  pontusvisiongdpr/timescaledb:latest                 |Track    | Historical time series database                 | Yes                 | 57.6MB     | 22MiB      |
 |  pontusvisiongdpr/postgrest:latest                   |Track    | REST API front end to timescale db              | No                  | 115MB      | 30MiB      |
-|  pontusvisiongdpr/pontus-extract-nifi:latest         |Extract  | Workflow tool to convert data to the POLE model | Depends on Workflow | 2.56GB     | 2.805GiB   |
 |  jgontrum/spacyapi:all_v2                            |Extract  | (optional) Natural language processor           | No                  | 1.48GB     | 1.186GiB   |
 
 
