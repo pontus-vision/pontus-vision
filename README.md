@@ -76,10 +76,10 @@ All Pontus Vision components have been created as docker containers; the followi
 
 | Docker image                                         |Module   | Description                                     | Stateful            | Image Size | Min Memory |
 |------------------------------------------------------|---------|-------------------------------------------------|---------------------|------------|------------|
-|  pontusvisiongdpr/grafana-pt                         |Comply   | Dashboard - historical KPIs and data tables     | Yes                 | 142.2MB    | 39MiB      |
+|  pontusvisiongdpr/grafana:1.13.2                     |Comply   | Dashboard - historical KPIs and data tables     | Yes                 | 140.67MB   | 39MiB      |
 |  pontusvisiongdpr/pontus-comply-nginx-lgpd:light     |Comply   | (optional) API Gateway                          | No                  | 64MB       | 6MiB       |
 |  pontusvisiongdpr/pontus-comply-keycloak:latest      |Comply   | (optional) Authenticator - creates JWT token    | Yes                 | 404MB      | 492MiB     |
-|  pontusvisiongdpr/pontus-track-graphdb-odb-pt:latest |Track    | Graph Database to store data in the POLE model  | Yes                 | 1.03GB     | 4.5GiB     |
+|  pontusvisiongdpr/pontus-track-graphdb-odb:latest    |Track    | Graph Database to store data in the POLE model  | Yes                 | 1.04GB     | 4.5GiB     |
 |  pontusvisiongdpr/timescaledb:latest                 |Track    | Historical time series database                 | Yes                 | 73MB       | 192MiB     |
 |  pontusvisiongdpr/postgrest:latest                   |Track    | REST API front end to timescale db              | No                  | 43MB       | 13MiB      |
 |  pontusvisiongdpr/pontus-extract-spacy:latest        |Extract  | (optional) Natural language processor           | No                  | 4.12GB     | 105MiB     |
