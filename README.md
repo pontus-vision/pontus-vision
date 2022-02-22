@@ -84,9 +84,7 @@ All Pontus Vision components have been created as docker containers; the followi
 |  pontusvisiongdpr/postgrest:latest                   |Track    | REST API front end to timescale db              | No                  | 43MB       | 13MiB      |
 |  pontusvisiongdpr/pontus-extract-spacy:1.13.2        |Extract  | (optional) Natural language processor           | No                  | 4.12GB     | 105MiB     |
 |  pontusvisiongdpr/pv-extract-tika-server-lambda:1.13.2     |Extract  | Extraction of text from documents               | No                  | 436.2MB    | 255MiB     |
-|  pontusvisiongdpr/pv-extract-wrapper:1.13.2          |Extract  | Extract modules to get data from (Un)structured sources  | No                  | 223.84 MB  |      ??????    |   
-
-cronjobs
+|  pontusvisiongdpr/pv-extract-wrapper:1.13.2          |Extract  | Extract modules to get data from (Un)structured sources  | No                  | 223.84 MB  |      ??????    |
 
 <br/>
 
