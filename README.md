@@ -79,12 +79,12 @@ All Pontus Vision components have been created as docker containers; the followi
 |  pontusvisiongdpr/grafana:1.13.2                     |Comply   | Dashboard - historical KPIs and data tables     | Yes                 | 140.67MB   | 39MiB      |
 |  pontusvisiongdpr/pontus-comply-nginx-lgpd:light     |Comply   | (optional) API Gateway                          | No                  | 64MB       | 6MiB       |
 |  pontusvisiongdpr/pontus-comply-keycloak:latest      |Comply   | (optional) Authenticator - creates JWT token    | Yes                 | 404MB      | 492MiB     |
-|  pontusvisiongdpr/pontus-track-graphdb-odb:latest    |Track    | Graph Database to store data in the POLE model  | Yes                 | 1.04GB     | 4.5GiB     |
+|  pontusvisiongdpr/pontus-track-graphdb-odb:1.14.2    |Track    | Graph Database to store data in the POLE model  | Yes                 | 1.04GB     | 4.5GiB     |
 |  pontusvisiongdpr/timescaledb:latest                 |Track    | Historical time series database                 | Yes                 | 73MB       | 192MiB     |
 |  pontusvisiongdpr/postgrest:latest                   |Track    | REST API front end to timescale db              | No                  | 43MB       | 13MiB      |
-|  pontusvisiongdpr/pontus-extract-spacy:latest        |Extract  | (optional) Natural language processor           | No                  | 4.12GB     | 105MiB     |
-|  pontusvisiongdpr/pv-extract-tika-server-lambda      |Extract  | Extraction of text from documents               | No                  | 436.2MB    | 255MiB     |
-|  pontusvisiongdpr/pv-extract-wrapper:latest          |Extract  | Extract modules to get data from (Un)structured sources  | No                  | 223.84 MB  |      ??????    |   
+|  pontusvisiongdpr/pontus-extract-spacy:1.13.2        |Extract  | (optional) Natural language processor           | No                  | 4.12GB     | 105MiB     |
+|  pontusvisiongdpr/pv-extract-tika-server-lambda:1.13.2     |Extract  | Extraction of text from documents               | No                  | 436.2MB    | 255MiB     |
+|  pontusvisiongdpr/pv-extract-wrapper:1.13.2          |Extract  | Extract modules to get data from (Un)structured sources  | No                  | 223.84 MB  |      ??????    |   
 
 cronjobs
 
