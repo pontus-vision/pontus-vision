@@ -84,14 +84,15 @@ All Pontus Vision components have been created as docker containers; the followi
 |  pontusvisiongdpr/postgrest:latest                   |Track    | REST API front end to timescale db              | No                  | 43MB       | 13MiB      |
 |  pontusvisiongdpr/pontus-extract-spacy:1.13.2        |Extract  | (optional) Natural language processor           | No                  | 4.12GB     | 105MiB     |
 |  pontusvisiongdpr/pv-extract-tika-server-lambda:1.13.2     |Extract  | Extraction of text from documents               | No                  | 436.2MB    | 255MiB     |
-|  pontusvisiongdpr/pv-extract-wrapper:1.13.2          |Extract  | Extract modules to get data from (Un)structured sources  | No                  | 223.84 MB  |      ??????    |
+|  pontusvisiongdpr/pv-extract-wrapper:1.13.2          |Extract  | Extract modules to get data from (Un)structured sources. Each data source will require a different instance  | No                  | 223.84 MB  |      23MiB    |
 
 <br/>
 
 # Installation
 
-The easiest way to deploy the Pontus Vision platform locally is to start a docker desktop local kubernetes cluster, and follow the instructions below:
+The easiest way to deploy the Pontus Vision platform on Ubuntu 20.04 is to run either a VM or bare-metal is to start a k3s cluster, and follow the instructions below:
 
+<!--
 **<details><summary>Docker 🐳</summary>**
 
 <details><summary>Windows Instructions</summary>
@@ -229,7 +230,9 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
 
 </details>
 
-**<details><summary>OS package manager</summary>**
+-->
+
+**<details><summary>OS pre requisites</summary>**
 Before the `k3s` installation, remove `Snap` package manager, as it consumes too much CPU on small servers; this can be done by running the following:
 
 ```bash
@@ -539,7 +542,7 @@ The values files `pontus-vision/k3s(-pt)/helm/values-prod.yaml` and `pontus-visi
 
 pvvals:
   imageVers:
-    graphdb: 1.13.21
+    graphdb: 1.15.1
   storagePath: "~/storage" # make sure to pass the exact path (Create persistent volumes storage section)
   hostname: "<hostname>"
   ErpUrlPrefix: "https://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
@@ -671,7 +674,7 @@ Pontus Vision is constantly upgrading and updating its container images to keep 
 ```yaml
 pvvals:
   imageVers:
-    graphdb: 1.13.21 #
+    graphdb: 1.15.1 #
     grafana: 1.13.2 #
     # container: M.m.p
     # etc.
