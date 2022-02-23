@@ -90,7 +90,7 @@ All Pontus Vision components have been created as docker containers; the followi
 
 # Installation
 
-The easiest way to deploy the Pontus Vision platform on Ubuntu 20.04 is to run either a VM or bare-metal is to start a k3s cluster, and follow the instructions below:
+The easiest way to deploy the Pontus Vision platform is to run either a VM or bare-metal Ubuntu 20.04 OS, and follow the instructions below:
 
 <!--
 **<details><summary>Docker 🐳</summary>**
@@ -232,7 +232,7 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
 
 -->
 
-**<details><summary>OS pre requisites</summary>**
+**<details><summary>OS Pre-requisites</summary>**
 Before the `k3s` installation, remove `Snap` package manager, as it consumes too much CPU on small servers; this can be done by running the following:
 
 ```bash
@@ -268,7 +268,7 @@ sudo apt install git
 
 **<details><summary>Lightweight Kubernetes (k3s) installation</summary>**
 
-K3s - Lightweight Kubernetes. Easy to install, half the memory, all in a binary of less than 100 MB. For more info follow the [link](https://github.com/k3s-io/k3s/blob/master/README.md).
+K3s is a Lightweight Kubernetes that is easy to install, and uses fewer resources than k8s. For more info follow the [link](https://github.com/k3s-io/k3s/blob/master/README.md).
 
 ```bash
 mkdir -p ~/work/client/
@@ -276,7 +276,7 @@ cd ~/work/client/
 curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
 ```
 
-Finally add this to the end of the .bashrc file:
+After running the commands above, add the following to the end of the .bashrc file:
 
 ```bash
 alias kubectl='k3s kubectl'
@@ -321,24 +321,7 @@ chmod 700 get_helm.sh
 ./get_helm.sh
 ```
 
-</details>
-
-**<details><summary>Pontus Vision Solution installation</summary>**
-The helm chart used to configure the Pontus Vision platform exists in this repository.  To get it, clone this repository as follows:
-
-for GDPR Demo:
-```bash
-git clone https://github.com/pontus-vision/pontus-vision.git
-cd pontus-vision/k3s
-```
-
-for LGPD Demo:
-```bash
-git clone https://github.com/pontus-vision/pontus-vision.git
-cd pontus-vision/k3s-pt
-```
-
-Also create the cert-manager namespace and install cert manager:
+After installing helm, create the cert-manager namespace and install cert manager; this will enable https certificates to be managed:
 ```
 kubectl create namespace cert-manager
 helm install \
@@ -348,6 +331,23 @@ helm install \
   --version v1.6.1 \
   --set installCRDs=true
 ```
+</details>
+
+**<details><summary>Pontus Vision Solution installation</summary>**
+The helm chart used to configure the Pontus Vision platform exists in this repository.  Clone this repository and use either the GDPR or LGPD folder structures:
+
+GDPR folder:
+```bash
+git clone https://github.com/pontus-vision/pontus-vision.git
+cd pontus-vision/k3s
+```
+
+LGPD folder:
+```bash
+git clone https://github.com/pontus-vision/pontus-vision.git
+cd pontus-vision/k3s-pt
+```
+
 
 Go to the k3s folder (the same directory as this README.md file)
 
