@@ -361,7 +361,19 @@ git clone https://github.com/pontus-vision/pontus-vision.git
 cd pontus-vision/k3s
 ```
 
-GDPR folder: `cd helm/pv-gdpr`
+`cd helm/pv/templates` to configure the cronjobs.
+
+Run the following to start the GDPR demo:
+```
+./start-env-gdpr.sh
+# Note: The command above may fail the first time, as k3s will be dowloading large images and may time out.
+```
+
+Or... Run the following to start the LGPD demo:
+```
+./start-env-lgpd.sh
+# Note: The command above may fail the first time, as k3s will be dowloading large images and may time out.
+```
 
 LGPD folder: `cd helm/pv-lgpd`
 
@@ -714,7 +726,7 @@ Here's the instructions on how to get those credentials.
 
 **<details><summary>Configure the helm values</summary>**
 
-The values files `pontus-vision/k3s/helm/values-prod.yaml` and `pontus-vision/k3s/helm/values-test.yaml` have configuration details that vary from environment to environment. Here's an example:
+The values files `pontus-vision/k3s/helm/values-gdpr.yaml` and `pontus-vision/k3s/helm/values-lgpd.yaml` have configuration details that vary from environment to environment. Here's an example:
 
 ```yaml
 # Default values for pv-gdpr.
@@ -765,7 +777,7 @@ This step is important to ensure k3s data is kept by using **persistent volumes*
 └── timescaledb
 ```
 
-Make sure that the value for the `storagePath` key @ `pontus-vision/k3s/helm/values-prod.yaml` and `pontus-vision/k3s/helm/values-test.yaml` is the root of the directory structure above.	
+Make sure that the value for the `storagePath` key @ `pontus-vision/k3s/helm/values-gdpr.yaml` and `pontus-vision/k3s/helm/values-lgpd.yaml` is the root of the directory structure above.	
 Here is a set of commands that can create this structure if the value of `storagePath` is set to `~/storage`:
 	
 ```bash
@@ -811,11 +823,11 @@ mkdir -p extract/email \
 Run the start-env-xxx.sh script:
 
 ```
-./start-env-prod.sh
+./start-env-gdpr.sh
 ```
 or 
 ```
-./start-env-test.sh
+./start-env-lgpd.sh
 ```
 </details>
 
@@ -824,12 +836,12 @@ or
 Run the start-graph-xxx.sh script:
 
 ```
-./start-graph-prod.sh
+./start-graph-gdpr.sh
 ```
 or
 
 ```
-./start-graph-test.sh
+./start-graph-lgpd.sh
 ```
 
 </details>
@@ -850,7 +862,7 @@ Make sure to always have the `:latest` container cronjob running, copy the below
 
 **<details><summary>Pontus Vision imageVers</summary>**
 
-Pontus Vision is constantly upgrading and updating its container images to keep up with the latest tech and security patches. To change versions simply change the `imageVers` value @ `pontus-vision/k3s/helm/values-prod.yaml` and `pontus-vision/k3s/helm/values-test.yaml` then restart k3s env (look bellow @ **Restart k3s env** section).
+Pontus Vision is constantly upgrading and updating its container images to keep up with the latest tech and security patches. To change versions simply change the `imageVers` value @ `pontus-vision/k3s/helm/values-gdpr.yaml` and `pontus-vision/k3s/helm/values-lgpd.yaml` then restart k3s env (look bellow @ **Restart k3s env** section).
 
 **Json File**:
 
@@ -875,7 +887,7 @@ pvvals:
 
 **<details><summary>Secrets</summary>**
 
-To update any secrets or credentials, go to the `pontus-vision/k3s/secrets` folder, update the relevant files, and run  `./start-env-prod.sh` to update the secrets's values.
+To update any secrets or credentials, go to the `pontus-vision/k3s/secrets` folder, update the relevant files, and run  `./start-env-gdpr.sh` or `./start-env-lgpd.sh` to update the secrets's values.
 
 </details>
 
@@ -892,8 +904,14 @@ To stop the whole environment, run the following command:
 
 To start the whole environment, run the following command:
 
+For GDPR demo:
 ```
-./start-env-prod.sh
+./start-env-gdpr.sh
+```
+
+For LGPD demo:
+```
+./start-env-lgpd.sh
 ```
 
 </details>
