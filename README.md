@@ -279,11 +279,10 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
   curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
   ```
 
-  > Note: when using WSL the following error message will appear, but can be safely ignored:
-  ```
-  System has not been booted with systemd as init system (PID 1). Can't operate.
-  Failed to connect to bus: Host is down
-  ```
+  Note: when using WSL the following error message will appear, but can be safely ignored:
+  
+   > System has not been booted with systemd as init system (PID 1). Can't operate.
+   > Failed to connect to bus: Host is down
 
   After running the commands above, add the following to the end of the .bashrc file:
 
@@ -813,13 +812,15 @@ Here is a sample content:
 Only when configured the previous steps, go back to `pontus-vision/k3s` folder to play the demo.
 
 Run the following to start the GDPR demo:
-```
+
+```bash
 ./start-env-gdpr.sh
 # Note: The command above may fail the first time, as k3s will be dowloading large images and may time out.
 ```
 
 Or... Run the following to start the LGPD demo:
-```
+
+```bash
 ./start-env-lgpd.sh
 # Note: The command above may fail the first time, as k3s will be dowloading large images and may time out.
 ```
