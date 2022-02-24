@@ -755,25 +755,24 @@ Here is a set of commands that can create this structure if the value of `storag
 mkdir ~/storage
 cd ~/storage
 mkdir -p extract/email \
-	extract/CRM \
-	extract/ERP \
-  	microsoft/data-breaches \
-  	microsoft/dsar \
-  	microsoft/fontes-de-dados \
-  	microsoft/legal-actions \
-  	microsoft/mapeamentos \
-  	google/meetings \
-  	google/policies \
-  	google/privacy-docs \
-  	google/privacy-notice \
-  	google/risk \
-  	google/risk-mitigations \
-  	google/treinamentos \
+	  extract/CRM \
+	  extract/ERP \
+  	extract/microsoft/data-breaches \
+  	extract/microsoft/dsar \
+  	extract/microsoft/fontes-de-dados \
+  	extract/microsoft/legal-actions \
+  	extract/microsoft/mapeamentos \
+  	extract/google/meetings \
+  	extract/google/policies \
+  	extract/google/privacy-docs \
+  	extract/google/privacy-notice \
+  	extract/google/risk \
+  	extract/google/risk-mitigations \
+  	extract/google/treinamentos \
 	db \
 	grafana \
 	keycloak \
-	timescaledb
-```	
+	timesca
 
 
 </details>
