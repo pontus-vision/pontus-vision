@@ -210,7 +210,7 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
 
 -->
 
-**<details><summary>Removing Snap (optional)</summary>**
+**<details><summary>Removing Snap (optional - not required for WSL)</summary>**
 Before the `k3s` installation, remove `Snap` package manager, as it consumes too much CPU on small servers; this can be done by running the following:
 
 ```bash
