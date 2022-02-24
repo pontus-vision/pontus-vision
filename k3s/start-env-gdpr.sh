@@ -5,6 +5,4 @@ cd $DIR
 
 ./create-env-secrets.sh
 
-helm template -f ./helm/values-gdpr.yaml pv ./helm/pv | k3s kubectl apply -f -
-
-
+helm template -f ./helm/values-gdpr.yaml -v  pv ./helm/pv | k3s kubectl apply -f -

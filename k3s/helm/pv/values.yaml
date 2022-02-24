@@ -2,8 +2,8 @@
 # Declare variables to be passed into your templates.
 
 pvvals:
-  storagePath: "/home/$HOSTNAME/storage"
-  hostname: "$HOSTNAME"  
+  storagePath: <add path here>
+  hostname: <add hostname here>  
   APIUrlPrefix: "https://api"
   # Add as many vars as needed
   
