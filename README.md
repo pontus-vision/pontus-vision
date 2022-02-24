@@ -706,8 +706,6 @@ Here's the instructions on how to get those credentials.
 
 </details>
 
-</details>
-
 `cd helm/pv/templates` to configure the cronjobs.Once you are done, go back to `pontus-vision/k3s` folder.
 
 Run the following to start the GDPR demo:
@@ -721,6 +719,8 @@ Or... Run the following to start the LGPD demo:
 ./start-env-lgpd.sh
 # Note: The command above may fail the first time, as k3s will be dowloading large images and may time out.
 ```
+
+</details>
 
 <br/>
 
