@@ -3,6 +3,8 @@
 
   [Pontus Vision](https://www.pontusvision.com) is an open source platform for data mapping and management of personal data. It helps companies comply with data protection regulations, such as California's **CCPA**, Brazil's **LGPD** and EU's **GDPR**.
 
+<br/>
+
 ## Why PontusVision
 
 Pontus Vison has the following benefits:
@@ -16,6 +18,8 @@ Pontus Vison has the following benefits:
   * Data breach Analysis and Reports
   * Custom Forms and Dashboards
   * Can be deployed as a cloud native platform as a service self-hosted solution and/or on-prem.
+
+<br/>
 
 ## Architecture (Modules)
 
@@ -62,7 +66,7 @@ Pontus Vison has the following benefits:
 
 </details>
 
-<br/>
+<br/> 
 
 ## Architecture (Components)
 
@@ -740,6 +744,8 @@ Here is a sample content:
   TODO templates cronjob documentation
   -->
 
+<br/>
+
 </details>
 
 **<details><summary>Create persistent volumes storage</summary>**
@@ -826,6 +832,8 @@ Or... Run the following to start the LGPD demo:
 
   1. point a browser to [http://localhost/pv](http://localhost/pv)
   2. Use the user name `lmartins@pontusnetworks.com` and the default password `pa55word`
+
+<br/>
 
 ## Start
 
