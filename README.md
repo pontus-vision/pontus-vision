@@ -375,16 +375,12 @@ Or... Run the following to start the LGPD demo:
 # Note: The command above may fail the first time, as k3s will be dowloading large images and may time out.
 ```
 
-LGPD folder: `cd helm/pv-lgpd`
-
 ## Secret Files
-This demo uses Kubernetes secrets to store various sensitive passwords and credentials. You'll need to create your own, but to get you started, we have created a tar file with sample formats located at root `~/pontus-vision`.
+This demo uses Kubernetes secrets to store various sensitive passwords and credentials. You'll need to create your own, but to get you started, we have created a tar file with sample formats.
 
-You can download the file [here](/sample-secrets.tar.gz).
-
-To extract the secrets run:
+To download and extract the sample secrets run the following command:
 ```
-sudo tar xzvf sample-secrets.tar.gz
+./download-sample-secrets.sh
 ```
 <!--
 That should produce a directory structure similar to this:
@@ -543,7 +539,7 @@ Here is a sample content:
 
 **Edit the secret Files structure**
 
-That should produce a directory structure similar to the one below. Secrets located inside the `env/` folder should not be modified, only add your secrets to the main folder `secrets/`.
+That should produce a directory structure similar to the one below. Secrets located inside the `env/` folder should only be modified by experienced users; add your other secrets to the main folder `secrets/`.
 
 ```
 k3s/secrets/
@@ -735,15 +731,13 @@ The values files `pontus-vision/k3s/helm/values-gdpr.yaml` and `pontus-vision/k3
 
 pvvals:
   imageVers:
-    graphdb: 1.15.1
+    graphdb: "pontusvisiongdpr/pontus-track-graphdb-odb:1.15.1"
+    grafana: "pontusvisiongdpr/grafana:1.13.2"
   storagePath: "~/storage" # make sure to pass the exact path (Create persistent volumes storage section)
   hostname: "<hostname>"
   ErpUrlPrefix: "https://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
   # to get the keycloak public key, do an HTTP GET to the following URL: https://<hostname>/auth/realms/pontus
   keycloakPubKey: "******************************************"
-
-  # Declare variables to be passed into your templates. Then you can use them on templates/ files with the handlebars syntax, e.g. {{ .Values.pvvals.storagePath }}
-  
 ```
 </details>
 
@@ -869,18 +863,15 @@ Pontus Vision is constantly upgrading and updating its container images to keep 
 ```yaml
 pvvals:
   imageVers:
-    graphdb: 1.15.1 #
-    grafana: 1.13.2 #
+    graphdb: "pontusvisiongdpr/pontus-track-graphdb-odb:1.15.1"
+    grafana: "pontusvisiongdpr/grafana:1.13.2"
     # container: M.m.p
     # etc.
   storagePath: "~/storage" # make sure to pass the exact path (Create persistent volumes storage section)
   hostname: "<hostname>"
   ErpUrlPrefix: "https://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
   # to get the keycloak public key, do an HTTP GET to the following URL: https1://<hostname>/auth/realms/pontus
-  keycloakPubKey: "******************************************"
-
-  # Declare variables to be passed into your templates. Then you can use them on templates/ files with the handlebars syntax, e.g. {{ .Values.pvvals.storagePath }}
-  
+  keycloakPubKey: "******************************************"  
 ```
 
 </details>
