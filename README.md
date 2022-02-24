@@ -279,7 +279,7 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
   curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
   ```
 
-  Note: when using WSL the following error message will appear, but can be safely ignored:
+  > Note: when using WSL the following error message will appear, but can be safely ignored:
   ```
   System has not been booted with systemd as init system (PID 1). Can't operate.
   Failed to connect to bus: Host is down
