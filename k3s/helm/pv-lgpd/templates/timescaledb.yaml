@@ -58,7 +58,7 @@ spec:
         secretKeyRef:
           name: pontus-timescaledb
           key: POSTGRES_USER
-    image: pontusvisiongdpr/timescaledb:latest
+    image: pontusvisionlgpd/timescaledb:latest
     name: pontus-timescaledb
     resources: {}
     volumeMounts:

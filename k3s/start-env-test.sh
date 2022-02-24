@@ -17,7 +17,7 @@ helm repo update
 helm template cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --version v1.6.1 --set installCRDs=true | kubectl apply -f -
  
 #helm install -f ./helm/values-prod.yaml pv-lgpd ./helm/pv-lgpd  
-helm template -f ./helm/values-tst.yaml pv-lgpd ./helm/pv-lgpd  | kubectl apply -f -
+helm template -f ./helm/values-test.yaml pv-lgpd ./helm/pv-lgpd  | kubectl apply -f -
 
 
 #YAML_FILES=$(ls *.yaml | xargs | sed -e 's/ /,/g')

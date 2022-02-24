@@ -1,4 +1,3 @@
-# Default values for pv-lgpd.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -8,6 +7,7 @@ pvvals:
   storagePath: "/home/$HOSTNAME/storage"
   hostname: "$HOSTNAME"  
   APIUrlPrefix: "https://api"
+  # Add as many vars as needed
   # to get the keycloak public key, do an HTTP GET to the following URL: https://<hostname>/auth/realms/pontus
   keycloakPubKey: "**************************************************************" 
   

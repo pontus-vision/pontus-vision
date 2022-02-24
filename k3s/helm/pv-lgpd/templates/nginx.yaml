@@ -17,7 +17,7 @@ spec:
          getent hosts pontus-comply-keycloak.pontus-demo-com
          getent hosts pontus-comply-keycloak
          nginx -g 'daemon off;'
-    image: pontusvisiongdpr/pontus-comply-nginx-lgpd:light
+    image: pontusvisionlgpd/pontus-comply-nginx-lgpd:light
     name: pontus-lgpd
     ports:
     - containerPort: 18443

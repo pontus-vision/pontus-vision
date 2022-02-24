@@ -28,7 +28,7 @@ spec:
         spec:
           containers:
           - name: pv-extract-kpi
-            image: pontusvisiongdpr/pv-extract-wrapper:1.13.2
+            image: pontusvisionlgpd/pv-extract-wrapper:1.13.2
             env:
             - name: PV_TIMEOUT_MS
               value: "150000"

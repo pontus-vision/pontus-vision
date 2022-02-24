@@ -42,7 +42,7 @@ spec:
 #        secretKeyRef:
 #          name: pontus-graphdb
 #          key: AWS_SECRET_ACCESS_KEY
-    image: pontusvisiongdpr/pv-extract-tika-server-lambda:1.13.2
+    image: pontusvisionlgpd/pv-extract-tika-server-lambda:1.13.2
     imagePullPolicy: "Always"
     securityContext:
       privileged: false        # cannot be changed, or Object Storage Service Bucket cannot be attached

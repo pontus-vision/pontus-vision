@@ -43,7 +43,7 @@ metadata:
   name: pontus-comply-keycloak
 spec:
   containers:
-  - image: pontusvisiongdpr/pontus-comply-keycloak:latest
+  - image: pontusvisionlgpd/pontus-comply-keycloak:latest
     command:
     - bash
     - -c

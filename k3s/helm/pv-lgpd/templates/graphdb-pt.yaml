@@ -62,21 +62,20 @@ spec:
           name: pontus-graphdb
           key: ORIENTDB_ROOT_PASSWORD
     - name: PV_RIPD_ORG
-      value: "SunnyVale"
+      value: "<ADD YOUR ORGANIZATION NAME>"
     - name: PV_RIPD_DPO_NAME
       value: "Edson Azarias Vieira"
     - name: PV_RIPD_DPO_EMAIL
-      value: "edson.vieira@sunnyvale.com.br"
+      value: "<ADD YOUR DPO EMAIL>"
     - name: PV_DSAR_DPO_NAME
       value: "Edson Azarias Vieira"
     - name: PV_DSAR_DPO_EMAIL
-      value: "edson.vieira@sunnyvale.com.br"
+      value: "<ADD YOUR DPO EMAIL>"
     - name: PV_RIPD_DPO_PHONE
-      value: "(11) 3048-0147"
+      value: "<ADD YOUR DPO PHONE>"
     - name: PV_USE_JWT_AUTH
       value: "true"
     - name: PV_KEYCLOAK_PUB_KEY
-      #value: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoz6BdHq5IOWZ/Cxslf29U0l8DMeig3ecKu84RsjgJ8rTSzhSAUM7AhtmZWQAmgyU5gtywQGawyOadgIgzD72/pYaFmR58hbhSgjCXAQSWmRXXAOSk/T8KYiCBcKc1SXTyz+ryg72DARS9wNYHg7NGuYaadoi6NIfeCPPBkHAxAYA/FvTD1IVz5yE6/8H3N0uzPPCCmDEwiXrlNxbycM+gYPdmN5P9E+viGVRwmyrMEznwLNdHx7Gt1saO7wHluDdA7+JL2hhes4sJOu3BvebYe34mVutBprV6UADneNZzN6yidYxJjW3W/vgSbU0+OpvOc6GNYl73v5DGArhazss6wIDAQAB"
       value: "{{ .Values.pvvals.keycloakPubKey }}"
 #    - name: AWS_ACCESS_KEY_ID
 #      valueFrom:
@@ -90,7 +89,7 @@ spec:
 #        secretKeyRef:
 #          name: pontus-graphdb
 #          key: AWS_SECRET_ACCESS_KEY
-    image: pontusvisiongdpr/pontus-track-graphdb-odb-pt:{{ .Values.pvvals.imageVers.graphdb }}
+    image: pontusvisionlgpd/pontus-track-graphdb-odb-pt:{{ .Values.pvvals.imageVers.graphdb }}
     imagePullPolicy: "Always"
     securityContext:
       privileged: true        # cannot be changed, or Object Storage Service Bucket cannot be attached
@@ -104,7 +103,7 @@ spec:
     - containerPort: 5007
     resources: {}
     volumeMounts:
-            #- mountPath: /run/secrets/mapping-salesforce-graph
+            #- mountPath: /run/secrets/mapping-sasslesforce-graph
             #subPath: mapping-salesforce-graph
             #name: mapping-salesforce-graph
     - mountPath: /orientdb/databases

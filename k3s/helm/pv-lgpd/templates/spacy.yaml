@@ -9,7 +9,7 @@ metadata:
   name: spacyapi
 spec:
   containers:
-  - image:  pontusvisiongdpr/pontus-extract-spacy:1.13.2
+  - image:  pontusvisionlgpd/pontus-extract-spacy:1.13.2
     imagePullPolicy: "Always"
     name: spacyapi
     resources: {}

@@ -1,6 +1,6 @@
 apiVersion: v2
 name: pv-lgpd
-description: A Helm chart for Kubernetes to help customers comply with LGPD
+description: A Helm chart for Kubernetes to help customers comply with lgpd
 
 # A chart can be either an 'application' or a 'library' chart.
 #

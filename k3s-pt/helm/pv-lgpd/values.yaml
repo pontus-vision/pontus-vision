@@ -1,9 +1,0 @@
-# Default values for pv-lgpd.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
-pvvals:
-  storagePath: "/home/$HOSTNAME/storage"
-  hostname: "$HOSTNAME"  
-  APIUrlPrefix: "https://api"
-  

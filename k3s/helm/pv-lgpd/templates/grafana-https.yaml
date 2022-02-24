@@ -73,7 +73,7 @@ spec:
       #  secretKeyRef:
       #    name: pontus-grafana
       #    key: GF_PATHS_CONFIG
-    image: pontusvisiongdpr/grafana-pt:1.13.2
+    image: pontusvisionlgpd/grafana-pt:1.13.2
     imagePullPolicy: "Always"
     name: pontus-grafana
     resources: {}
@@ -156,7 +156,7 @@ spec:
   renewBefore: 360h # 15d
   subject:
     organizations:
-      - sunnyvale
+      - yourORganizationName
   # The use of the common name field has been deprecated since 2000 and is
   # discouraged from being used.
   commonName: {{ .Values.pvvals.hostname }}

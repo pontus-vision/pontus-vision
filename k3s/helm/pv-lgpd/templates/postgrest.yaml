@@ -20,7 +20,7 @@ spec:
         secretKeyRef:
           name: pontus-postgrest
           key: PGRST_DB_URI
-    image: pontusvisiongdpr/postgrest:latest
+    image: pontusvisionlgpd/postgrest:latest
     name: pontus-postgrest
     resources: {}
   hostname: pontus-postgrest
