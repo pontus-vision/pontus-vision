@@ -1,5 +1,0 @@
-# Nmap 7.60 scan initiated Mon Dec  7 18:04:14 2020 as: nmap -v -sS -p1-65535 -oA fooout 127.0.0.1
-# Ports scanned: TCP(65535;1-65535) UDP(0;) SCTP(0;) PROTOCOLS(0;)
-Host: 127.0.0.1 (localhost)	Status: Up
-Host: 127.0.0.1 (localhost)	Ports: 6443/open/tcp//sun-sr-https///	Ignored State: closed (65534)
-# Nmap done at Mon Dec  7 18:04:20 2020 -- 1 IP address (1 host up) scanned in 5.88 seconds

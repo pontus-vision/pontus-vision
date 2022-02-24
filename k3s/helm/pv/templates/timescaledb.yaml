@@ -1,0 +1,97 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: "pv-volume-timescaledb"
+  labels:
+    type: local
+spec:
+  storageClassName: local-path
+  capacity:
+    storage: "5Gi"
+  accessModes:
+    - "ReadWriteOnce"
+  hostPath:
+    path: {{ .Values.pvvals.storagePath }}/timescaledb
+  persistentVolumeReclaimPolicy: Recycle
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: pontus-timescaledb-claim0
+  name: pontus-timescaledb-claim0
+spec:
+  volumeName: pv-volume-timescaledb
+  #storageClassName: local-storage
+  storageClassName: local-path
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+status: {}
+---
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.network/pontusvision: "true"
+    io.kompose.service: pontus-timescaledb
+  name: pontus-timescaledb
+spec:
+  containers:
+  - env:
+    - name: PGUSER
+      value: postgres
+    - name: POSTGRES_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: pontus-timescaledb
+          key: POSTGRES_PASSWORD
+    - name: POSTGRES_USER
+      valueFrom:
+        secretKeyRef:
+          name: pontus-timescaledb
+          key: POSTGRES_USER
+    image: pontusvisiongdpr/timescaledb:latest
+    name: pontus-timescaledb
+    resources: {}
+    volumeMounts:
+            #- mountPath: /mnt/timescaledb
+    - mountPath: /var/lib/postgresql/data
+      name: timescaledb-data
+  hostname: pontus-comply-timescaledb
+  volumes:
+  - name: timescaledb-data
+    persistentVolumeClaim:
+      claimName: pontus-timescaledb-claim0
+
+  hostname: pontus-timescaledb
+  restartPolicy: OnFailure
+  subdomain: pontus-demo-com
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose -f gdpr-odb-grafana-latest.yml convert
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: pontus-timescaledb
+  name: pontus-timescaledb
+spec:
+  ports:
+  - name: "5432"
+    port: 5432
+    targetPort: 5432
+  selector:
+    io.kompose.service: pontus-timescaledb
+status:
+  loadBalancer: {}

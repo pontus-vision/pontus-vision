@@ -69,8 +69,9 @@ All Pontus Vision components have been created as docker containers; the followi
 | Docker image                                         |Module   | Description                                     | Stateful            | Image Size | Min Memory |
 |------------------------------------------------------|---------|-------------------------------------------------|---------------------|------------|------------|
 |  pontusvisiongdpr/grafana:1.13.2                     |Comply   | Dashboard - historical KPIs and data tables     | Yes                 | 140.67MB   | 39MiB      |
+|  pontusvisiongdpr/pontus-comply-nginx-lgpd:light     |Comply   | (optional) API Gateway                          | No                  | 64MB       | 6MiB       |
 |  pontusvisiongdpr/pontus-comply-keycloak:latest      |Comply   | (optional) Authenticator - creates JWT token    | Yes                 | 404MB      | 492MiB     |
-|  pontusvisiongdpr/pontus-track-graphdb-odb:1.15.1    |Track    | Graph Database to store data in the POLE model  | Yes                 | 1.04GB     | 4.5GiB     |
+|  pontusvisiongdpr/pontus-track-graphdb-odb-pt:1.15.1    |Track    | Graph Database to store data in the POLE model  | Yes                 | 1.04GB     | 4.5GiB     |
 |  pontusvisiongdpr/timescaledb:latest                 |Track    | Historical time series database                 | Yes                 | 73MB       | 192MiB     |
 |  pontusvisiongdpr/postgrest:latest                   |Track    | REST API front end to timescale db              | No                  | 43MB       | 13MiB      |
 |  pontusvisiongdpr/pontus-extract-spacy:1.13.2        |Extract  | (optional) Natural language processor           | No                  | 4.12GB     | 105MiB     |
@@ -361,26 +362,18 @@ git clone https://github.com/pontus-vision/pontus-vision.git
 cd pontus-vision/k3s
 ```
 
-`cd helm/pv/templates` to configure the cronjobs. Once you are done, go back to `pontus-vision/k3s` folder.
+GDPR folder: `cd helm/pv-gdpr`
 
-Run the following to start the GDPR demo:
-```
-./start-env-gdpr.sh
-# Note: The command above may fail the first time, as k3s will be dowloading large images and may time out.
-```
-
-Or... Run the following to start the LGPD demo:
-```
-./start-env-lgpd.sh
-# Note: The command above may fail the first time, as k3s will be dowloading large images and may time out.
-```
+LGPD folder: `cd helm/pv-lgpd`
 
 ## Secret Files
-This demo uses Kubernetes secrets to store various sensitive passwords and credentials. You'll need to create your own, but to get you started, we have created a tar file with sample formats.
+This demo uses Kubernetes secrets to store various sensitive passwords and credentials. You'll need to create your own, but to get you started, we have created a tar file with sample formats located at root `~/pontus-vision`.
 
-To download and extract the sample secrets run the following command:
+You can download the file [here](/sample-secrets.tar.gz).
+
+To extract the secrets run:
 ```
-./download-sample-secrets.sh
+sudo tar xzvf sample-secrets.tar.gz
 ```
 <!--
 That should produce a directory structure similar to this:
@@ -539,7 +532,7 @@ Here is a sample content:
 
 **Edit the secret Files structure**
 
-That should produce a directory structure similar to the one below. Secrets located inside the `env/` folder should only be modified by experienced users; add your other secrets to the main folder `secrets/`.
+That should produce a directory structure similar to the one below. Secrets located inside the `env/` folder should not be modified, only add your secrets to the main folder `secrets/`.
 
 ```
 k3s/secrets/
@@ -722,22 +715,23 @@ Here's the instructions on how to get those credentials.
 
 **<details><summary>Configure the helm values</summary>**
 
-The values files `pontus-vision/k3s/helm/values-gdpr.yaml` and `pontus-vision/k3s/helm/values-lgpd.yaml` have configuration details that vary from environment to environment. Here's an example:
+The values files `pontus-vision/k3s/helm/values-prod.yaml` and `pontus-vision/k3s/helm/values-test.yaml` have configuration details that vary from environment to environment. Here's an example:
 
 ```yaml
-# Default values for pv-gdpr.
+# Default values for pv-lgpd.
 # This is a YAML-formatted file.
-
 
 pvvals:
   imageVers:
-    graphdb: "pontusvisiongdpr/pontus-track-graphdb-odb:1.15.1"
-    grafana: "pontusvisiongdpr/grafana:1.13.2"
+    graphdb: 1.15.1
   storagePath: "~/storage" # make sure to pass the exact path (Create persistent volumes storage section)
   hostname: "<hostname>"
   ErpUrlPrefix: "https://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
   # to get the keycloak public key, do an HTTP GET to the following URL: https://<hostname>/auth/realms/pontus
   keycloakPubKey: "******************************************"
+
+  # Declare variables to be passed into your templates. Then you can use them on templates/ files with the handlebars syntax, e.g. {{ .Values.pvvals.storagePath }}
+
 ```
 </details>
 
@@ -771,7 +765,7 @@ This step is important to ensure k3s data is kept by using **persistent volumes*
 └── timescaledb
 ```
 
-Make sure that the value for the `storagePath` key @ `pontus-vision/k3s/helm/values-gdpr.yaml` and `pontus-vision/k3s/helm/values-lgpd.yaml` is the root of the directory structure above.	
+Make sure that the value for the `storagePath` key @ `pontus-vision/k3s/helm/values-prod.yaml` and `pontus-vision/k3s/helm/values-test.yaml` is the root of the directory structure above.	
 Here is a set of commands that can create this structure if the value of `storagePath` is set to `~/storage`:
 	
 ```bash
@@ -795,8 +789,8 @@ mkdir -p extract/email \
 	db \
 	grafana \
 	keycloak \
-	timescaledb
-```	
+	timesca
+
 
 </details>
 
@@ -817,11 +811,11 @@ mkdir -p extract/email \
 Run the start-env-xxx.sh script:
 
 ```
-./start-env-gdpr.sh
+./start-env-prod.sh
 ```
 or 
 ```
-./start-env-lgpd.sh
+./start-env-test.sh
 ```
 </details>
 
@@ -830,12 +824,12 @@ or
 Run the start-graph-xxx.sh script:
 
 ```
-./start-graph-gdpr.sh
+./start-graph-prod.sh
 ```
 or
 
 ```
-./start-graph-lgpd.sh
+./start-graph-test.sh
 ```
 
 </details>
@@ -856,29 +850,31 @@ Make sure to always have the `:latest` container cronjob running, copy the below
 
 **<details><summary>Pontus Vision imageVers</summary>**
 
-Pontus Vision is constantly upgrading and updating its container images to keep up with the latest tech and security patches. To change versions simply change the `imageVers` value @ `pontus-vision/k3s/helm/values-gdpr.yaml` and `pontus-vision/k3s/helm/values-lgpd.yaml` then restart k3s env (look bellow @ **Restart k3s env** section).
+Pontus Vision is constantly upgrading and updating its container images to keep up with the latest tech and security patches. To change versions simply change the `imageVers` value @ `pontus-vision/k3s/helm/values-prod.yaml` and `pontus-vision/k3s/helm/values-test.yaml` then restart k3s env (look bellow @ **Restart k3s env** section).
 
 **Json File**:
 
 ```yaml
 pvvals:
   imageVers:
-    graphdb: "pontusvisiongdpr/pontus-track-graphdb-odb:1.15.1"
-    grafana: "pontusvisiongdpr/grafana:1.13.2"
+    graphdb: 1.15.1 #
+    grafana: 1.13.2 #
     # container: M.m.p
     # etc.
   storagePath: "~/storage" # make sure to pass the exact path (Create persistent volumes storage section)
   hostname: "<hostname>"
   ErpUrlPrefix: "https://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
   # to get the keycloak public key, do an HTTP GET to the following URL: https1://<hostname>/auth/realms/pontus
-  keycloakPubKey: "******************************************"  
+  keycloakPubKey: "******************************************"
+
+  # Declare variables to be passed into your templates. Then you can use them on templates/ files with the handlebars syntax, e.g. {{ .Values.pvvals.storagePath }}
 ```
 
 </details>
 
 **<details><summary>Secrets</summary>**
 
-To update any secrets or credentials, go to the `pontus-vision/k3s/secrets` folder, update the relevant files, and run  `./start-env-gdpr.sh` or `./start-env-lgpd.sh` to update the secrets's values.
+To update any secrets or credentials, go to the `pontus-vision/k3s/secrets` folder, update the relevant files, and run  `./start-env-prod.sh` to update the secrets's values.
 
 </details>
 
@@ -895,14 +891,8 @@ To stop the whole environment, run the following command:
 
 To start the whole environment, run the following command:
 
-For GDPR demo:
 ```
-./start-env-gdpr.sh
-```
-
-For LGPD demo:
-```
-./start-env-lgpd.sh
+./start-env-prod.sh
 ```
 
 </details>
@@ -919,8 +909,8 @@ To do so type `$ kubectl get pods` then a tab table alike is displayed:
 ```
 NAME                                                       READY   STATUS              RESTARTS   AGE  
 svclb-pontus-grafana-t9m6w                                 1/1     Running             0          91m  
-svclb-pontus-gdpr-2jx9g                                    1/1     Running             0          91m  
-pontus-gdpr                                                1/1     Running             0          91m  
+svclb-pontus-lgpd-2jx9g                                    1/1     Running             0          91m  
+pontus-lgpd                                                1/1     Running             0          91m  
 pontus-grafana                                             1/1     Running             0          91m  
 pontus-comply-keycloak                                     1/1     Running             0          91m  
 pv-extract-tika-server                                     1/1     Running             0          91m  
