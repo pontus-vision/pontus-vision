@@ -343,9 +343,9 @@ git clone https://github.com/pontus-vision/pontus-vision.git
 cd pontus-vision/k3s
 ```
 
-GDPR folder: `cd pv-gdpr`
+GDPR folder: `cd helm/pv-gdpr`
 
-LGPD folder: `cd pv-lgpd`
+LGPD folder: `cd helm/pv-lgpd`
 
 ## Secret Files
 This demo uses Kubernetes secrets to store various sensitive passwords and credentials. You'll need to create your own, but to get you started, we have created a tar file with sample formats.
