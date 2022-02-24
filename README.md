@@ -287,6 +287,16 @@ export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
 export EDITOR=/usr/bin/vi
 ```
 
+Source the .bashrc above to apply the changes:
+```
+. ~/.bashrc
+```
+
+Run the following (For WSL only):
+```
+sudo /usr/local/bin/k3s server --write-kubeconfig-mode=644
+```
+
 </details>
 
 **<details><summary>HELM installation</summary>**
