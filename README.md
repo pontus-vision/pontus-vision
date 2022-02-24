@@ -348,11 +348,13 @@ GDPR folder: `cd pv-gdpr`
 LGPD folder: `cd pv-lgpd`
 
 ## Secret Files
-This demo uses Kubernetes secrets to store various sensitive passwords and credentials. You'll need to create your own, but to get you started, we have created a tar file with sample formats.
+This demo uses Kubernetes secrets to store various sensitive passwords and credentials. You'll need to create your own, but to get you started, we have created a tar file with sample formats located at root `~/pontus-vision`.
 
-Download this file [here is a sample tar file](/sample-secrets.tar.gz), and run 
+You can download the file [here](/sample-secrets.tar.gz).
+
+To extract the secrets run:
 ```
-tar xzvf sample-secrets.tar.gz
+sudo tar xzvf sample-secrets.tar.gz
 ```
 <!--
 That should produce a directory structure similar to this:
