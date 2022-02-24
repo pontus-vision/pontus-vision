@@ -73,7 +73,7 @@ spec:
       #  secretKeyRef:
       #    name: pontus-grafana
       #    key: GF_PATHS_CONFIG
-    image: pontusvisiongdpr/grafana-pt:1.13.2
+    image: {{ .Values.pvvals.imageVers.grafana }}
     imagePullPolicy: "Always"
     name: pontus-grafana
     resources: {}

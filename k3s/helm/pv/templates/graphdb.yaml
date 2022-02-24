@@ -89,7 +89,7 @@ spec:
 #        secretKeyRef:
 #          name: pontus-graphdb
 #          key: AWS_SECRET_ACCESS_KEY
-    image: pontusvisiongdpr/pontus-track-graphdb-odb:{{ .Values.pvvals.imageVers.graphdb }}
+    image: {{ .Values.pvvals.imageVers.graphdb }}
     imagePullPolicy: "Always"
     securityContext:
       privileged: true        # cannot be changed, or Object Storage Service Bucket cannot be attached

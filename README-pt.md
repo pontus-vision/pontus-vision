@@ -62,6 +62,24 @@ All forms and reports are managed in real time, showing the areas of the organiz
 
 <br/>
 
+## Architecture (Components)
+All Pontus Vision components have been created as docker containers; the following table summarises the key components:
+
+
+| Docker image                                         |Module   | Description                                     | Stateful            | Image Size | Min Memory |
+|------------------------------------------------------|---------|-------------------------------------------------|---------------------|------------|------------|
+|  pontusvisiongdpr/grafana:1.13.2                     |Comply   | Dashboard - historical KPIs and data tables     | Yes                 | 140.67MB   | 39MiB      |
+|  pontusvisiongdpr/pontus-comply-nginx-lgpd:light     |Comply   | (optional) API Gateway                          | No                  | 64MB       | 6MiB       |
+|  pontusvisiongdpr/pontus-comply-keycloak:latest      |Comply   | (optional) Authenticator - creates JWT token    | Yes                 | 404MB      | 492MiB     |
+|  pontusvisiongdpr/pontus-track-graphdb-odb-pt:1.15.1    |Track    | Graph Database to store data in the POLE model  | Yes                 | 1.04GB     | 4.5GiB     |
+|  pontusvisiongdpr/timescaledb:latest                 |Track    | Historical time series database                 | Yes                 | 73MB       | 192MiB     |
+|  pontusvisiongdpr/postgrest:latest                   |Track    | REST API front end to timescale db              | No                  | 43MB       | 13MiB      |
+|  pontusvisiongdpr/pontus-extract-spacy:1.13.2        |Extract  | (optional) Natural language processor           | No                  | 4.12GB     | 105MiB     |
+|  pontusvisiongdpr/pv-extract-tika-server-lambda:1.13.2     |Extract  | Extraction of text from documents               | No                  | 436.2MB    | 255MiB     |
+|  pontusvisiongdpr/pv-extract-wrapper:1.13.2          |Extract  | Extract modules to get data from (Un)structured sources. Each data source will require a different instance  | No                  | 223.84 MB  |      23MiB    |
+
+<br/>
+
 # Pre-requisites
  - Linux Ubuntu 20.04
    - ensure that all packages are up to date
@@ -298,9 +316,10 @@ Source the .bashrc above to apply the changes:
 . ~/.bashrc
 ```
 
-Run the following (For WSL only):
+Run the following in a separate terminal (For WSL only):
 ```
 sudo /usr/local/bin/k3s server --write-kubeconfig-mode=644
+```
 
 </details>
 
@@ -316,6 +335,8 @@ chmod 700 get_helm.sh
 
 After installing helm, create the cert-manager namespace and install cert manager; this will enable https certificates to be managed:
 ```
+helm repo add jetstack https://charts.jetstack.io
+helm repo update
 kubectl create namespace cert-manager
 helm install \
   cert-manager jetstack/cert-manager \
@@ -325,24 +346,6 @@ helm install \
   --set installCRDs=true
 ```
 </details>
-
-<br/>
-
-## Architecture (Components)
-All Pontus Vision components have been created as docker containers; the following table summarises the key components:
-
-
-| Docker image                                         |Module   | Description                                     | Stateful            | Image Size | Min Memory |
-|------------------------------------------------------|---------|-------------------------------------------------|---------------------|------------|------------|
-|  pontusvisiongdpr/grafana:1.13.2                     |Comply   | Dashboard - historical KPIs and data tables     | Yes                 | 140.67MB   | 39MiB      |
-|  pontusvisiongdpr/pontus-comply-nginx-lgpd:light     |Comply   | (optional) API Gateway                          | No                  | 64MB       | 6MiB       |
-|  pontusvisiongdpr/pontus-comply-keycloak:latest      |Comply   | (optional) Authenticator - creates JWT token    | Yes                 | 404MB      | 492MiB     |
-|  pontusvisiongdpr/pontus-track-graphdb-odb-pt:1.15.1    |Track    | Graph Database to store data in the POLE model  | Yes                 | 1.04GB     | 4.5GiB     |
-|  pontusvisiongdpr/timescaledb:latest                 |Track    | Historical time series database                 | Yes                 | 73MB       | 192MiB     |
-|  pontusvisiongdpr/postgrest:latest                   |Track    | REST API front end to timescale db              | No                  | 43MB       | 13MiB      |
-|  pontusvisiongdpr/pontus-extract-spacy:1.13.2        |Extract  | (optional) Natural language processor           | No                  | 4.12GB     | 105MiB     |
-|  pontusvisiongdpr/pv-extract-tika-server-lambda:1.13.2     |Extract  | Extraction of text from documents               | No                  | 436.2MB    | 255MiB     |
-|  pontusvisiongdpr/pv-extract-wrapper:1.13.2          |Extract  | Extract modules to get data from (Un)structured sources. Each data source will require a different instance  | No                  | 223.84 MB  |      23MiB    |
 
 <br/>
 
@@ -709,8 +712,6 @@ Here's the instructions on how to get those credentials.
 </details>
 
 <br/>
-
-For safety and testing pourposes helm values and templates where separated into `*test.yaml` ... when ready to apply for production, use `*prod.yaml` files.
 
 **<details><summary>Configure the helm values</summary>**
 
