@@ -734,29 +734,29 @@ pvvals:
 This step is important to ensure k3s data is kept by using **persistent volumes**. To do so, please create a directory structure similar to the following:
 
 ```
-~/storage                         
-├── extract                       
-│   ├── email                     
-│   ├── CRM                   
-│   ├── ERP                  
-|   ├── microsoft
-|   |   ├── data-breaches
-|   |   ├── dsar
-|   |   ├── fontes-de-dados
-|   |   ├── legal-actions
-|   |   └── mapeamentos
-|   └── google
-|       ├── meetings
-|       ├── policies
-|       ├── privacy-docs
-|       ├── privacy-notice
-|       ├── risk
-|       ├── risk-mitigations
-|       └── treinamentos
-├── db                       
-├── grafana                       
-├── keycloak                      
-└── timescaledb                   
+~/storage
+├── db
+├── extract
+│   ├── CRM
+│   ├── ERP
+│   ├── email
+│   ├── google
+│   │   ├── meetings
+│   │   ├── policies
+│   │   ├── privacy-docs
+│   │   ├── privacy-notice
+│   │   ├── risk
+│   │   ├── risk-mitigations
+│   │   └── treinamentos
+│   └── microsoft
+│       ├── data-breaches
+│       ├── dsar
+│       ├── fontes-de-dados
+│       ├── legal-actions
+│       └── mapeamentos
+├── grafana
+├── keycloak
+└── timescaledb
 ```
 
 Make sure that the value for the `storagePath` key @ `pontus-vision/k3s/helm/values-prod.yaml` and `pontus-vision/k3s/helm/values-test.yaml` is the root of the directory structure above.	
@@ -785,7 +785,6 @@ mkdir -p extract/email \
 	keycloak \
 	timescaledb
 ```	
-
 
 </details>
 
