@@ -537,6 +537,40 @@ k3s/secrets/
 └── microsoft-json
 ```
 
+<details><summary>CRM-api-key</summary>
+
+This token is used to grant access to CRM's data. For more information on how to get this value, please contact DPO.
+
+**Format**: one-line text.
+
+</details>
+
+<details><summary>CRM-json</summary>
+
+This json contains CRM's user key. For more information on how to get this value, please contact DPO.
+
+**Json format:**
+
+```json
+{
+  "secrets": {
+    "crm": {
+      "User-Key": "**************************************************************"
+    }
+  }
+}
+```
+
+</details>
+
+<details><summary>ERP-api-key</summary>
+
+This token is used to grant access to ERP's data. For more information on how to get this value, please contact IT.
+
+**Format**: one-line text.
+
+</details>
+
 <details><summary>env/pontus-grafana/GF_PATHS_CONFIG</summary>
 
 **Description:**
@@ -610,38 +644,22 @@ postgres
 
 </details>
 
-<details><summary>CRM-api-key</summary>
+<details><summary>google-json</summary>
 
-This token is used to grant access to CRM's data. For more information on how to get this value, please contact DPO.
-
-**Format**: one-line text.
-
-</details>
-
-
-<details><summary>CRM-json</summary>
-
-This json contains CRM's user key. For more information on how to get this value, please contact DPO.
+This json has Google's secrets for connection. For more information on how to get those values, please contact IT.
 
 **Json format:**
 
 ```json
 {
   "secrets": {
-    "crm": {
-      "User-Key": "**************************************************************"
+    "google": {
+      "X-SNY-API-AppKey": "xxxxxxxxxxxxx",
+      "X-SNY-API-AppToken": "yyyyyyyyyyyyyyyyyyyyyyyy"
     }
   }
 }
 ```
-
-</details>
-
-<details><summary>ERP-api-key</summary>
-
-This token is used to grant access to ERP's data. For more information on how to get this value, please contact IT.
-
-**Format**: one-line text.
 
 </details>
 
@@ -669,25 +687,6 @@ Here's the instructions on how to get those credentials.
 ![alt text](/images-README/azure-4.jpg)
 ![alt text](/images-README/azure-5.jpg)
 
-
-</details>
-
-<details><summary>google-json</summary>
-
-This json has Google's secrets for connection. For more information on how to get those values, please contact IT.
-
-**Json format:**
-
-```json
-{
-  "secrets": {
-    "google": {
-      "X-SNY-API-AppKey": "xxxxxxxxxxxxx",
-      "X-SNY-API-AppToken": "yyyyyyyyyyyyyyyyyyyyyyyy"
-    }
-  }
-}
-```
 
 </details>
 
