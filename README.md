@@ -361,7 +361,7 @@ git clone https://github.com/pontus-vision/pontus-vision.git
 cd pontus-vision/k3s
 ```
 
-`cd helm/pv/templates` to configure the cronjobs.
+`cd helm/pv/templates` to configure the cronjobs. Once you are done, go back to `pontus-vision/k3s` folder.
 
 Run the following to start the GDPR demo:
 ```
