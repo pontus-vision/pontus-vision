@@ -355,7 +355,7 @@ You can download the file [here](/sample-secrets.tar.gz).
 
 To extract the secrets run:
 ```
-tar xzvf sample-secrets.tar.gz
+sudo tar xzvf sample-secrets.tar.gz
 ```
 <!--
 That should produce a directory structure similar to this:
