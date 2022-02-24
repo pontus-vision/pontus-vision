@@ -343,9 +343,9 @@ git clone https://github.com/pontus-vision/pontus-vision.git
 cd pontus-vision/k3s
 ```
 
-GDPR folder: `cd helm/pv-gdpr`
+GDPR folder: `cd pv-gdpr`
 
-LGPD folder: `cd helm/pv-lgpd`
+LGPD folder: `cd pv-lgpd`
 
 ## Secret Files
 This demo uses Kubernetes secrets to store various sensitive passwords and credentials. You'll need to create your own, but to get you started, we have created a tar file with sample formats located at root `~/pontus-vision`.
@@ -513,27 +513,63 @@ Here is a sample content:
 
 **Edit the secret Files structure**
 
-Please create a directory structure similar to the following:
+That should produce a directory structure similar to the one below. Secrets located inside the `env/` folder should not be modified, only add your secrets to the main folder `secrets/`.
 
 ```
-k3s/secrets/          
-├── env                           
-│   ├── pontus-grafana            
-│   │   └── GF_PATHS_CONFIG       
-│   ├── pontus-graphdb            
-│   │   └── ORIENTDB_ROOT_PASSWORD
-│   ├── pontus-postgrest          
-│   │   ├── PGRST_DB_ANON_ROLE    
-│   │   └── PGRST_DB_URI          
-│   └── pontus-timescaledb        
-│       ├── POSTGRES_PASSWORD     
-│       └── POSTGRES_USER         
-├── CRM-api-key               
-├── CRM-json                  
-├── ERP-api-key              
-├── microsoft-json               
-└── google-json                    
+k3s/secrets/
+├── CRM-api-key
+├── CRM-json
+├── ERP-api-key
+├── env
+│   ├── pontus-grafana
+│   │   └── GF_PATHS_CONFIG
+│   ├── pontus-graphdb
+│   │   ├── AWS_ACCESS_KEY_ID
+│   │   ├── AWS_SECRET_ACCESS_KEY
+│   │   └── ORIENTDB_ROOT_PASSWORD
+│   ├── pontus-postgrest
+│   │   ├── PGRST_DB_ANON_ROLE
+│   │   └── PGRST_DB_URI
+│   └── pontus-timescaledb
+│       ├── POSTGRES_PASSWORD
+│       └── POSTGRES_USER
+├── google-json
+└── microsoft-json
 ```
+
+<details><summary>CRM-api-key</summary>
+
+This token is used to grant access to CRM's data. For more information on how to get this value, please contact DPO.
+
+**Format**: one-line text.
+
+</details>
+
+<details><summary>CRM-json</summary>
+
+This json contains CRM's user key. For more information on how to get this value, please contact DPO.
+
+**Json format:**
+
+```json
+{
+  "secrets": {
+    "crm": {
+      "User-Key": "**************************************************************"
+    }
+  }
+}
+```
+
+</details>
+
+<details><summary>ERP-api-key</summary>
+
+This token is used to grant access to ERP's data. For more information on how to get this value, please contact IT.
+
+**Format**: one-line text.
+
+</details>
 
 <details><summary>env/pontus-grafana/GF_PATHS_CONFIG</summary>
 
@@ -608,38 +644,22 @@ postgres
 
 </details>
 
-<details><summary>CRM-api-key</summary>
+<details><summary>google-json</summary>
 
-This token is used to grant access to CRM's data. For more information on how to get this value, please contact DPO.
-
-**Format**: one-line text.
-
-</details>
-
-
-<details><summary>CRM-json</summary>
-
-This json contains CRM's user key. For more information on how to get this value, please contact DPO.
+This json has Google's secrets for connection. For more information on how to get those values, please contact IT.
 
 **Json format:**
 
 ```json
 {
   "secrets": {
-    "crm": {
-      "User-Key": "**************************************************************"
+    "google": {
+      "X-SNY-API-AppKey": "xxxxxxxxxxxxx",
+      "X-SNY-API-AppToken": "yyyyyyyyyyyyyyyyyyyyyyyy"
     }
   }
 }
 ```
-
-</details>
-
-<details><summary>ERP-api-key</summary>
-
-This token is used to grant access to ERP's data. For more information on how to get this value, please contact IT.
-
-**Format**: one-line text.
 
 </details>
 
@@ -667,25 +687,6 @@ Here's the instructions on how to get those credentials.
 ![alt text](/images-README/azure-4.jpg)
 ![alt text](/images-README/azure-5.jpg)
 
-
-</details>
-
-<details><summary>google-json</summary>
-
-This json has Google's secrets for connection. For more information on how to get those values, please contact IT.
-
-**Json format:**
-
-```json
-{
-  "secrets": {
-    "google": {
-      "X-SNY-API-AppKey": "xxxxxxxxxxxxx",
-      "X-SNY-API-AppToken": "yyyyyyyyyyyyyyyyyyyyyyyy"
-    }
-  }
-}
-```
 
 </details>
 
