@@ -514,7 +514,7 @@ Here is a sample content:
 
 **Edit the secret Files structure**
 
-Please create a directory structure similar to the following:
+That should produce a directory structure similar to the one below. Secrets located inside the `env/` folder should not be modified, only add your secrets to the main folder `secrets/`.
 
 ```
 k3s/secrets/          

@@ -343,18 +343,16 @@ git clone https://github.com/pontus-vision/pontus-vision.git
 cd pontus-vision/k3s
 ```
 
-GDPR folder: `cd helm/pv-gdpr`
+GDPR folder: `cd pv-gdpr`
 
-LGPD folder: `cd helm/pv-lgpd`
+LGPD folder: `cd pv-lgpd`
 
 ## Secret Files
-This demo uses Kubernetes secrets to store various sensitive passwords and credentials. You'll need to create your own, but to get you started, we have created a tar file with sample formats located at root `~/pontus-vision`.
+This demo uses Kubernetes secrets to store various sensitive passwords and credentials. You'll need to create your own, but to get you started, we have created a tar file with sample formats.
 
-You can download the file [here](/sample-secrets.tar.gz).
-
-To extract the secrets run:
+Download this file [here is a sample tar file](/sample-secrets.tar.gz), and run 
 ```
-sudo tar xzvf sample-secrets.tar.gz
+tar xzvf sample-secrets.tar.gz
 ```
 <!--
 That should produce a directory structure similar to this:
@@ -513,26 +511,28 @@ Here is a sample content:
 
 **Edit the secret Files structure**
 
-Please create a directory structure similar to the following:
+That should produce a directory structure similar to the one below. Secrets located inside the `env/` folder should not be modified, only add your secrets to the main folder `secrets/`.
 
 ```
-k3s/secrets/          
-├── env                           
-│   ├── pontus-grafana            
-│   │   └── GF_PATHS_CONFIG       
-│   ├── pontus-graphdb            
-│   │   └── ORIENTDB_ROOT_PASSWORD
-│   ├── pontus-postgrest          
-│   │   ├── PGRST_DB_ANON_ROLE    
-│   │   └── PGRST_DB_URI          
-│   └── pontus-timescaledb        
-│       ├── POSTGRES_PASSWORD     
-│       └── POSTGRES_USER         
-├── CRM-api-key               
-├── CRM-json                  
-├── ERP-api-key              
-├── microsoft-json               
-└── google-json                    
+k3s/secrets/
+├── CRM-api-key
+├── CRM-json
+├── ERP-api-key
+├── env
+│   ├── pontus-grafana
+│   │   └── GF_PATHS_CONFIG
+│   ├── pontus-graphdb
+│   │   ├── AWS_ACCESS_KEY_ID
+│   │   ├── AWS_SECRET_ACCESS_KEY
+│   │   └── ORIENTDB_ROOT_PASSWORD
+│   ├── pontus-postgrest
+│   │   ├── PGRST_DB_ANON_ROLE
+│   │   └── PGRST_DB_URI
+│   └── pontus-timescaledb
+│       ├── POSTGRES_PASSWORD
+│       └── POSTGRES_USER
+├── google-json
+└── microsoft-json
 ```
 
 <details><summary>env/pontus-grafana/GF_PATHS_CONFIG</summary>
