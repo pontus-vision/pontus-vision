@@ -722,8 +722,6 @@ Or... Run the following to start the LGPD demo:
 
 </details>
 
-<br/>
-
 **<details><summary>Configure the helm values</summary>**
 
 The values files `pontus-vision/k3s/helm/values-gdpr.yaml` and `pontus-vision/k3s/helm/values-lgpd.yaml` have configuration details that vary from environment to environment. Here's an example:
