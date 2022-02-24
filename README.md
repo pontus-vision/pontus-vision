@@ -281,7 +281,7 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
 
   Note: when using WSL the following error message will appear, but can be safely ignored:
   
-   > System has not been booted with systemd as init system (PID 1). Can't operate.
+   > System has not been booted with systemd as init system (PID 1). Can't operate. <br/>
    > Failed to connect to bus: Host is down
 
   After running the commands above, add the following to the end of the .bashrc file:
