@@ -1065,7 +1065,7 @@ Or... Run the following to start the LGPD demo:
 
   Keycloak is an open source software product used with Pontus Vision solutions to allow single sign-on with Identity and Access Management. 
 
-  To be able to add/update/change users on Keycloak, one needs to login as a **Super User**. To do so, go to the following link => [https://$HOSTNAME/auth/](https://$HOSTNAME/auth/) and authenticate with admin default credential **username:admin/password:admin**.
+  To be able to add/update/change users on Keycloak, one needs to login as a **Super User**. To do so, go to the following link => [https://add-hostname-here/auth/](https://$<add-hostname-here>/auth/) and authenticate with admin default credential **username: admin / password: admin**.
 
   Here's some screenshots steps on how to create a new user:
 
@@ -1075,7 +1075,7 @@ Or... Run the following to start the LGPD demo:
 
   ![alt text](/images-README/keycloak-b.png)
 
-  > Then click on **Proceed(Continue) to $HOSTNAME**.
+  > Then click on **Proceed(Continue) to \<hostname\>**.
 
   ![alt text](/images-README/keycloak-1.png)
 
@@ -1107,7 +1107,7 @@ Or... Run the following to start the LGPD demo:
 
   Grafana is a multi-platform open source analytics and interactive visualization web application. Connected with Pontus Vision's product, provides charts, graphs, and alerts on the web.
 
-  The same **Super User** privilege is needed here ...go to the main login page [https://$HOSTNAME/pv](https://$HOSTNAME/pv) and enter the admin credentials sent by your administrator.
+  The same **Super User** privilege is needed here ...go to the main login page [https://add-hostname-here/pv](https://<add-hostname-here>/pv) and enter the admin credentials sent by your administrator.
 
   Here's some screenshots steps on how to create a new user:
 
@@ -1117,7 +1117,7 @@ Or... Run the following to start the LGPD demo:
 
   ![alt text](/images-README/keycloak-b.png)
 
-  > Then click on **Proceed(Continue) to $HOSTNAME**.
+  > Then click on **Proceed(Continue) to \<hostname\>**.
 
   ![alt text](/images-README/grafana-1.png)
 
@@ -1151,7 +1151,7 @@ Or... Run the following to start the LGPD demo:
 
 **<details><summary>Instructions</summary>**
 
-  To reset a user's password, one only needs to change it using Keycloak single sign-on and access management. Go to the following link => [https://$HOSTNAME/auth/](https://$HOSTNAME/auth/) and authenticate with admin default credential **username:admin/password:admin**.
+  To reset a user's password, one only needs to change it using Keycloak single sign-on and access management. Go to the following link => [https://add-hostname-here/auth/](https://<add-hostname-here>/auth/) and authenticate with admin default credential **username: admin / password: admin**.
 
   Here's some screenshots steps on how to reset a user's password:
 
@@ -1161,7 +1161,7 @@ Or... Run the following to start the LGPD demo:
 
   ![alt text](/images-README/keycloak-b.png)
 
-  > Then click on **Proceed(Continue) to $HOSTNAME**.
+  > Then click on **Proceed(Continue) to \<hostname\>**.
 
   ![alt text](/images-README/keycloak-1.png)
 
