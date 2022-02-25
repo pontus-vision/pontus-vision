@@ -3,6 +3,9 @@
 DIR="$( cd "$(dirname "$0")" ; pwd -P )"
 cd $DIR
 
+./create-storage-dirs.sh
 ./create-env-secrets.sh
 
-helm template -f ./helm/values-gdpr.yaml -v  pv ./helm/pv | k3s kubectl apply -f -
+cat ./helm/values-gdpr.yaml | envsubst > ./helm/values-gdpr-resolved.yaml
+
+helm template -f ./helm/values-gdpr-resolved.yaml -v  pv ./helm/pv | k3s kubectl apply -f -
