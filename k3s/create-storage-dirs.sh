@@ -26,6 +26,6 @@ mkdir -p extract/email \
   keycloak \
   timescaledb
 
-chmod -R 777 *
+sudo chmod -R 777 *
 
 fi
