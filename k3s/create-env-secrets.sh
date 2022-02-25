@@ -3,7 +3,10 @@
 DIR="$( cd "$(dirname "$0")" ; pwd -P )"
 cd $DIR
 
+if [[ ! -d secrets ]]; then
+  tar xvfz ../sample-secrets.tar.gz 
 
+fi
 
 for i in secrets/env/*; do 
   export SECRET_NAME=$(echo $i | sed -e 's#secrets/env/##g') 
