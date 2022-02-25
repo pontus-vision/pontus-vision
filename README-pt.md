@@ -1071,7 +1071,7 @@ Ou... Execute o seguinte para iniciar a demonstração da LGPD:
 
   O Keycloak é um software *open source* usado com as soluções Pontus Vision para permitir logon único, permitindo gerenciamento de identidade e acesso.
 
-  Para poder adicionar/atualizar/alterar usuários no Keycloak, é necessário fazer login como **Superusuário**. Para fazer isso, acesse o link a seguir => [https://adicione-o-hostname-aqui/auth/](https://$<adicione-o-hostname-aqui>/auth/) e autentique-se com a credencial padrão do administrador **nome de usuário: admin / senha: admin**.
+  Para poder adicionar/atualizar/alterar usuários no Keycloak, é necessário fazer login como **Superusuário**. Para fazer isso, acesse o link a seguir => [https://\<adicione-o-hostname-aqui\>/auth/](https://$\<adicione-o-hostname-aqui\>/auth/) e autentique-se com a credencial padrão do administrador **nome de usuário: admin / senha: admin**.
 
   Aqui estão algumas capturas de tela das etapas de como criar um novo usuário:
 
@@ -1113,7 +1113,7 @@ Ou... Execute o seguinte para iniciar a demonstração da LGPD:
 
   O Grafana é um aplicativo *open source* web multiplataforma de análise e visualização interativa. Conectado aos produtos da Pontus Vision, fornece tabelas, gráficos e alertas na web.
 
-  O mesmo privilégio de **Superusuário** é necessário aqui... vá para a página de login principal [https://adicione-o-hostname-aqui/pv](https://<adicione-o-hostname-aqui>/pv) e insira as credenciais admin enviadas por seu administrador.
+  O mesmo privilégio de **Superusuário** é necessário aqui... vá para a página de login principal [https://\<adicione-o-hostname-aqui\>/pv](https://\<adicione-o-hostname-aqui\>/pv) e insira as credenciais admin enviadas por seu administrador.
 
   Aqui estão algumas capturas de tela das etapas de como criar um novo usuário:
 
@@ -1157,7 +1157,7 @@ Ou... Execute o seguinte para iniciar a demonstração da LGPD:
 
 **<details><summary>Instruções</summary>**
 
-  Para redefinir a senha de um usuário, basta alterá-la usando o logon único e o gerenciamento de acesso do Keycloak. Vá para o seguinte link => [https://adicione-o-hostname-aqui/auth/](https://<adicione-o-hostname-aqui>/auth/) e autentique-se com a credencial padrão do administrador **nome de usuário : admin / senha: admin**.
+  Para redefinir a senha de um usuário, basta alterá-la usando o logon único e o gerenciamento de acesso do Keycloak. Vá para o seguinte link => [https://\<adicione-o-hostname-aqui\>/auth/](https://\<adicione-o-hostname-aqui\>/auth/) e autentique-se com a credencial padrão do administrador **nome de usuário : admin / senha: admin**.
 
   Aqui estão algumas capturas de tela das etapas de como redefinir a senha de um usuário:
 
