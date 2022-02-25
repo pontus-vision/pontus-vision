@@ -7,14 +7,14 @@
 
 ## Why PontusVision
 
-Pontus Vison has the following benefits:
+Pontus Vision has the following benefits:
 
   * Unstructured and Structured data extraction
   * Compliance Dashboard with the ICO’s 12 Steps
   * Consent Management, including APIs to ensure compliance
   * Graphical or textual reports of all natural persons’ data
   * Real-time reports of all areas with natural person records
-  * Data Privacy Impact Accessment (DPIA Management)
+  * Data Privacy Impact Assessment (DPIA Management)
   * Data breach Analysis and Reports
   * Custom Forms and Dashboards
   * Can be deployed as a cloud native platform as a service self-hosted solution and/or on-prem.
@@ -44,18 +44,21 @@ Pontus Vison has the following benefits:
 ### TRACK
 
   Maps all the data from the Extract module, identifying natural persons with as little data as possible, scalable to trillions of records.
+
   <details>
 
   Our solution maps data by tracking all data sources from the Extract stage, identifying customer data with as little information as possible, using graph databases and natural language processing technologies, supporting trillions of records.
 
   Scalability is extremely important as the number of data on natural persons grows daily, with each customer or staff interaction generating new data.
 
-  Pontus Vision is based on the POLE (Person, Object, Location, Event) data model to Track data. This is a model used by the UK Government to associate data with individuals. The POLE model creates relationships between People, Objects, Locations and Events, forming the basis of a robust intelligence structure.
+  Pontus Vision is based on the **POLE** (Person, Object, Location, Event) data model to Track data. This is a model used by the UK Government to associate data with individuals. The POLE model creates relationships between People, Objects, Locations and Events, forming the basis of a robust intelligence structure.
+
   </details>
 
 ### COMPLY
 
   Gathers links to all personal data within an organization, with graphical or textual reports, using a scoring system based on the ICO’s 12 steps to GDPR compliance.
+
   <details>
 
   All data is consolidated in a dashboard, for graphical or textual visualization.
@@ -236,6 +239,7 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
 -->
 
 **<details><summary>Removing Snap (optional - not required for WSL)</summary>**
+
   Before the `k3s` installation, remove `Snap` package manager, as it consumes too much CPU on small servers; this can be done by running the following:
 
   ```bash
@@ -284,7 +288,7 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
    > System has not been booted with systemd as init system (PID 1). Can't operate. <br/>
    > Failed to connect to bus: Host is down
 
-  After running the commands above, add the following to the end of the .bashrc file:
+  After running the commands above, add the following to the end of the `.bashrc` file:
 
   ```bash
   alias kubectl='k3s kubectl'
@@ -370,7 +374,7 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
 
 ## Secret Files
 
-  This demo uses Kubernetes secrets to store various sensitive passwords and credentials. You'll need to create your own, but to get you started, we have created a tar file with sample formats.
+  This Demo uses Kubernetes secrets to store various sensitive passwords and credentials. You'll need to create your own, but to get you started, we have created a `tar` file with sample formats.
 
   To download and extract the sample secrets run the following command:
   ```
@@ -702,7 +706,7 @@ Here is a sample content:
   }
   ```
 
-  Here's the instructions on how to get those credentials.
+  Here's the instructions on how to get those credentials from Azure.
 
 #### Azure API keys instructions:
 
@@ -723,9 +727,8 @@ Here is a sample content:
   The values files `pontus-vision/k3s/helm/values-gdpr.yaml` and `pontus-vision/k3s/helm/values-lgpd.yaml` have configuration details that vary from environment to environment. Here's an example:
 
   ```yaml
-  # Default values for pv-gdpr.
+  # Default values for pv/.
   # This is a YAML-formatted file.
-
 
   pvvals:
     imageVers:
@@ -733,11 +736,11 @@ Here is a sample content:
       grafana: "pontusvisiongdpr/grafana:1.13.2"
     storagePath: "<add path here>" # make sure to pass the exact path (Create persistent volumes storage section)
     hostname: "<add hostname here>"
-    # to get the keycloak public key, do an HTTP GET to the following URL: https://<hostname>/auth/realms/pontus
+    # to get the keycloak public key <keycloakPubKey>, do an HTTP GET to the following URL: https://<hostname>/auth/realms/pontus
     keycloakPubKey: "******************************************"
   ```
 
-## `cd pv/templates` to configure the cronjobs.
+## `cd pv/templates` to configure the **cronjobs**.
 
   <!--
   TODO templates cronjob documentation
@@ -779,7 +782,7 @@ Here is a sample content:
 
   Make sure that the value for the `storagePath` key @ `pontus-vision/k3s/helm/values-gdpr.yaml` and `pontus-vision/k3s/helm/values-lgpd.yaml` is the root of the directory structure above.
   	
-  Here is a set of commands that can create this structure if the value of `storagePath` is set to `~/storage`:
+  Here is a set of commands that can create this structure if the value of `.Values.pvvals.storagePath` is set to `~/storage`:
     
   ```bash
   mkdir ~/storage
@@ -809,16 +812,16 @@ Here is a sample content:
 
 <br/>
 
-Only when configured the previous steps, go back to `pontus-vision/k3s` folder to play the demo.
+Only when configured the previous steps, go back to `pontus-vision/k3s` folder to play the Demo.
 
-Run the following to start the GDPR demo:
+Run the following to start the GDPR Demo:
 
 ```bash
 ./start-env-gdpr.sh
 # Note: The command above may fail the first time, as k3s will be dowloading large images and may time out.
 ```
 
-Or... Run the following to start the LGPD demo:
+Or... Run the following to start the LGPD Demo:
 
 ```bash
 ./start-env-lgpd.sh
@@ -842,12 +845,14 @@ Or... Run the following to start the LGPD demo:
 
   Run the start-env-xxx.sh script:
 
+  ```bash
+  ./start-env-gdpr.sh # GDPR Demo
   ```
-  ./start-env-gdpr.sh
-  ```
+
   or 
-  ```
-  ./start-env-lgpd.sh
+
+  ```bash
+  ./start-env-lgpd.sh # LGPD Demo
   ```
 
 </details>
@@ -856,13 +861,14 @@ Or... Run the following to start the LGPD demo:
 
   Run the start-graph-xxx.sh script:
 
+  ```bash
+  ./start-graph-gdpr.sh # GDPR Demo
   ```
-  ./start-graph-gdpr.sh
-  ```
+
   or
 
-  ```
-  ./start-graph-lgpd.sh
+  ```bash
+  ./start-graph-lgpd.sh # LGPD Demo
   ```
 
 </details>
@@ -883,7 +889,7 @@ Or... Run the following to start the LGPD demo:
 
 **<details><summary>Pontus Vision imageVers</summary>**
 
-  Pontus Vision is constantly upgrading and updating its container images to keep up with the latest tech and security patches. To change versions simply change the `imageVers` value @ `pontus-vision/k3s/helm/values-gdpr.yaml` and `pontus-vision/k3s/helm/values-lgpd.yaml` then restart k3s env (look bellow @ **Restart k3s env** section).
+  Pontus Vision is constantly upgrading and updating its container images to keep up with the latest tech and security patches. To change versions simply change the `pvvals.imageVers` value @ `pontus-vision/k3s/helm/values-gdpr.yaml` and `pontus-vision/k3s/helm/values-lgpd.yaml` then restart k3s env (look bellow @ **Restart k3s env** section).
 
   **Json File**:
 
@@ -905,7 +911,7 @@ Or... Run the following to start the LGPD demo:
 
 **<details><summary>Secrets</summary>**
 
-  To update any secrets or credentials, go to the `pontus-vision/k3s/secrets` folder, update the relevant files, and run  `./start-env-gdpr.sh` or `./start-env-lgpd.sh` to update the secrets's values.
+  To update any secrets or credentials, go to the `pontus-vision/k3s/secrets` folder, update the relevant files, and restart k3s env (look bellow @ **Restart k3s env** section) to update the secrets's values.
 
 </details>
 
@@ -922,12 +928,12 @@ Or... Run the following to start the LGPD demo:
 
   To start the whole environment, run the following command:
 
-  For GDPR demo:
+  For GDPR Demo:
   ```
   ./start-env-gdpr.sh
   ```
 
-  For LGPD demo:
+  For LGPD Demo:
   ```
   ./start-env-lgpd.sh
   ```
@@ -941,7 +947,6 @@ Or... Run the following to start the LGPD demo:
 **<details><summary>Listing k3s pods</summary>**
 
   To do so type `$ kubectl get pods` then a tab table alike is displayed:
-
 
   ```
   NAME                                                       READY   STATUS              RESTARTS   AGE  
@@ -1001,9 +1006,9 @@ Or... Run the following to start the LGPD demo:
 
 **<details><summary>kubectl taint</summary>**
 
-  **Taints** allow a node to repel a set of pods, but this can prevent some pods from running. For more information click this [link](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
+  **Taints** allow a node to repel a set of pods, but this can prevent some pods from running. For more information click this [link](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/).
 
-  If you get an **ERROR** like the one marked in the image, when running `$ kubectl describe pods <pod name>` : 
+  If you get an **ERROR** like the one marked in the image, when running `$ kubectl describe pods <pod name>`: 
 
   ![alt text](/images-README/k3s-taint-1.png)
 
