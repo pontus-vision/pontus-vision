@@ -1,92 +1,102 @@
 
-# Pontus Vision
+# Pontus Vision Brasil
 
-[Pontus Vision](https://www.pontusvision.com) is an open source platform for data mapping and management of personal data. It helps companies comply with data protection regulations, such as California's **CCPA**, Brazil's **LGPD** and EU's **GDPR**.
-
-## Why PontusVision
-Pontus Vison has the following benefits:
-
- * Unstructured and Structured data extraction
- * Compliance Dashboard with the ICO’s 12 Steps
- * Consent Management, including APIs to ensure compliance
- * Graphical or textual reports of all natural persons’ data
- * Real-time reports of all areas with natural person records
- * Data Privacy Impact Accessment (DPIA Management)
- * Data breach Analysis and Reports
- * Custom Forms and Dashboards
- * Can be deployed as a cloud native platform as a service self-hosted solution and/or on-prem.
-
-## Architecture (Modules)
-
-The Pontus Vision platform solves data mapping and management of personal data challenges in 3 modules:
-
-![](images-README/arch-components.png)
-
-
-### EXTRACT
-
-Extract Structured Personal Data in Databases, CRM, ERP, and proprietary systems. Also works with unstructured data, such as, emails, PDFs, Word, and Excel.
-
-<details>
-
-The Pontus Vision platform extracts structured and unstructured data in an automated manner and without interference on daily operations. The solution does not require changes to the customers’ systems, being able to receive large volumes of data from several corporate systems. Connectors for systems not yet supported are easily implemented.
-
-Structured Data: Databases, CRM, ERP and proprietary systems.
-Unstructured Data: emails, Microsoft Office documents, PDF files, and others.
-
-</details>
-
-### TRACK
-
-Maps all the data from the Extract module, identifying natural persons with as little data as possible, scalable to trillions of records.
-<details>
-
-Our solution maps data by tracking all data sources from the Extract stage, identifying customer data with as little information as possible, using graph databases and natural language processing technologies, supporting trillions of records.
-
-Scalability is extremely important as the number of data on natural persons grows daily, with each customer or staff interaction generating new data.
-
-Pontus Vision is based on the POLE (Person, Object, Location, Event) data model to Track data. This is a model used by the UK Government to associate data with individuals. The POLE model creates relationships between People, Objects, Locations and Events, forming the basis of a robust intelligence structure.
-</details>
-
-### COMPLY
-
-Gathers links to all personal data within an organization, with graphical or textual reports, using a scoring system based on the ICO’s 12 steps to GDPR compliance.
-<details>
-
-All data is consolidated in a dashboard, for graphical or textual visualization.
-
-The solution gathers links to all personal data within an organization, with graphical or textual reports, using a scoring system based on the ICO’s 12 steps to GDPR compliance.
-
-All forms and reports are managed in real time, showing the areas of the organization that have personal data.
-</details>
+  [Pontus Vision](https://www.pontusvision.com.br) é uma plataforma de código aberto para mapeamento de dados e gerenciamento de dados pessoais. Ele ajuda as empresas a cumprir os regulamentos de proteção de dados, como **CCPA** da Califórnia (EUA), **LGPD** do Brasil e **GDPR** da União Europeia.
 
 <br/>
 
-## Architecture (Components)
-All Pontus Vision components have been created as docker containers; the following table summarises the key components:
+## Porque PontusVision
 
+Pontus Vision tem os seguintes benefícios:
 
-| Docker image                                         |Module   | Description                                     | Stateful            | Image Size | Min Memory |
-|------------------------------------------------------|---------|-------------------------------------------------|---------------------|------------|------------|
-|  pontusvisiongdpr/grafana:1.13.2                     |Comply   | Dashboard - historical KPIs and data tables     | Yes                 | 140.67MB   | 39MiB      |
-|  pontusvisiongdpr/pontus-comply-nginx-lgpd:light     |Comply   | (optional) API Gateway                          | No                  | 64MB       | 6MiB       |
-|  pontusvisiongdpr/pontus-comply-keycloak:latest      |Comply   | (optional) Authenticator - creates JWT token    | Yes                 | 404MB      | 492MiB     |
-|  pontusvisiongdpr/pontus-track-graphdb-odb-pt:1.15.1    |Track    | Graph Database to store data in the POLE model  | Yes                 | 1.04GB     | 4.5GiB     |
-|  pontusvisiongdpr/timescaledb:latest                 |Track    | Historical time series database                 | Yes                 | 73MB       | 192MiB     |
-|  pontusvisiongdpr/postgrest:latest                   |Track    | REST API front end to timescale db              | No                  | 43MB       | 13MiB      |
-|  pontusvisiongdpr/pontus-extract-spacy:1.13.2        |Extract  | (optional) Natural language processor           | No                  | 4.12GB     | 105MiB     |
-|  pontusvisiongdpr/pv-extract-tika-server-lambda:1.13.2     |Extract  | Extraction of text from documents               | No                  | 436.2MB    | 255MiB     |
-|  pontusvisiongdpr/pv-extract-wrapper:1.13.2          |Extract  | Extract modules to get data from (Un)structured sources. Each data source will require a different instance  | No                  | 223.84 MB  |      23MiB    |
+  * Extração de dados não estruturados e estruturados
+  * Painel de conformidade com as 12 etapas da ICO (Information Commissioner's Office do REino Unido)
+  * Gerenciamento de consentimento, incluindo APIs para garantir compliance
+  * Relatórios gráficos ou textuais de todos os dados de pessoas físicas
+  * Relatórios em tempo real de todas as áreas com cadastro de pessoa física
+  * Acesso ao Relatório de Impacto à Proteção de Dados Pessoais (RIPD)
+  * Análise e relatórios de violação de dados
+  * Formulários e painéis personalizados
+  * Pode ser implantado como uma solução de plataforma como serviço nativa auto hospedada e/ou no local.
 
 <br/>
 
-# Pre-requisites
- - Linux Ubuntu 20.04
-   - ensure that all packages are up to date
-   - ensure that the `git` client is installed 
- - 8-core CPU            
- - 32GB RAM
- - 250GB Disk
+## Arquitetura (Módulos)
+
+  A plataforma Pontus Vision resolve os desafios de mapeamento de dados e gerenciamento de dados pessoais em 3 módulos:
+
+  ![](images-README/arch-components.png)
+
+
+### EXTRAIR (EXTRACT)
+
+  Extrair Dados Pessoais Estruturados em Bancos de Dados, CRM, ERP e sistemas proprietários. Também funciona com dados não estruturados, como e-mails, PDFs, Word e Excel.
+
+<details>
+
+  A plataforma Pontus Vision extrai dados estruturados e não estruturados de forma automatizada e sem interferência nas operações diárias. A solução não requer alterações nos sistemas dos clientes, podendo receber grandes volumes de dados de diversos sistemas corporativos. Conectores para sistemas ainda não suportados podem ser facilmente implementados.
+
+  Dados Estruturados: Bancos de dados, CRM, ERP e sistemas proprietários.
+  Dados não estruturados: e-mails, documentos do Microsoft Office, arquivos PDF e outros.
+
+</details>
+
+### ACOMPANHAR (TRACK)
+
+  Mapeia todos os dados do módulo _Extract_, identificando pessoas físicas com o mínimo de dados necessários, escalável para trilhões de registros.
+
+  <details>
+
+  Nossa solução mapeia dados rastreando todas as fontes de dados desde o estágio _Extract_, identificando os dados do cliente com o mínimo de informações possível, usando bancos de dados gráficos e tecnologias de processamento de linguagem natural, suportando trilhões de registros.
+
+  A escalabilidade é extremamente importante, pois o número de dados sobre pessoas físicas cresce diariamente, com cada interação de cliente ou equipe gerando novos registros.
+
+  A Pontus Vision é baseado no modelo de dados **POLE** (Pessoa, Objeto, Local, Evento) para rastrear dados. Este é um modelo usado pelo governo do Reino Unido para associar dados a indivíduos. O modelo POLE cria relações entre Pessoas, Objetos, Locais e Eventos, formando a base de uma estrutura de inteligência robusta.
+
+  </details>
+
+### CONFORMIDADE (COMPLY)
+
+  Reúne links para todos os dados pessoais dentro de uma organização, com relatórios gráficos ou textuais, usando um sistema de pontuação baseado nas 12 etapas da ICO para conformidade com a LGPD.
+
+  <details>
+
+  Todos os dados são consolidados em um dashboard, para visualização gráfica ou textual.
+
+  A solução reúne links para todos os dados pessoais de uma organização, com relatórios gráficos ou textuais, usando um sistema de pontuação baseado nas 12 etapas da ICO para conformidade com a LGPD.
+
+  Todos os formulários e relatórios são gerenciados em tempo real, mostrando as áreas da organização que possuem dados pessoais.
+
+</details>
+
+<br/> 
+
+## Arquitetura (Componentes)
+
+  All Pontus Vision components have been created as docker containers; the following table summarises the key components:
+
+
+  | Imagem Docker                                        |Módulo   | Descrição                                       | Mantém o estado (Stateful)            | Tamanho da imagem | Memória mínima  |
+  |------------------------------------------------------|---------|-------------------------------------------------|---------------------|------------|------------|
+  |  pontusvisiongdpr/grafana:1.13.2                     |Comply   | Painel - KPIs históricos e tabelas de dados     | Sim                 | 140.67MB   | 39MiB      |
+  |  pontusvisiongdpr/pontus-comply-keycloak:latest      |Comply   | (opcional) Autenticador - cria o token JWT    | Sim                 | 404MB      | 492MiB     |
+  |  pontusvisiongdpr/pontus-track-graphdb-odb-pt:1.15.1    |Track    | Banco de dados gráfico para armazenar dados no modelo POLE  | Sim                 | 1.04GB     | 4.5GiB     |
+  |  pontusvisiongdpr/timescaledb:latest                 |Track    | Banco de dados de séries temporais                 | Sim                 | 73MB       | 192MiB     |
+  |  pontusvisiongdpr/postgrest:latest                   |Track    | Front-end da API REST para timescaledb             | Não                  | 43MB       | 13MiB      |
+  |  pontusvisiongdpr/pontus-extract-spacy:1.13.2        |Extract  | (opcional) Processador de linguagem natural           | Não                  | 4.12GB     | 105MiB     |
+  |  pontusvisiongdpr/pv-extract-tika-server-lambda:1.13.2     |Extract  | Extração de texto de documentos               | Não                  | 436.2MB    | 255MiB     |
+  |  pontusvisiongdpr/pv-extract-wrapper:1.13.2          |Extract  | Extrai módulos para obter dados de fontes (não)estruturadas. Cada fonte de dado exigi uma instância diferente  | Não                  | 223.84 MB  |      23MiB    |
+
+<br/>
+
+# Pré-requisitos
+
+  - Linux Ubuntu 20.04
+    - garanta que todos os pacotes estejam atualizados
+    - certifique-se de que o cliente `git` esteja instalado
+  - Processador de 8 núcleos            
+  - 32GB de RAM
+  - Disco de 250 GB
 
  <!--
 **<details><summary>Docker 🐳</summary>**
@@ -228,154 +238,149 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
 
 -->
 
-**<details><summary>Removing Snap (optional - not required for WSL)</summary>**
-Before the `k3s` installation, remove `Snap` package manager, as it consumes too much CPU on small servers; this can be done by running the following:
+**<details><summary>Removendo Snap (opcional - não necessário para WSL)</summary>**
 
-```bash
- export SNAP_LIST=$(snap list)
- sudo ls
-```
+  Antes da instalação do `k3s`, remova o gerenciador de pacotes `Snap`, pois ele consome muita CPU em servidores pequenos; isso pode ser feito executando os seguintes comandos:
 
-**run the loops below twice; this is NOT A TYPO:**
+  ```bash
+  export SNAP_LIST=$(snap list)
+  sudo ls
+  ```
 
-```bash
-for i in ${SNAP_LIST}; do
-  sudo snap remove --purge package-name
-done
+**execute os loops abaixo duas vezes; isso NÃO é um erro de digitação:**
 
-for i in ${SNAP_LIST}; do
-  sudo snap remove --purge package-name
-done
+  ```bash
+  for i in ${SNAP_LIST}; do
+    sudo snap remove --purge package-name
+  done
 
-sudo rm -rf /var/cache/snapd/
+  for i in ${SNAP_LIST}; do
+    sudo snap remove --purge package-name
+  done
 
-sudo apt autoremove --purge snapd gnome-software-plugin-snap
+  sudo rm -rf /var/cache/snapd/
 
-rm -fr ~/snap
-sudo apt-mark hold snapd
-Update the server:
+  sudo apt autoremove --purge snapd gnome-software-plugin-snap
 
-sudo apt update
-sudo apt upgrade -y
-sudo apt install git
-```
+  rm -fr ~/snap
+  sudo apt-mark hold snapd
+  Update the server:
 
-</details>
-
-**<details><summary>Lightweight Kubernetes (k3s) installation</summary>**
-
-K3s is a Lightweight Kubernetes that is easy to install, and uses fewer resources than k8s. For more info follow the [link](https://github.com/k3s-io/k3s/blob/master/README.md).
-
-```bash
-mkdir -p ~/work/client/
-cd ~/work/client/
-curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
-```
-
-Note: when using WSL the following error message will appear, but can be safely ignored:
-```
-System has not been booted with systemd as init system (PID 1). Can't operate.
-Failed to connect to bus: Host is down
-```
-
-After running the commands above, add the following to the end of the .bashrc file:
-
-```bash
-alias kubectl='k3s kubectl'
-source <(kubectl completion bash)
-export SCREENDIR=$HOME/.screen
-[ -d $SCREENDIR ] || mkdir -p -m 700 $SCREENDIR
-
-complete -C '/usr/local/bin/aws_completer' aws
-
-export PATH=$PATH:~/.local/bin:~/.yarn/bin:/mnt/c/Users/LeonardoMartins/go/bin/:$HOME/go/src/github.com/lexicality/wsl-relay/scripts
-#PROMPT_COMMAND='echo -ne "\033k\033\0134\033k${HOSTNAME}[`basename ${PWD}`]\033\0134"'
-#PROMPT_COMMAND='printf "\033k%s $\033\\" "${PWD/#$HOME/\~}"'
-PS1='\u@\h [\w] \$ '
-
-#if echo $TERM | grep ^screen -q; then
-  #PS1='\[\033k\033\\\]'$PS1
-#fi
-if [[ "$TERM" == screen* ]]; then
-  screen_set_window_title () {
-	local HPWD="$PWD"
-	case $HPWD in
-	  $HOME) HPWD="~";;
-	  $HOME/*) HPWD="~${HPWD#$HOME}";;
-	esac
-	printf '\ek%s\e\\' "$HPWD"
-  }
-  PROMPT_COMMAND="screen_set_window_title; $PROMPT_COMMAND"
-fi
-export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
-export EDITOR=/usr/bin/vi
-```
-
-Source the .bashrc above to apply the changes:
-```
-. ~/.bashrc
-```
-
-Run the following in a separate terminal (For WSL only):
-```
-sudo /usr/local/bin/k3s server --write-kubeconfig-mode=644
-```
+  sudo apt update
+  sudo apt upgrade -y
+  sudo apt install git
+  ```
 
 </details>
 
-**<details><summary>HELM installation</summary>**
+**<details><summary>Instalação da distribuição leve do Kubernetes (k3s)</summary>**
 
-HELM is a tool that streamlines installing and managing Kubernetes applications. To install it, run the following code:
+  K3s é um Kubernetes leve, fácil de instalar e usa menos recursos que o k8s. Para mais informações, siga o [link](https://github.com/k3s-io/k3s/blob/master/README.md).
 
-```bash
-curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-chmod 700 get_helm.sh
-./get_helm.sh
-```
+  ```bash
+  mkdir -p ~/work/client/
+  cd ~/work/client/
+  curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
+  ```
 
-After installing helm, create the cert-manager namespace and install cert manager; this will enable https certificates to be managed:
-```
-helm repo add jetstack https://charts.jetstack.io
-helm repo update
-kubectl create namespace cert-manager
-helm install \
-  cert-manager jetstack/cert-manager \
-  --namespace cert-manager \
-  --create-namespace \
-  --version v1.6.1 \
-  --set installCRDs=true
-```
+  Observação: ao usar o WSL, a seguinte mensagem de erro aparecerá, mas pode ser ignorada:
+  
+   > System has not been booted with systemd as init system (PID 1). Can't operate. <br/>
+   > Failed to connect to bus: Host is down
+
+  Por fim, adicione isso ao final do arquivo `.bashrc`:
+
+  ```bash
+  alias kubectl='k3s kubectl'
+  source <(kubectl completion bash)
+  export SCREENDIR=$HOME/.screen
+  [ -d $SCREENDIR ] || mkdir -p -m 700 $SCREENDIR
+
+  complete -C '/usr/local/bin/aws_completer' aws
+
+  export PATH=$PATH:~/.local/bin:~/.yarn/bin:/mnt/c/Users/LeonardoMartins/go/bin/:$HOME/go/src/github.com/lexicality/wsl-relay/scripts
+  #PROMPT_COMMAND='echo -ne "\033k\033\0134\033k${HOSTNAME}[`basename ${PWD}`]\033\0134"'
+  #PROMPT_COMMAND='printf "\033k%s $\033\\" "${PWD/#$HOME/\~}"'
+  PS1='\u@\h [\w] \$ '
+
+  #if echo $TERM | grep ^screen -q; then
+    #PS1='\[\033k\033\\\]'$PS1
+  #fi
+  if [[ "$TERM" == screen* ]]; then
+    screen_set_window_title () {
+    local HPWD="$PWD"
+    case $HPWD in
+      $HOME) HPWD="~";;
+      $HOME/*) HPWD="~${HPWD#$HOME}";;
+    esac
+    printf '\ek%s\e\\' "$HPWD"
+    }
+    PROMPT_COMMAND="screen_set_window_title; $PROMPT_COMMAND"
+  fi
+  export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+  export EDITOR=/usr/bin/vi
+  ```
+
+  Execute o arquivo .bashrc no contexto atual para aplicar as alterações:
+  ```
+  . ~/.bashrc
+  ```
+
+  Execute o seguinte comando em um terminal separado (somente para WSL):
+  ```
+  sudo /usr/local/bin/k3s server --write-kubeconfig-mode=644
+  ```
+
+</details>
+
+**<details><summary>Instalaçaõ do HELM</summary>**
+
+  O HELM é uma ferramenta que simplifica a instalação e o gerenciamento de aplicativos Kubernetes. Para instalá-lo, execute o seguinte código:
+
+  ```bash
+  curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+  chmod 700 get_helm.sh
+  ./get_helm.sh
+  ```
+
+  Depois de instalar o helm, crie o namespace _cert-manager_ e instale o _cert manager_; isso permitirá que os certificados https sejam gerenciados:
+  ```
+  helm repo add jetstack https://charts.jetstack.io
+  helm repo update
+  kubectl create namespace cert-manager
+  helm install \
+    cert-manager jetstack/cert-manager \
+    --namespace cert-manager \
+    --create-namespace \
+    --version v1.6.1 \
+    --set installCRDs=true
+  ```
 </details>
 
 <br/>
 
-# Installation
+# Instalação
 
-The easiest way to deploy the Pontus Vision platform is to run either a VM or bare-metal Ubuntu 20.04 OS, and follow the instructions below:
+  A maneira mais fácil de implantar a plataforma Pontus Vision é executando uma VM ou Ubuntu 20.04 SO _bare-metal_ e seguir as instruções abaixo:
 
-**<details><summary>Pontus Vision Solution installation</summary>**
+**<details><summary>Instalação da solução Pontus Vision</summary>**
 
-The helm chart used to configure the Pontus Vision platform exists in this repository. Clone this repository and use either the GDPR or LGPD Demo:
+  O _helm chart_ usado para configurar a plataforma Pontus Vision existe neste repositório. Clone este repositório e utilize a Demo GDPR ou LGPD:
 
-```bash
-git clone https://github.com/pontus-vision/pontus-vision.git
-cd pontus-vision/k3s
-```
+  ```bash
+  git clone https://github.com/pontus-vision/pontus-vision.git
+  cd pontus-vision/k3s
+  ```
 
-GDPR folder: `cd helm/pv-gdpr`
+## Arquivos Secret
 
-LGPD folder: `cd helm/pv-lgpd`
+  Esta demonstração usa _secrets_ do Kubernetes para armazenar várias senhas e credenciais confidenciais. Você precisará criar os seus próprios, mas para facilitar, criamos um arquivo `tar` com formatos de exemplo.
 
-## Secret Files
-This demo uses Kubernetes secrets to store various sensitive passwords and credentials. You'll need to create your own, but to get you started, we have created a tar file with sample formats located at root `~/pontus-vision`.
-
-You can download the file [here](/sample-secrets.tar.gz).
-
-To extract the secrets run:
-```
-sudo tar xzvf sample-secrets.tar.gz
-```
-<!--
+  Para baixar e extrair os _secrets_ de exemplo, execute o seguinte comando:
+  ```
+  ./download-sample-secrets.sh
+  ```
+  <!--
 That should produce a directory structure similar to this:
 ```
 secrets/
@@ -530,492 +535,529 @@ Here is a sample content:
 ```
 -->
 
-**Edit the secret Files structure**
+**Modifique a estrutura de arquivos da pasta */secrets***
 
-That should produce a directory structure similar to the one below. Secrets located inside the `env/` folder should not be modified, only add your secrets to the main folder `secrets/`.
+  Isso deve produzir uma estrutura de diretórios semelhante à abaixo. _secrets_ localizados dentro da pasta `env/` só devem ser modificados por usuários experientes; adicione seus outros _secrets_ à pasta `secrets/`.
 
-```
-k3s/secrets/
-├── CRM-api-key
-├── CRM-json
-├── ERP-api-key
-├── env
-│   ├── pontus-grafana
-│   │   └── GF_PATHS_CONFIG
-│   ├── pontus-graphdb
-│   │   ├── AWS_ACCESS_KEY_ID
-│   │   ├── AWS_SECRET_ACCESS_KEY
-│   │   └── ORIENTDB_ROOT_PASSWORD
-│   ├── pontus-postgrest
-│   │   ├── PGRST_DB_ANON_ROLE
-│   │   └── PGRST_DB_URI
-│   └── pontus-timescaledb
-│       ├── POSTGRES_PASSWORD
-│       └── POSTGRES_USER
-├── google-json
-└── microsoft-json
-```
+  ```
+  k3s/secrets/
+  ├── CRM-api-key
+  ├── CRM-json
+  ├── ERP-api-key
+  ├── env
+  │   ├── pontus-grafana
+  │   │   └── GF_PATHS_CONFIG
+  │   ├── pontus-graphdb
+  │   │   ├── AWS_ACCESS_KEY_ID
+  │   │   ├── AWS_SECRET_ACCESS_KEY
+  │   │   └── ORIENTDB_ROOT_PASSWORD
+  │   ├── pontus-postgrest
+  │   │   ├── PGRST_DB_ANON_ROLE
+  │   │   └── PGRST_DB_URI
+  │   └── pontus-timescaledb
+  │       ├── POSTGRES_PASSWORD
+  │       └── POSTGRES_USER
+  ├── google-json
+  └── microsoft-json
+  ```
 
 <details><summary>CRM-api-key</summary>
 
-This token is used to grant access to CRM's data. For more information on how to get this value, please contact DPO.
+  Este token é usado para conceder acesso aos dados do CRM. Para obter mais informações sobre como obter esse valor, entre em contato com o DPO.
 
-**Format**: one-line text.
+  **Formato**: texto de uma linha.
 
 </details>
 
 <details><summary>CRM-json</summary>
 
-This json contains CRM's user key. For more information on how to get this value, please contact DPO.
+  Este json contém a chave de usuário do CRM. Para obter mais informações sobre como obter esse valor, entre em contato com o DPO.
 
-**Json format:**
+  **Formato json:**
 
-```json
-{
-  "secrets": {
-    "crm": {
-      "User-Key": "**************************************************************"
+  ```json
+  {
+    "secrets": {
+      "crm": {
+        "User-Key": "**************************************************************"
+      }
     }
   }
-}
-```
+  ```
 
 </details>
 
 <details><summary>ERP-api-key</summary>
 
-This token is used to grant access to ERP's data. For more information on how to get this value, please contact IT.
+  Este token é usado para conceder acesso aos dados do ERP. Para obter mais informações sobre como obter esse valor, entre em contato com o seu departamento de TI.
 
-**Format**: one-line text.
+  **Formato**: texto de uma linha.
 
 </details>
 
 <details><summary>env/pontus-grafana/GF_PATHS_CONFIG</summary>
 
-**Description:**
+  **Descrição:**
 
-Path to the grafana configuration file.
+  Caminho para o arquivo de configuração do grafana.
 
-**Default:** 
-```
-/etc/grafana/grafana-pontus.ini
-```
+  **Valor Padrão:** 
+  ```
+  /etc/grafana/grafana-pontus.ini
+  ```
+
 </details>
 
 <details><summary>env/pontus-graphdb/ORIENTDB_ROOT_PASSWORD</summary>
 
-**Description:**
-	
-Master password file for orient db.
+  **Descrição:**
+    
+  Arquivo de senha mestra para o orientdb.
 
-**Default:**
-```
-admin
-```
+  **Valor Padrão:**
+  ```
+  admin
+  ```
+
 </details>
 
 <details><summary> env/pontus-postgrest/PGRST_DB_ANON_ROLE </summary>
 
-**Description:**
-	
-Role used to connect from postgrest to postgres (used to store time series data).
+  **Descrição:**
+    
+  Função (*role*) usada para conectar do postgrest ao postgres (usado para armazenar dados de séries temporais [*time series data*]).
 
-**Default:**
-```
-postgres
-```
+  **Valor Padrão:**
+  ```
+  postgres
+  ```
+
 </details>
 
 <details><summary> env/pontus-postgrest/PGRST_DB_URI</summary>
 
-**Description:**
-	
-URI used for Postgrest to talk to TimescaleDB. Make sure that the password matches env/pontus-timescaledb/POSTGRES_PASSWORD.
+  **Descrição:**
+    
+  URI usado para o Postgrest falar com o TimescaleDB. Certifique-se de que a senha corresponda a env/pontus-timescaledb/POSTGRES_PASSWORD.
 
-**Default:**
-```
-postgres://postgres:mysecretpassword@pontus-timescaledb:5432/dtm
-```
+  **Valor Padrão:**
+  ```
+  postgres://postgres:mysecretpassword@pontus-timescaledb:5432/dtm
+  ```
+
 </details>
 
 <details><summary> env/pontus-timescaledb/POSTGRES_PASSWORD</summary>
 
-**Description:**
-	
-TimescaleDB's admin password.
+  **Descrição:**
+    
+  Senha de administrador do TimescaleDB.
 
-**Default:**
-```
-mysecretpassword
-```
+  **Valor Padrão:**
+  ```
+  mysecretpassword
+  ```
+
 </details>
 
 <details><summary> env/pontus-timescaledb/POSTGRES_USER</summary>
 
-**Description:**
-	
-TimescaleDB's admin username.
+  **Descrição:**
+    
+  Nome de usuário do administrador do TimescaleDB.
 
-**Default:**
-```
-postgres
-```
+  **Valor Padrão:**
+  ```
+  postgres
+  ```
 
 </details>
 
 <details><summary>google-json</summary>
 
-This json has Google's secrets for connection. For more information on how to get those values, please contact IT.
+  Este json contém os _secrets_ do Google para conexão. Para obter mais informações sobre como obter esses valores, entre em contato com o seu departamento de TI.
 
-**Json format:**
+  **Formato json:**
 
-```json
-{
-  "secrets": {
-    "google": {
-      "X-SNY-API-AppKey": "xxxxxxxxxxxxx",
-      "X-SNY-API-AppToken": "yyyyyyyyyyyyyyyyyyyyyyyy"
+  ```json
+  {
+    "secrets": {
+      "google": {
+        "X-SNY-API-AppKey": "xxxxxxxxxxxxx",
+        "X-SNY-API-AppToken": "yyyyyyyyyyyyyyyyyyyyyyyy"
+      }
     }
   }
-}
-```
+  ```
 
 </details>
 
 <details><summary>microsoft-json</summary>
 
-This json holds credentials to access the company's Microsoft account and its stored data.
+  Este json contém credenciais para acessar a conta da Microsoft da empresa e seus dados armazenados.
 
-**Json format:**
+  **Formato json:**
 
-```json
-{
-  "clientId": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-  "clientSecret": "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
-  "tenantId": "zzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
-}
-```
+  ```json
+  {
+    "clientId": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "clientSecret": "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+    "tenantId": "zzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
+  }
+  ```
 
-Here's the instructions on how to get those credentials.
+  Aqui estão as instruções sobre como obter as credenciais do Azure.
 
-#### Azure API keys instructions:
+#### Chaves de API do Azure - Instruções (*Em inglês*):
 
-![alt text](/images-README/azure-1.jpg)
-![alt text](/images-README/azure-2.jpg)
-![alt text](/images-README/azure-3.jpg)
-![alt text](/images-README/azure-4.jpg)
-![alt text](/images-README/azure-5.jpg)
+<!-- add .pdf version -->
 
+  ![alt text](/images-README/azure-1.jpg)
+  ![alt text](/images-README/azure-2.jpg)
+  ![alt text](/images-README/azure-3.jpg)
+  ![alt text](/images-README/azure-4.jpg)
+  ![alt text](/images-README/azure-5.jpg)
 
 </details>
+
+</details>
+
+**<details><summary>Configurando os _helm values_</summary>**
+
+  Os arquivos _values_ `pontus-vision/k3s/helm/values-gdpr.yaml` e `pontus-vision/k3s/helm/values-lgpd.yaml` têm detalhes de configuração que variam de ambiente para ambiente. Aqui está um exemplo:
+
+  ```yaml
+  # Valores padrão para pv/.
+  # Este é um arquivo formatado em YAML.
+
+  pvvals:
+    imageVers:
+      graphdb: "pontusvisiongdpr/pontus-track-graphdb-odb-pt:1.15.1"
+      grafana: "pontusvisiongdpr/grafana:1.13.2"
+    storagePath: "<adicione o path aqui>" # certifique-se de passar o caminho exato [seção Criar armazenamento de volumes persistentes (*persistent volumes*)]
+    hostname: "<adicione o hostname aqui>"
+    # para obter a chave pública do keycloak <keycloakPubKey>, faça um HTTP GET para a seguinte URL: https://<hostname>/auth/realms/pontus
+    keycloakPubKey: "******************************************"
+  ```
+
+## `cd pv/templates` para configurar os **cronjobs**.
+
+  <!--
+  TODO templates cronjob documentation
+  -->
+
+<br/>
+
+</details>
+
+**<details><summary>Criar armazenamento de volumes persistentes (*persistent volumes*)</summary>**
+
+  Esta etapa é importante para garantir que os dados do k3s sejam mantidos usando **volumes persistentes**. Para fazer isso, crie uma estrutura de diretórios semelhante à seguinte:
+
+  ```
+  ~/storage
+  ├── db
+  ├── extract
+  │   ├── CRM
+  │   ├── ERP
+  │   ├── email
+  │   ├── google
+  │   │   ├── meetings
+  │   │   ├── policies
+  │   │   ├── privacy-docs
+  │   │   ├── privacy-notice
+  │   │   ├── risk
+  │   │   ├── risk-mitigations
+  │   │   └── treinamentos
+  │   └── microsoft
+  │       ├── data-breaches
+  │       ├── dsar
+  │       ├── fontes-de-dados
+  │       ├── legal-actions
+  │       └── mapeamentos
+  ├── grafana
+  ├── keycloak
+  └── timescaledb
+  ```
+
+  Certifique-se de que o valor da chave `storagePath` em `pontus-vision/k3s/helm/values-gdpr.yaml` e `pontus-vision/k3s/helm/values-lgpd.yaml` é a raiz da estrutura de diretórios acima.
+  	
+  Aqui está um conjunto de comandos que podem criar essa estrutura se o valor de `.Values.pvvals.storagePath` for definido como `~/storage`:
+    
+  ```bash
+  mkdir ~/storage
+  cd ~/storage
+  mkdir -p extract/email \
+      extract/CRM \
+      extract/ERP \
+      extract/microsoft/data-breaches \
+      extract/microsoft/dsar \
+      extract/microsoft/fontes-de-dados \
+      extract/microsoft/legal-actions \
+      extract/microsoft/mapeamentos \
+      extract/google/meetings \
+      extract/google/policies \
+      extract/google/privacy-docs \
+      extract/google/privacy-notice \
+      extract/google/risk \
+      extract/google/risk-mitigations \
+      extract/google/treinamentos \
+    db \
+    grafana \
+    keycloak \
+    timescaledb
+  ```	
 
 </details>
 
 <br/>
 
-**<details><summary>Configure the helm values</summary>**
+Somente quando configurados os passos anteriores, volte para a pasta `pontus-vision/k3s` para rodar a Demo.
 
-The values files `pontus-vision/k3s/helm/values-prod.yaml` and `pontus-vision/k3s/helm/values-test.yaml` have configuration details that vary from environment to environment. Here's an example:
+Execute o seguinte para iniciar a demonstração do GDPR:
 
-```yaml
-# Default values for pv-lgpd.
-# This is a YAML-formatted file.
-
-pvvals:
-  imageVers:
-    graphdb: 1.15.1
-  storagePath: "~/storage" # make sure to pass the exact path (Create persistent volumes storage section)
-  hostname: "<hostname>"
-  ErpUrlPrefix: "https://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-  # to get the keycloak public key, do an HTTP GET to the following URL: https://<hostname>/auth/realms/pontus
-  keycloakPubKey: "******************************************"
-
-  # Declare variables to be passed into your templates. Then you can use them on templates/ files with the handlebars syntax, e.g. {{ .Values.pvvals.storagePath }}
-
-```
-</details>
-
-**<details><summary>Create persistent volumes storage</summary>**
-
-This step is important to ensure k3s data is kept by using **persistent volumes**. To do so, please create a directory structure similar to the following:
-
-```
-~/storage
-├── db
-├── extract
-│   ├── CRM
-│   ├── ERP
-│   ├── email
-│   ├── google
-│   │   ├── meetings
-│   │   ├── policies
-│   │   ├── privacy-docs
-│   │   ├── privacy-notice
-│   │   ├── risk
-│   │   ├── risk-mitigations
-│   │   └── treinamentos
-│   └── microsoft
-│       ├── data-breaches
-│       ├── dsar
-│       ├── fontes-de-dados
-│       ├── legal-actions
-│       └── mapeamentos
-├── grafana
-├── keycloak
-└── timescaledb
-```
-
-Make sure that the value for the `storagePath` key @ `pontus-vision/k3s/helm/values-prod.yaml` and `pontus-vision/k3s/helm/values-test.yaml` is the root of the directory structure above.	
-Here is a set of commands that can create this structure if the value of `storagePath` is set to `~/storage`:
-	
 ```bash
-mkdir ~/storage
-cd ~/storage
-mkdir -p extract/email \
-	  extract/CRM \
-	  extract/ERP \
-  	extract/microsoft/data-breaches \
-  	extract/microsoft/dsar \
-  	extract/microsoft/fontes-de-dados \
-  	extract/microsoft/legal-actions \
-  	extract/microsoft/mapeamentos \
-  	extract/google/meetings \
-  	extract/google/policies \
-  	extract/google/privacy-docs \
-  	extract/google/privacy-notice \
-  	extract/google/risk \
-  	extract/google/risk-mitigations \
-  	extract/google/treinamentos \
-	db \
-	grafana \
-	keycloak \
-	timesca
+./start-env-gdpr.sh
+# Observação: O comando acima pode falhar na primeira vez, pois o k3s estará baixando imagens grandes e pode atingir o tempo limite.
+```
 
+Ou... Execute o seguinte para iniciar a demonstração da LGPD:
+
+```bash
+./start-env-lgpd.sh
+# Observação: O comando acima pode falhar na primeira vez, pois o k3s estará baixando imagens grandes e pode atingir o tempo limite.
+```
+
+<br/>
+
+# Gerenciamento
+
+**Acessando o Grafana (Dashboard Pontus Vision)**
+
+  1. Aponte um navegador para [https://localhost/pv](https://localhost/pv)
+  2. Use o nome de usuário `lmartins@pontusnetworks.com` e a senha padrão `pa55word`
+
+<br/>
+
+## Iniciar
+
+**<details><summary>Iniciar todos os pods do ambiente</summary>**
+
+  Execute o script start-env-xxx.sh:
+
+  ```bash
+  ./start-env-gdpr.sh # GDPR Demo
+  ```
+
+  ou
+
+  ```bash
+  ./start-env-lgpd.sh # LGPD Demo
+  ```
+
+</details>
+
+**<details><summary>Iniciar o GraphDB</summary>**
+
+  Execute o script start-graph-xxx.sh:
+
+  ```bash
+  ./start-graph-gdpr.sh # GDPR Demo
+  ```
+
+  ou
+
+  ```bash 
+  ./start-graph-lgpd.sh # LGPD Demo
+  ```
 
 </details>
 
 <br/>
 
-# Management
+## Atualizações
 
+  <!-- ### PV cronjob container's Versions
 
-**Accessing Grafana (Pontus Vision Dashboard)**
+  Make sure to always have the `:latest` container cronjob running, copy the below to `crontab -e`:
 
-1. point a browser to [http://localhost/pv](http://localhost/pv)
-2. Use the user name `lmartins@pontusnetworks.com` and the default password `pa55word`
-
-## Start
-
-**<details><summary>Start whole environment</summary>**
-
-Run the start-env-xxx.sh script:
-
-```
-./start-env-prod.sh
-```
-or 
-```
-./start-env-test.sh
-```
-</details>
-
-**<details><summary>Start GraphDB</summary>**
-
-Run the start-graph-xxx.sh script:
-
-```
-./start-graph-prod.sh
-```
-or
-
-```
-./start-graph-test.sh
-```
-
-</details>
-
-<br/>
-
-## Updates
-
-<!-- ### PV cronjob container's Versions
-
-Make sure to always have the `:latest` container cronjob running, copy the below to `crontab -e`:
-
-```
-00 00 * * * git pull
-00 01 * * * env -i helm tamplate
-```  
--->
+  ```
+  00 00 * * * git pull
+  00 01 * * * env -i helm tamplate
+  ```  
+  -->
 
 **<details><summary>Pontus Vision imageVers</summary>**
 
-Pontus Vision is constantly upgrading and updating its container images to keep up with the latest tech and security patches. To change versions simply change the `imageVers` value @ `pontus-vision/k3s/helm/values-prod.yaml` and `pontus-vision/k3s/helm/values-test.yaml` then restart k3s env (look bellow @ **Restart k3s env** section).
+  A Pontus Vision está constantemente melhorando e atualizando suas imagens de contêiner para acompanhar as últimas atualizações de tecnologia e segurança. Para alterar as versões, basta alterar o valor `pvvals.imageVers` em `pontus-vision/k3s/helm/values-gdpr.yaml` e `pontus-vision/k3s/helm/values-lgpd.yaml` e reiniciar o k3s env (veja abaixo a seção **Reiniciar o ambiente k3s**).
 
-**Json File**:
+  **Arquivo json**:
 
-```yaml
-pvvals:
-  imageVers:
-    graphdb: 1.15.1 #
-    grafana: 1.13.2 #
-    # container: M.m.p
-    # etc.
-  storagePath: "~/storage" # make sure to pass the exact path (Create persistent volumes storage section)
-  hostname: "<hostname>"
-  ErpUrlPrefix: "https://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-  # to get the keycloak public key, do an HTTP GET to the following URL: https1://<hostname>/auth/realms/pontus
-  keycloakPubKey: "******************************************"
-
-  # Declare variables to be passed into your templates. Then you can use them on templates/ files with the handlebars syntax, e.g. {{ .Values.pvvals.storagePath }}
-```
+  ```yaml
+  pvvals:
+    imageVers:
+      graphdb: "pontusvisiongdpr/pontus-track-graphdb-odb-pt:1.15.1"
+      grafana: "pontusvisiongdpr/grafana:1.13.2"
+      # container: M.m.p
+      # etc.
+    storagePath: "<adicione o path aqui>" # certifique-se de passar o caminho exato [seção Criar armazenamento de volumes persistentes (*persistent volumes*)]
+    hostname: "<adicione o hostname aqui>"
+    ErpUrlPrefix: "https://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    # para obter a chave pública do keycloak <keycloakPubKey>, faça um HTTP GET para a seguinte URL: https://<hostname>/auth/realms/pontus
+    keycloakPubKey: "******************************************"  
+  ```
 
 </details>
 
 **<details><summary>Secrets</summary>**
 
-To update any secrets or credentials, go to the `pontus-vision/k3s/secrets` folder, update the relevant files, and run  `./start-env-prod.sh` to update the secrets's values.
+  Para atualizar quaisquer _secrets_ ou credenciais, vá para a pasta `pontus-vision/k3s/secrets`, atualize os arquivos relevantes e reinicie o k3s env (veja abaixo na seção **Reiniciar o ambiente k3s**) para atualizar os valores dos _secrets_.
 
 </details>
 
-**<details><summary>Restart k3s env</summary>**
+**<details><summary>Reiniciar o ambiente k3s</summary>** 
 
-#### Shutting down
+#### Encerrando o k3s
 
-To stop the whole environment, run the following command: 
-```
-./stop-env.sh 
-```
+  Para parar todo o ambiente, execute o seguinte comando:
+  ```
+  ./stop-env.sh 
+  ```
 
-#### Starting up
+#### Inicialização do k3s
 
-To start the whole environment, run the following command:
+  Para iniciar todo o ambiente, execute o seguinte comando:
 
-```
-./start-env-prod.sh
-```
+  Para a Demo GDPR:
+  ```
+  ./start-env-gdpr.sh
+  ```
+
+  Para a Demo LGPD:
+  ```
+  ./start-env-lgpd.sh
+  ```
 
 </details>
 
 <br/>
 
-## Monitoring/Troubleshooting
+## Monitoramento / Solução de Problemas
 
-**<details><summary>Listing k3s pods</summary>**
+**<details><summary>Listando os pods do k3s</summary>**
 
-To do so type `$ kubectl get pods` then a tab table alike is displayed:
+  Para fazer isso, digite `$ kubectl get pods` e uma tabela de guias semelhante será exibida:
 
-
-```
-NAME                                                       READY   STATUS              RESTARTS   AGE  
-svclb-pontus-grafana-t9m6w                                 1/1     Running             0          91m  
-svclb-pontus-lgpd-2jx9g                                    1/1     Running             0          91m  
-pontus-lgpd                                                1/1     Running             0          91m  
-pontus-grafana                                             1/1     Running             0          91m  
-pontus-comply-keycloak                                     1/1     Running             0          91m  
-pv-extract-tika-server                                     1/1     Running             0          91m  
-pontus-timescaledb                                         1/1     Running             0          91m  
-pontus-postgrest                                           1/1     Running             0          91m  
-spacyapi                                                   1/1     Running             0          91m  
-graphdb-nifi                                               1/1     Running             0          91m  
-pv-extract-kpi-27382396--1-9ftkf                           0/1     Completed           0          6m42s
-pv-extract-microsoft-dsar-27382401--1-drgw5                0/1     ContainerCreating   0          115s 
-pv-extract-microsoft-data-breaches-27382399--1-nr9nr       0/1     Completed           0          3m49s
-pv-extract-google-risk-27382399--1-mvbst                   0/1     Completed           0          3m23s
-pv-extract-crm-27382399--1-49r4x                           0/1     Completed           0          3m18s    
-pv-extract-google-risk-27382401--1-hndt9                   0/1     ContainerCreating   0          73s  
-pv-extract-microsoft-fontes-de-dados-27382399--1-drmnh     0/1     Completed           0          3m7s 
-pv-extract-microsoft-mapeamentos-27382402--1-rt6wq         0/1     ContainerCreating   0          38s  
-pv-extract-erp-27382400--1-j6zp9                           0/1     Completed           0          2m44s
-pv-extract-kpi-27382400--1-2hcl8                           1/1     Running             0          2m36s
-pv-extract-google-risk-mitigations-27382400--1-nmfcc       0/1     Completed           0          2m35s
-pv-extract-google-treinamentos-27382400--1-gr6gk           0/1     Completed           0          2m29s
-pv-extract-google-policies-27382402--1-9j4tg               0/1     ContainerCreating   0          12s  
-```
+  ```
+  NAME                                                       READY   STATUS              RESTARTS   AGE  
+  svclb-pontus-grafana-t9m6w                                 1/1     Running             0          91m  
+  svclb-pontus-lgpd-2jx9g                                    1/1     Running             0          91m  
+  pontus-lgpd                                                1/1     Running             0          91m  
+  pontus-grafana                                             1/1     Running             0          91m  
+  pontus-comply-keycloak                                     1/1     Running             0          91m  
+  pv-extract-tika-server                                     1/1     Running             0          91m  
+  pontus-timescaledb                                         1/1     Running             0          91m  
+  pontus-postgrest                                           1/1     Running             0          91m  
+  spacyapi                                                   1/1     Running             0          91m  
+  graphdb-nifi                                               1/1     Running             0          91m  
+  pv-extract-kpi-27382396--1-9ftkf                           0/1     Completed           0          6m42s
+  pv-extract-microsoft-dsar-27382401--1-drgw5                0/1     ContainerCreating   0          115s 
+  pv-extract-microsoft-data-breaches-27382399--1-nr9nr       0/1     Completed           0          3m49s
+  pv-extract-google-risk-27382399--1-mvbst                   0/1     Completed           0          3m23s
+  pv-extract-crm-27382399--1-49r4x                           0/1     Completed           0          3m18s    
+  pv-extract-google-risk-27382401--1-hndt9                   0/1     ContainerCreating   0          73s  
+  pv-extract-microsoft-fontes-de-dados-27382399--1-drmnh     0/1     Completed           0          3m7s 
+  pv-extract-microsoft-mapeamentos-27382402--1-rt6wq         0/1     ContainerCreating   0          38s  
+  pv-extract-erp-27382400--1-j6zp9                           0/1     Completed           0          2m44s
+  pv-extract-kpi-27382400--1-2hcl8                           1/1     Running             0          2m36s
+  pv-extract-google-risk-mitigations-27382400--1-nmfcc       0/1     Completed           0          2m35s
+  pv-extract-google-treinamentos-27382400--1-gr6gk           0/1     Completed           0          2m29s
+  pv-extract-google-policies-27382402--1-9j4tg               0/1     ContainerCreating   0          12s  
+  ```
 
 </details>
 
-**<details><summary>k3s logs</summary>**
+**<details><summary>logs do k3s</summary>**
 
-To get a specific pod's log run:
+  Para obter o log de um pod específico, execute:
 
-```
-kubectl logs [-f] <NAME> [--tail]
-```
+  ```
+  kubectl logs [-f] <NAME> [--tail]
+  ```
 
-To follow the logging, toggle flag `-f`. And to show the most recent logs use the flag `--tail` passing the number. For example:
+  Para acompanhar o log, use a *flag* `-f`. E para mostrar os logs mais recentes use a *flag* `--tail` passando um número. Por exemplo:
 
-```
-$ kubectl logs graphdb-nifi --tail=10
+  ```
+  $ kubectl logs graphdb-nifi --tail=10
 
-failed to find translation conf/i18n_pt_translation.json: Data Procedures Per Data Source
-failed to find translation conf/i18n_pt_translation.json: RH03 (colaboradora Andreza) e RH04 (colaboradora Paula)
-failed to find translation conf/i18n_pt_translation.json: Data Procedures Per Data Source
-failed to find translation conf/i18n_pt_translation.json: (Local?)
-failed to find translation conf/i18n_pt_translation.json: Data Procedures Per Data Source
-failed to find translation conf/i18n_pt_translation.json: (verificar qual caminho)
-failed to find translation conf/i18n_pt_translation.json: Data Procedures Per Data Source
-NLP searching for matches for 12 names, 0 cpfs, 0 emails in file null
-NLP found 0 graph person matches on cust id or name from file null
-Failed to find any NLP events for file null
-```
+  failed to find translation conf/i18n_pt_translation.json: Data Procedures Per Data Source
+  failed to find translation conf/i18n_pt_translation.json: RH03 (colaboradora Andreza) e RH04 (colaboradora Paula)
+  failed to find translation conf/i18n_pt_translation.json: Data Procedures Per Data Source
+  failed to find translation conf/i18n_pt_translation.json: (Local?)
+  failed to find translation conf/i18n_pt_translation.json: Data Procedures Per Data Source
+  failed to find translation conf/i18n_pt_translation.json: (verificar qual caminho)
+  failed to find translation conf/i18n_pt_translation.json: Data Procedures Per Data Source
+  NLP searching for matches for 12 names, 0 cpfs, 0 emails in file null
+  NLP found 0 graph person matches on cust id or name from file null
+  Failed to find any NLP events for file null
+  ```
 
 </details>
 
 **<details><summary>kubectl taint</summary>**
 
-**Taints** allow a node to repel a set of pods, but this can prevent some pods from running. For more information click this [link](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/)
+ **Taints** permitem um nó repelir um conjunto de pods, mas isso pode impedir que alguns pods sejam executados. Para mais informações clique neste [link](https://kubernetes.io/pt-br/docs/concepts/scheduling-eviction/taint-and-toleration/).
 
-If you get an **ERROR** like the one marked in the image, when running `$ kubectl describe pods <pod name>` : 
+  Se você receber um **ERRO** como o marcado na imagem, ao executar `$ kubectl describe pods <pod name>`:
 
-![alt text](/images-README/k3s-taint-1.png)
+  ![alt text](/images-README/k3s-taint-1.png)
 
-OR, when running `$ kubectl describe nodes <node name>` the **Taints** section is different than `<none>`:
+  OU, ao executar `$ kubectl describe nodes <node name>` a seção **Taints** é diferente de `<none>`:
 
-![alt text](/images-README/k3s-taint-2.png)
+  ![alt text](/images-README/k3s-taint-2.png)
 
-Then copy the Taints that were shown for the specific node and run the following command to **untain** each one of them:
+  Então, copie os Taints que foram mostrados para o nó específico e execute o seguinte comando para **untain** cada um deles:
 
-```
-kubectl taint nodes <node name> [Taint]-
-```
+  ```
+  kubectl taint nodes <node name> [Taint]-
+  ```
 
-For example:
+  Por exemplo:
 
-![alt text](/images-README/k3s-taint-3.png)
+  ![alt text](/images-README/k3s-taint-3.png)
 
 </details>
 
 **<details><summary>$ top</summary>**
 
-To display Linux processes use the command `top`. Then press number `1` to toggle the CPU's cores, something alike will show:
+  Para exibir os processos do Linux use o comando `top`. Em seguida, pressione o número `1` para ativar a visão de cada núcleo da CPU, algo parecido irá aparecer:
 
-```
-$ top (then press 1)
+  ```
+  $ top (then press 1)
 
-top - 20:55:32 up 6 days,  2:55,  9 users,  load average: 21.22, 18.36, 17.10     
-Tasks: 582 total,   2 running, 580 sleeping,   0 stopped,   0 zombie              
-%Cpu0  : 90.3 us,  9.4 sy,  0.0 ni,  0.0 id,  0.0 wa,  0.0 hi,  0.3 si,  0.0 st   
-%Cpu1  : 91.6 us,  7.8 sy,  0.0 ni,  0.0 id,  0.0 wa,  0.0 hi,  0.6 si,  0.0 st   
-%Cpu2  : 86.6 us, 12.4 sy,  0.0 ni,  0.3 id,  0.7 wa,  0.0 hi,  0.0 si,  0.0 st   
-%Cpu3  : 93.2 us,  6.1 sy,  0.0 ni,  0.0 id,  0.6 wa,  0.0 hi,  0.0 si,  0.0 st   
-MiB Mem :  28373.9 total,   1409.1 free,  12102.7 used,  14862.0 buff/cache       
-MiB Swap:   2048.0 total,   2045.9 free,      2.1 used.  15652.1 avail Mem        
-                                                                                  
-    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND    
-2303232 cbrandao  20   0  155568  94308   9132 R 200.7   0.3   0:22.38 tesseract  
-1818371 root      20   0 4230816   1.8g 816244 S 105.3   6.3   3244:11 containerd 
-1573465 cbrandao  20   0   30.0g   4.3g  23804 S  38.5  15.4 426:41.78 java       
-1818293 root      20   0 2111024   1.0g 108884 S  30.3   3.8   2609:02 k3s-server 
-2303370 cbrandao  20   0  904248  64648  31440 S   4.3   0.2   0:01.43 node       
-```
+  top - 20:55:32 up 6 days,  2:55,  9 users,  load average: 21.22, 18.36, 17.10     
+  Tasks: 582 total,   2 running, 580 sleeping,   0 stopped,   0 zombie              
+  %Cpu0  : 90.3 us,  9.4 sy,  0.0 ni,  0.0 id,  0.0 wa,  0.0 hi,  0.3 si,  0.0 st   
+  %Cpu1  : 91.6 us,  7.8 sy,  0.0 ni,  0.0 id,  0.0 wa,  0.0 hi,  0.6 si,  0.0 st   
+  %Cpu2  : 86.6 us, 12.4 sy,  0.0 ni,  0.3 id,  0.7 wa,  0.0 hi,  0.0 si,  0.0 st   
+  %Cpu3  : 93.2 us,  6.1 sy,  0.0 ni,  0.0 id,  0.6 wa,  0.0 hi,  0.0 si,  0.0 st   
+  MiB Mem :  28373.9 total,   1409.1 free,  12102.7 used,  14862.0 buff/cache       
+  MiB Swap:   2048.0 total,   2045.9 free,      2.1 used.  15652.1 avail Mem        
+                                                                                    
+      PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND    
+  2303232 cbrandao  20   0  155568  94308   9132 R 200.7   0.3   0:22.38 tesseract  
+  1818371 root      20   0 4230816   1.8g 816244 S 105.3   6.3   3244:11 containerd 
+  1573465 cbrandao  20   0   30.0g   4.3g  23804 S  38.5  15.4 426:41.78 java       
+  1818293 root      20   0 2111024   1.0g 108884 S  30.3   3.8   2609:02 k3s-server 
+  2303370 cbrandao  20   0  904248  64648  31440 S   4.3   0.2   0:01.43 node       
+  ```
 
-<!-- **us** - Time spent in user space
-**sy** - Time spent in kernel space
-**ni** - Time spent running niced user processes (User defined priority)
-**id** - Time spent in idle operations -->
-Pay special attention to `wa` (Time spent on waiting I/O), the lower the better!
-<!-- **hi** - Time spent handling hardware interrupt routines. (Whenever a peripheral unit want attention form the CPU, it literally pulls a line, to signal the CPU to service it)
+  <!-- **us** - Time spent in user space
+  **sy** - Time spent in kernel space
+  **ni** - Time spent running niced user processes (User defined priority)
+  **id** - Time spent in idle operations -->
+  Preste atenção no `wa` (Tempo gasto na espera de I/O), quanto menor, melhor!
+  <!-- **hi** - Time spent handling hardware interrupt routines. (Whenever a peripheral unit want attention form the CPU, it literally pulls a line, to signal the CPU to service it)
 **si** - Time spent handling software interrupt routines. (a piece of code, calls an interrupt routine...)
 **st** - Time spent on involuntary waits by virtual cpu while hypervisor is servicing another processor (stolen from a virtual machine) -->
 
@@ -1023,140 +1065,140 @@ Pay special attention to `wa` (Time spent on waiting I/O), the lower the better!
 
 <br/>
 
-## User creation
+## Criação de Usuários
 
 **<details><summary>Keycloak</summary>**
 
-Keycloak is an open source software product used with Pontus Vision solutions to allow single sign-on with Identity and Access Management. 
+  O Keycloak é um software *open source* usado com as soluções Pontus Vision para permitir logon único, permitindo gerenciamento de identidade e acesso.
 
-To be able to add/update/change users on Keycloak, one needs to login as a **Super User**. To do so, go to the following link => [https://$HOSTNAME/auth/](https://$HOSTNAME/auth/) and authenticate with admin default credential **username:admin/password:admin**.
+  Para poder adicionar/atualizar/alterar usuários no Keycloak, é necessário fazer login como **Superusuário**. Para fazer isso, acesse o link a seguir => [https://\<adicione-o-hostname-aqui\>/auth/](https://$\<adicione-o-hostname-aqui\>/auth/) e autentique-se com a credencial padrão do administrador **nome de usuário: admin / senha: admin**.
 
-Here's some screenshots steps on how to create a new user:
+  Aqui estão algumas capturas de tela das etapas de como criar um novo usuário:
 
-![alt text](/images-README/keycloak-a.png)
+  ![alt text](/images-README/keycloak-a.png)
 
-> When you access the link for the first time, the browser will warn that the connection isn't private, just ignore it and click on **Advanced**.
+  > Ao acessar o link pela primeira vez, o navegador avisará que a conexão não é privada, basta ignorar e clicar em **Advanced**.
 
-![alt text](/images-README/keycloak-b.png)
+  ![alt text](/images-README/keycloak-b.png)
 
-> Then click on **Proceed(Continue) to $HOSTNAME**.
+  > Depois clique em **Proceed(Continue) to \<hostname\>**.
 
-![alt text](/images-README/keycloak-1.png)
+  ![alt text](/images-README/keycloak-1.png)
 
-> This is Keycloak's home page. Click on **Administration Console**.
+  > Esta é a página inicial do Keycloak. Clique em **Administration Console**.
 
-![alt text](/images-README/keycloak-2.png)
+  ![alt text](/images-README/keycloak-2.png)
 
-> Enter the default credentials and click **Sign in**.
+  > Insira as credenciais padrão e clique em **Sign in**.
 
-![alt text](/images-README/keycloak-c.png)
+  ![alt text](/images-README/keycloak-c.png)
 
-> At the main panel, locate **Users** under **Manage** on the left menu.
+  > No painel principal, localize **Users** em **Manage** no menu à esquerda.
 
-![alt text](/images-README/keycloak-3.png)
+  ![alt text](/images-README/keycloak-3.png)
 
-> On the far right, click **Add user**.
+  > Na parte direita, clique em **Add user**.
 
-![alt text](/images-README/keycloak-5.png)
+  ![alt text](/images-README/keycloak-5.png)
 
-> Fill in the fields (the mandatory at least) \**ID is auto incremented*. You can also add **User actions**.
+  > Preencha os campos (ao menos os campos obrigatórios) \**ID é incrementado automaticamente*. Você também pode adicionar **User actions**.
 
-![alt text](/images-README/keycloak-6.png)
+  ![alt text](/images-README/keycloak-6.png)
 
-> Finally, click on **Save**.
+  > Por fim, clique em **Save**.
 
 </details>
 
 **<details><summary>Grafana</summary>**
 
-Grafana is a multi-platform open source analytics and interactive visualization web application. Connected with Pontus Vision's product, provides charts, graphs, and alerts on the web.
+  O Grafana é um aplicativo *open source* web multiplataforma de análise e visualização interativa. Conectado aos produtos da Pontus Vision, fornece tabelas, gráficos e alertas na web.
 
-The same **Super User** privilege is needed here ...go to the main login page [https://$HOSTNAME/pv](https://$HOSTNAME/pv) and enter the admin credentials sent by your administrator.
+  O mesmo privilégio de **Superusuário** é necessário aqui... vá para a página de login principal [https://\<adicione-o-hostname-aqui\>/pv](https://\<adicione-o-hostname-aqui\>/pv) e insira as credenciais admin enviadas por seu administrador.
 
-Here's some screenshots steps on how to create a new user:
+  Aqui estão algumas capturas de tela das etapas de como criar um novo usuário:
 
-![alt text](/images-README/keycloak-a.png)
+  ![alt text](/images-README/keycloak-a.png)
 
-> When you access the link for the first time, the browser will warn that the connection isn't private, just ignore it and click on **Advanced**.
+  > Ao acessar o link pela primeira vez, o navegador avisará que a conexão não é privada, basta ignorar e clicar em **Advanced**.
 
-![alt text](/images-README/keycloak-b.png)
+  ![alt text](/images-README/keycloak-b.png)
 
-> Then click on **Proceed(Continue) to $HOSTNAME**.
+  > Depois clique em **Proceed(Continue) to \<hostname\>**.
 
-![alt text](/images-README/grafana-1.png)
+  ![alt text](/images-README/grafana-1.png)
 
-> Enter the admin credentials then click **Sign in**.
+  > Insira as credenciais padrão e clique em **Sign in**.
 
-![alt text](/images-README/grafana-2.png)
+  ![alt text](/images-README/grafana-2.png)
 
-> Grafana's main page is as shown. Locate the **Shield** icon (Server Admin), under it, click on **Users**.
+  > Esta é a página principal do Grafana. Localize o ícone **Escudo** (Server Admin), dentro dele, clique em **Users**.
 
-![alt text](/images-README/grafana-3.png)
+  ![alt text](/images-README/grafana-3.png)
 
-> A table containing all registered Uers wil appear. On the upper right corner, click on the blue **New user** button.
+  > Aparecerá uma tabela contendo todos os usuários cadastrados. No canto superior direito, clique no botão azul **New user**.
 
-![alt text](/images-README/grafana-4.png)
+  ![alt text](/images-README/grafana-4.png)
 
-> Fill in the fields (mandatory at least), then click the blue **Create user** button.
+  > Preencha os campos (ao menos os campos obrigatórios), depois clique no botão azul **Create user**.
 
-![alt text](/images-README/grafana-5.png)
+  ![alt text](/images-README/grafana-5.png)
 
-> By clicking on the newly created user you can edit its Information, Permissions, Organisations it belongs and open Sessions.
+  > Ao clicar no usuário recém-criado você pode editar suas Informações, Permissões, Organizações a que pertence e abrir Sessões.
 
-![alt text](/images-README/grafana-6.png)
+  ![alt text](/images-README/grafana-6.png)
 
-> To change a User's role in an Organisation, click on **Change role** *(Under Organisations)*, choose the role from the drop-down menu, then click **Save**.
+  > Para alterar a função de um usuário em uma organização, clique em **Change role** (Em *Organisations*), escolha a função no menu suspenso e clique em **Save**.
 
 </details>
 
 <br/>
 
-## password reset
+## Redefinição de senha
 
-**<details><summary>Instructions</summary>**
+**<details><summary>Instruções</summary>**
 
-To reset a user's password, one only needs to change it using Keycloak single sign-on and access management. Go to the following link => [https://$HOSTNAME/auth/](https://$HOSTNAME/auth/) and authenticate with admin default credential **username:admin/password:admin**.
+  Para redefinir a senha de um usuário, basta alterá-la usando o logon único e o gerenciamento de acesso do Keycloak. Vá para o seguinte link => [https://\<adicione-o-hostname-aqui\>/auth/](https://\<adicione-o-hostname-aqui\>/auth/) e autentique-se com a credencial padrão do administrador **nome de usuário : admin / senha: admin**.
 
-Here's some screenshots steps on how to reset a user's password:
+  Aqui estão algumas capturas de tela das etapas de como redefinir a senha de um usuário:
 
-![alt text](/images-README/keycloak-a.png)
+  ![alt text](/images-README/keycloak-a.png)
 
-> When you access the link for the first time, the browser will warn that the connection isn't private, just ignore it and click on **Advanced**.
+  > Ao acessar o link pela primeira vez, o navegador avisará que a conexão não é privada, basta ignorar e clicar em **Advanced**.
 
-![alt text](/images-README/keycloak-b.png)
+  ![alt text](/images-README/keycloak-b.png)
 
-> Then click on **Proceed(Continue) to $HOSTNAME**.
+  > Depois clique em **Proceed(Continue) to \<hostname\>**.
 
-![alt text](/images-README/keycloak-1.png)
+  ![alt text](/images-README/keycloak-1.png)
 
-> This is Keycloak's home page. Click on **Administration Console**.
+  > Esta é a página inicial do Keycloak. Clique em **Administration Console**.
 
-![alt text](/images-README/keycloak-2.png)
+  ![alt text](/images-README/keycloak-2.png)
 
-> Enter the default credentials and click **Sign in**.
+  > Insira as credenciais padrão e clique em **Sign in**.
 
-![alt text](/images-README/keycloak-c.png)
+  ![alt text](/images-README/keycloak-c.png)
 
-> At the main panel, locate **Users** under **Manage** on the left menu.
+  > No painel principal, localize **Users** em **Manage** no menu à esquerda.
 
-![alt text](/images-README/keycloak-4.png)
+  ![alt text](/images-README/keycloak-4.png)
 
-> Click on **View all users** next to the search bar. Then a table containing all registered users will show. On the **Actions** column click on **Edit**.
+  > Clique em **View all users** ao lado da barra de pesquisa. Em seguida, uma tabela contendo todos os usuários registrados será exibida. Na coluna **Actions**, clique em **Edit**.
 
-![alt text](/images-README/pass-reset-1.png)
+  ![alt text](/images-README/pass-reset-1.png)
 
-> Change the upper tab to **Credentials**. Then under **Reset Password** type the new password.
+  > Altere a guia **Credentials**, na parte superior. Em seguida, em **Reset Password**, digite a nova senha.
 
-![alt text](/images-README/pass-reset-2.png)
+  ![alt text](/images-README/pass-reset-2.png)
 
-> You can toggle the **Temporary** button, to force the user to change the password once he logs in for the first time.
+  > Você pode ativar o botão **Temporary**, para forçar o usuário a alterar a senha assim que fizer login pela primeira vez.
 
-![alt text](/images-README/pass-reset-3.png)
+  ![alt text](/images-README/pass-reset-3.png)
 
-> Then click the **Reset Password** button. A popup will show to confirm the change. Click the red **Reset password** button.
+  > Em seguida, clique no botão **Reset Password**. Um pop-up será exibido para confirmar a alteração. Clique no botão vermelho **Reset password**.
 
-![alt text](/images-README/pass-reset-4.png)
+  ![alt text](/images-README/pass-reset-4.png)
 
-> After loading, the page will reload and a green popup will appear with the message **Success**.
+  > Então a página será recarregada e um popup verde aparecerá com a mensagem **Success**.
 
 </details>
