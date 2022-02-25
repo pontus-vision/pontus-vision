@@ -811,6 +811,8 @@ Here is a sample content:
     grafana \
     keycloak \
     timescaledb
+  
+  chmod -R 777 *
   ```	
 
 </details>
