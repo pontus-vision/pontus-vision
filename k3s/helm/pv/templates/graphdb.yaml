@@ -64,11 +64,11 @@ spec:
     - name: PV_RIPD_ORG
       value: "<ADD YOUR ORGANIZATION NAME>"
     - name: PV_RIPD_DPO_NAME
-      value: "Edson Azarias Vieira"
+      value: "<ADD YOUR DPO NAME>"
     - name: PV_RIPD_DPO_EMAIL
       value: "<ADD YOUR DPO EMAIL>"
     - name: PV_DSAR_DPO_NAME
-      value: "Edson Azarias Vieira"
+      value: "<ADD YOUR DPO NAME>"
     - name: PV_DSAR_DPO_EMAIL
       value: "<ADD YOUR DPO EMAIL>"
     - name: PV_RIPD_DPO_PHONE
