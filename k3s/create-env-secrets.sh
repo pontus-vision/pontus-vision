@@ -3,6 +3,11 @@
 DIR="$( cd "$(dirname "$0")" ; pwd -P )"
 cd $DIR
 
+if [[ ! -d secrets ]]; then
+  echo "CREATING SAMPLE SECRETS"
+  tar xvfz ../sample-secrets.tar.gz
+fi
+
 
 
 for i in secrets/env/*; do 
