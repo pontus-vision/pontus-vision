@@ -76,7 +76,7 @@ Pontus Vision tem os seguintes benefícios:
   All Pontus Vision components have been created as docker containers; the following table summarises the key components:
 
 
-  | imagem Docker                                        |Módulo   | Descrição                                       | Com estado (Stateful)            | Tamanho da imagem | Memória mínima  |
+  | Imagem Docker                                        |Módulo   | Descrição                                       | Mantém o estado (Stateful)            | Tamanho da imagem | Memória mínima  |
   |------------------------------------------------------|---------|-------------------------------------------------|---------------------|------------|------------|
   |  pontusvisiongdpr/grafana:1.13.2                     |Comply   | Painel - KPIs históricos e tabelas de dados     | Sim                 | 140.67MB   | 39MiB      |
   |  pontusvisiongdpr/pontus-comply-keycloak:latest      |Comply   | (opcional) Autenticador - cria o token JWT    | Sim                 | 404MB      | 492MiB     |
@@ -834,7 +834,7 @@ Ou... Execute o seguinte para iniciar a demonstração da LGPD:
 
 **Acessando o Grafana (Dashboard Pontus Vision)**
 
-  1. Aponte um navegador para [http://localhost/pv](http://localhost/pv)
+  1. Aponte um navegador para [https://localhost/pv](https://localhost/pv)
   2. Use o nome de usuário `lmartins@pontusnetworks.com` e a senha padrão `pa55word`
 
 <br/>
