@@ -17,7 +17,7 @@ Pontus Vision has the following benefits:
   * Data Privacy Impact Assessment (DPIA Management)
   * Data breach Analysis and Reports
   * Custom Forms and Dashboards
-  * Can be deployed as a cloud native platform as a service self-hosted solution and/or on-prem.
+  * Can be deployed on prem/cloud (self hosted), or used as SaaS
 
 <br/>
 

@@ -17,7 +17,7 @@ Pontus Vision tem os seguintes benefícios:
   * Acesso ao Relatório de Impacto à Proteção de Dados Pessoais (RIPD)
   * Análise e relatórios de violação de dados
   * Formulários e painéis personalizados
-  * Pode ser implantado como uma solução de plataforma como serviço nativa auto hospedada e/ou no local.
+  * Pode ser implantado no local/nuvem (auto-hospedado) ou usado como SaaS
 
 <br/>
 
