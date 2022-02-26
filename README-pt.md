@@ -343,6 +343,10 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
   ./get_helm.sh
   ```
 
+</details>
+
+**<details><summary>Instalação do _Certificate Manager_</summary>**
+
   Depois de instalar o helm, crie o namespace _cert-manager_ e instale o _cert manager_; isso permitirá que os certificados https sejam gerenciados:
   ```
   helm repo add jetstack https://charts.jetstack.io
