@@ -546,27 +546,27 @@ Here is a sample content:
 
   ```
   k3s/secrets/
-  ├── CRM-api-key
-  ├── CRM-json
-  ├── ERP-api-key
-  ├── env
-  │   ├── pontus-grafana
-  │   │   └── GF_PATHS_CONFIG
-  │   ├── pontus-graphdb
-  │   │   ├── AWS_ACCESS_KEY_ID
-  │   │   ├── AWS_SECRET_ACCESS_KEY
+  ├── crm-api-key                   
+  ├── crm-json                      
+  ├── env                           
+  │   ├── pontus-grafana            
+  │   │   └── GF_PATHS_CONFIG       
+  │   ├── pontus-graphdb            
+  │   │   ├── AWS_ACCESS_KEY_ID     
+  │   │   ├── AWS_SECRET_ACCESS_KEY 
   │   │   └── ORIENTDB_ROOT_PASSWORD
-  │   ├── pontus-postgrest
-  │   │   ├── PGRST_DB_ANON_ROLE
-  │   │   └── PGRST_DB_URI
-  │   └── pontus-timescaledb
-  │       ├── POSTGRES_PASSWORD
-  │       └── POSTGRES_USER
-  ├── google-json
-  └── microsoft-json
+  │   ├── pontus-postgrest          
+  │   │   ├── PGRST_DB_ANON_ROLE    
+  │   │   └── PGRST_DB_URI          
+  │   └── pontus-timescaledb        
+  │       ├── POSTGRES_PASSWORD     
+  │       └── POSTGRES_USER         
+  ├── erp-api-key                   
+  ├── google-json                   
+  └── microsoft-json                
   ```
 
-<details><summary>CRM-api-key</summary>
+<details><summary>crm-api-key</summary>
 
   This token is used to grant access to CRM's data. For more information on how to get this value, please contact DPO.
 
@@ -574,7 +574,7 @@ Here is a sample content:
 
 </details>
 
-<details><summary>CRM-json</summary>
+<details><summary>crm-json</summary>
 
   This json contains CRM's user key. For more information on how to get this value, please contact DPO.
 
@@ -589,14 +589,6 @@ Here is a sample content:
     }
   }
   ```
-
-</details>
-
-<details><summary>ERP-api-key</summary>
-
-  This token is used to grant access to ERP's data. For more information on how to get this value, please contact IT.
-
-  **Format**: one-line text.
 
 </details>
 
@@ -675,6 +667,14 @@ Here is a sample content:
   ```
   postgres
   ```
+
+</details>
+
+<details><summary>erp-api-key</summary>
+
+  This token is used to grant access to ERP's data. For more information on how to get this value, please contact IT.
+
+  **Format**: one-line text.
 
 </details>
 

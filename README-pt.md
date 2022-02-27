@@ -545,27 +545,27 @@ Here is a sample content:
 
   ```
   k3s/secrets/
-  ├── CRM-api-key
-  ├── CRM-json
-  ├── ERP-api-key
-  ├── env
-  │   ├── pontus-grafana
-  │   │   └── GF_PATHS_CONFIG
-  │   ├── pontus-graphdb
-  │   │   ├── AWS_ACCESS_KEY_ID
-  │   │   ├── AWS_SECRET_ACCESS_KEY
+  ├── crm-api-key                   
+  ├── crm-json                      
+  ├── env                           
+  │   ├── pontus-grafana            
+  │   │   └── GF_PATHS_CONFIG       
+  │   ├── pontus-graphdb            
+  │   │   ├── AWS_ACCESS_KEY_ID     
+  │   │   ├── AWS_SECRET_ACCESS_KEY 
   │   │   └── ORIENTDB_ROOT_PASSWORD
-  │   ├── pontus-postgrest
-  │   │   ├── PGRST_DB_ANON_ROLE
-  │   │   └── PGRST_DB_URI
-  │   └── pontus-timescaledb
-  │       ├── POSTGRES_PASSWORD
-  │       └── POSTGRES_USER
-  ├── google-json
-  └── microsoft-json
+  │   ├── pontus-postgrest          
+  │   │   ├── PGRST_DB_ANON_ROLE    
+  │   │   └── PGRST_DB_URI          
+  │   └── pontus-timescaledb        
+  │       ├── POSTGRES_PASSWORD     
+  │       └── POSTGRES_USER         
+  ├── erp-api-key                   
+  ├── google-json                   
+  └── microsoft-json                
   ```
 
-<details><summary>CRM-api-key</summary>
+<details><summary>crm-api-key</summary>
 
   Este token é usado para conceder acesso aos dados do CRM. Para obter mais informações sobre como obter esse valor, entre em contato com o DPO.
 
@@ -573,7 +573,7 @@ Here is a sample content:
 
 </details>
 
-<details><summary>CRM-json</summary>
+<details><summary>crm-json</summary>
 
   Este json contém a chave de usuário do CRM. Para obter mais informações sobre como obter esse valor, entre em contato com o DPO.
 
@@ -588,14 +588,6 @@ Here is a sample content:
     }
   }
   ```
-
-</details>
-
-<details><summary>ERP-api-key</summary>
-
-  Este token é usado para conceder acesso aos dados do ERP. Para obter mais informações sobre como obter esse valor, entre em contato com o seu departamento de TI.
-
-  **Formato**: texto de uma linha.
 
 </details>
 
@@ -674,6 +666,14 @@ Here is a sample content:
   ```
   postgres
   ```
+
+</details>
+
+<details><summary>erp-api-key</summary>
+
+  Este token é usado para conceder acesso aos dados do ERP. Para obter mais informações sobre como obter esse valor, entre em contato com o seu departamento de TI.
+
+  **Formato**: texto de uma linha.
 
 </details>
 
@@ -810,6 +810,8 @@ Here is a sample content:
     grafana \
     keycloak \
     timescaledb
+
+  chmod -R 777 *
   ```	
 
 </details>
