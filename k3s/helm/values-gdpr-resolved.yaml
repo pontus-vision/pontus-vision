@@ -5,8 +5,8 @@ pvvals:
   imageVers:
     graphdb: "pontusvisiongdpr/pontus-track-graphdb-odb:1.15.1"
     grafana: "pontusvisiongdpr/grafana:1.13.2"
-  storagePath: "${PV_STORAGE_BASE}"
-  hostname: "${PV_HOSTNAME}"
+  storagePath: ""
+  hostname: ""
   # Add as many vars as needed
   # to get the keycloak public key, do an HTTP GET to the following URL: https://<hostname>/auth/realms/pontus
   keycloakPubKey: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoPXhyc8o2duKqj1joM6bWs7uD2abY0eDoYUp3CXYpS2J7X+sOJywsH40bgFzobCvx8anfS4bu40sPNVilCUwZzDcultr1HRvmWrsBdbXHoHQLT75IM1GvjjjIGTiuyKgr9S1t46/6LiJ8a78aTqkHSDPTleC/QdKRkHMY3mTqqvGb3Wz6BTE+HfDJN74q7mmNgV0qFgYyWuSMgD7Us+5MpS3GpyzNiUC/aPm456sHu/ikINenhkVZ16g9U4O5hwtVKnQvEJMn2gWTjT2BfHvHMwK7iA3W08T4hXxuZUDAy+SSPx8XXyrgSMCQ/tFEZApT335YgXt6kiqSKuVFaUj0wIDAQAB" 

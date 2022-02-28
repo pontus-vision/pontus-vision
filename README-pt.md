@@ -326,9 +326,9 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
   . ~/.bashrc
   ```
 
-  Execute o seguinte comando em um terminal separado (somente para WSL):
+  Execute o seguinte script em um terminal separado (somente para WSL):
   ```
-  sudo /usr/local/bin/k3s server --write-kubeconfig-mode=644
+  ./start-k3s.sh
   ```
 
 </details>
