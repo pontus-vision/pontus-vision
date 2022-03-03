@@ -326,11 +326,6 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
   . ~/.bashrc
   ```
 
-  Execute o seguinte script em um terminal separado (somente para WSL):
-  ```
-  ./start-k3s.sh
-  ```
-
 </details>
 
 **<details><summary>Instalaçaõ do HELM</summary>**
