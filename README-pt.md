@@ -249,7 +249,7 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
 
 **execute os loops abaixo duas vezes; isso NÃO é um erro de digitação:**
 
-```bash
+  ```bash
   for i in ${SNAP_LIST}; do
     sudo snap remove --purge i
   done
@@ -264,7 +264,7 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
 
   rm -fr ~/snap
   sudo apt-mark hold snapd
-  
+
   #Update the server:
   sudo apt update
   sudo apt upgrade -y
