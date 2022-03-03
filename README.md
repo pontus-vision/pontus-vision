@@ -251,11 +251,11 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
 
   ```bash
   for i in ${SNAP_LIST}; do
-    sudo snap remove --purge i
+    sudo snap remove --purge $i
   done
 
   for i in ${SNAP_LIST}; do
-    sudo snap remove --purge i
+    sudo snap remove --purge $i
   done
 
   sudo rm -rf /var/cache/snapd/
