@@ -3,3 +3,7 @@ secrets
 pontus-docker-compose.iml
 pontus-docker-compose.ipr
 pontus-docker-compose.iws
+k3s/storage
+storage
+k3s/secrets
+k3s/helm/values*resolved.yaml
