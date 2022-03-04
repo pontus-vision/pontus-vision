@@ -51,6 +51,7 @@ spec:
         sed -i 's#http://localhost:18443#https://{{ .Values.pvvals.hostname }}#g' /tmp/grafana.ini
         sed -i 's#\[auth.generic_oauth\]#\[auth.generic_oauth\]\ntls_skip_verify_insecure = true#g' /tmp/grafana.ini 
         sed -i 's#;path = grafana.db#path = /mnt/grafana/grafana.db#g' /tmp/grafana.ini 
+        sed -i "s#client_secret = 91fff12e-9b97-4028-8705-ffd8126fba3f#client_secret = ${PV_GRAFANA_CLIENT_SECRET:-4ls8cjjgaWpvfcZUXbZD7CtKePHXeMLz}#g" /tmp/grafana.ini 
         if [[ ! -f /mnt/grafana/grafana.db ]]; then cp /var/lib/grafana/grafana.db /mnt/grafana/grafana.db; fi
         cat /tmp/grafana.ini > /etc/grafana/grafana.ini
         #getent hosts pontus-gdpr &&
