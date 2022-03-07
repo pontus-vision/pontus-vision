@@ -1,0 +1,84 @@
+{{- range $k, $v :=  $.Values.pvvals.extractModules -}}
+{{- if $v.storage }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    io.kompose.service: "pontus-extract-{{ $k }}-pv-claim0"
+  name: "pontus-extract-{{ $k }}-pv-claim0"
+spec:
+  storageClassName: "local-path"
+  volumeName: "pv-volume-extract-{{ $k }}"
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: "1Mi"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: "pv-volume-extract-{{ $k }}"
+  labels:
+    type: local
+spec:
+  storageClassName: local-path
+  capacity:
+    storage: "{{ $v.storage }}"
+  accessModes:
+    - "ReadWriteOnce"
+  hostPath:
+    path: "{{ $.Values.pvvals.storagePath }}/extract/sharepoint/consents"
+  persistentVolumeReclaimPolicy: Retain
+{{- end }}
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: pv-extract-{{ $k }}
+spec:
+  schedule: {{ $v.schedule | default ("*/5 * * * *") | quote }}
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          name: "pv-extract-{{ $k }}"
+          labels:
+            io.kompose.network/pontusvision: "true"
+            io.kompose.service: "pv-extract-{{ $k }}"
+        spec:
+          containers:
+            - name: pv-extract-lambdas
+              image: "{{ $.Values.pvvals.imageVers.pvextract }}"
+              env: {{ concat $.Values.pvvals.defEnvVars $v.env | toJson }}
+              imagePullPolicy: Always
+              command: {{ $v.command | toJson }}
+  {{- if or $v.storage  $v.secretName }}
+              volumeMounts:
+    {{- if $v.secretName }}
+                - mountPath: "/run/secrets/{{ $v.secretName }}"
+                  subPath: "{{ $v.secretName }}"
+                  name: "{{ $v.secretName }}"
+    {{- end }}
+    {{- if $v.storage }}
+                - mountPath: "/mnt/pv-extract-lambda/"
+                  name: "pontus-extract-{{ $k }}-pv-claim0"
+    {{- end }}
+          volumes:
+    {{- if $v.secretName }}
+            - name: "{{ $v.secretName }}"
+              secret:
+                secretName: "{{ $v.secretName }}"
+    {{- end }}
+    {{- if $v.storage }}
+            - name: "pontus-extract-{{ $k }}-pv-claim0"
+              persistentVolumeClaim:
+                claimName: "pontus-extract-{{ $k }}-pv-claim0"
+    {{- end }}
+  {{- end }}
+          restartPolicy: OnFailure
+{{- end }}

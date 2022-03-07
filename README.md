@@ -268,7 +268,8 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
   #Update the server:
   sudo apt update
   sudo apt upgrade -y
-  sudo apt install git curl ubuntu-server
+  sudo apt install -y git curl ubuntu-server python3-pip
+  sudo pip3 install yq
   ```
 
 </details>

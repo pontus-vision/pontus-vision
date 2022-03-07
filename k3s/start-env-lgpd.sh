@@ -11,11 +11,20 @@ fi
 if [[ -z ${PV_STORAGE_BASE} ]]; then
   export PV_STORAGE_BASE=${DIR}/storage
 fi
-if [[ ! -d ${PV_STORAGE_BASE} ]]; then
- ./create-storage-dirs.sh
-fi
 
-cat ./helm/values-lgpd.yaml | envsubst > ./helm/values-lgpd-resolved.yaml
+if [[ $0 =~ lgpd ]]; then
+  export PV_IMAGE_SUFFIX=-pt
+  export PV_MODE=lgpd
+else
+  export PV_IMAGE_SUFFIX=
+  export PV_MODE=gdpr
+endif
+
+
+export PV_HELM_FILE=./helm/values-resolved.yaml
+cat ./helm/custom-values.yaml | envsubst > $PV_HELM_FILE
+./create-storage-dirs.sh
+
 
 helm template -f ./helm/values-lgpd-resolved.yaml pv ./helm/pv | k3s kubectl apply -f -
 

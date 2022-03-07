@@ -251,11 +251,11 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
 
   ```bash
   for i in ${SNAP_LIST}; do
-    sudo snap remove --purge i
+    sudo snap remove --purge $i
   done
 
   for i in ${SNAP_LIST}; do
-    sudo snap remove --purge i
+    sudo snap remove --purge $i
   done
 
   sudo rm -rf /var/cache/snapd/
@@ -268,7 +268,8 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
   #Update the server:
   sudo apt update
   sudo apt upgrade -y
-  sudo apt install git curl ubuntu-server
+  sudo apt install -y git curl ubuntu-server python3-pip
+  sudo pip3 install yq
   ```
 
 </details>
