@@ -25,7 +25,7 @@ pvvals:
     - name: PV_OFFICE_365_ONPREM_CREDS_FILE
       value: "/run/secrets/sharepoint-json"
     - name:  PV_MAX_EMAIL_MESSAGES
-      value: 1000
+      value: "1000"
 
   extractModules:
 #    sharepoint-consent:
@@ -56,16 +56,16 @@ pvvals:
         - /usr/bin/node
         - dist/rest-handler/budibase/app.js
       secretName: "budibase-json"
-      storage: 1Mi
+      storage: "1Mi"
       schedule: "*/6 * * * *"
       env:
         - name:  PV_SECRET_MANAGER_ID
-          value: budibase-json
+          value: "budibase-json"
         - name:  PV_REQUEST_URL
           value: "${BUDIBASE_URL_MAPEAMENTO}"
         - name:  PV_GRAPHDB_INPUT_RULE
-          value: bb_mapeamento_de_processo
+          value: "bb_mapeamento_de_processo"
         - name:  PV_SECRET_COMPONENT_NAME
-          value: budibase
+          value: "budibase"
         - name:  PV_GRAPHDB_INPUT_JSONPATH
-          value: $.rows
+          value: "$.rows"
