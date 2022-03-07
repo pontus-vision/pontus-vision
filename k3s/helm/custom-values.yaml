@@ -10,7 +10,7 @@ pvvals:
   storagePath: "${PV_STORAGE_BASE}"
   hostname: "${PV_HOSTNAME}"
   # to get the keycloak public key, do an HTTP GET to the following URL: https://<hostname>/auth/realms/pontus
-  keycloakPubKey: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoPXhyc8o2duKqj1joM6bWs7uD2abY0eDoYUp3CXYpS2J7X+sOJywsH40bgFzobCvx8anfS4bu40sPNVilCUwZzDcultr1HRvmWrsBdbXHoHQLT75IM1GvjjjIGTiuyKgr9S1t46/6LiJ8a78aTqkHSDPTleC/QdKRkHMY3mTqqvGb3Wz6BTE+HfDJN74q7mmNgV0qFgYyWuSMgD7Us+5MpS3GpyzNiUC/aPm456sHu/ikINenhkVZ16g9U4O5hwtVKnQvEJMn2gWTjT2BfHvHMwK7iA3W08T4hXxuZUDAy+SSPx8XXyrgSMCQ/tFEZApT335YgXt6kiqSKuVFaUj0wIDAQAB"
+  keycloakPubKey: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAo78Fro+GjJDsvb5XeTNCrdIvHiJ4uEh9hDLPA/7o1euqh25t4vO0pxr3npwKDxF8O/twhRYrhUdiP6DDcmxbaeANQBKnujQgQdiLwARsyUtS+Aikcwk5GU46DNuDr7FjpxV4nhtpCL/pdH4DQ1HeaBzMvvn1aRAeW5gEYrPCCXf/hnLQMvb3miE3a2m2rk9jSslzPB2yfaYKuw57eXKyq4nMBoloT/HCdSH80+kUmH8ZeFPItfLJhV5CoWx/pE6zbUKOVYe311nTvGk8i/NgdSH4P1dk3E50t0FD7p1DFuOfhu9ceFFw/pMdx54CUmaOgPa8d58gx1/utjUbkeMVUwIDAQAB"
 
   defEnvVars:
     - name: PV_DEBUG
