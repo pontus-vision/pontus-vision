@@ -26,5 +26,5 @@ cat ./helm/custom-values.yaml | envsubst > $PV_HELM_FILE
 ./create-storage-dirs.sh
 
 
-helm template -f ./helm/values-lgpd-resolved.yaml pv ./helm/pv | k3s kubectl apply -f -
+helm template -f ${PV_HELM_FILE} pv ./helm/pv | k3s kubectl apply -f -
 
