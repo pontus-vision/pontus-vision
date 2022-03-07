@@ -11,6 +11,7 @@ pvvals:
   hostname: "${PV_HOSTNAME}"
   # to get the keycloak public key, do an HTTP GET to the following URL: https://<hostname>/auth/realms/pontus
   keycloakPubKey: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoPXhyc8o2duKqj1joM6bWs7uD2abY0eDoYUp3CXYpS2J7X+sOJywsH40bgFzobCvx8anfS4bu40sPNVilCUwZzDcultr1HRvmWrsBdbXHoHQLT75IM1GvjjjIGTiuyKgr9S1t46/6LiJ8a78aTqkHSDPTleC/QdKRkHMY3mTqqvGb3Wz6BTE+HfDJN74q7mmNgV0qFgYyWuSMgD7Us+5MpS3GpyzNiUC/aPm456sHu/ikINenhkVZ16g9U4O5hwtVKnQvEJMn2gWTjT2BfHvHMwK7iA3W08T4hXxuZUDAy+SSPx8XXyrgSMCQ/tFEZApT335YgXt6kiqSKuVFaUj0wIDAQAB"
+
   defEnvVars:
     - name: PV_DEBUG
       value: "true"
@@ -51,21 +52,99 @@ pvvals:
         - name: PV_POSTGREST_PREFIX
           value: "http://pontus-postgrest:3000"
 
-    budibase-mapeamento:
+    budibase-mapeamento-de-processo:
       command:
         - /usr/bin/node
         - dist/rest-handler/budibase/app.js
       secretName: "budibase-json"
       storage: "1Mi"
-      schedule: "*/6 * * * *"
       env:
         - name:  PV_SECRET_MANAGER_ID
           value: "budibase-json"
         - name:  PV_REQUEST_URL
-          value: "${BUDIBASE_URL_MAPEAMENTO}"
+          value: "${BUDIBASE_URL_MAPEAMENTO_DE_PROCESSO}"
         - name:  PV_GRAPHDB_INPUT_RULE
           value: "bb_mapeamento_de_processo"
         - name:  PV_SECRET_COMPONENT_NAME
           value: "budibase"
         - name:  PV_GRAPHDB_INPUT_JSONPATH
           value: "$.rows"
+
+
+    budibase-fontes-de-dados:
+      command:
+        - /usr/bin/node
+        - dist/rest-handler/budibase/app.js
+      secretName: "budibase-json"
+      storage: "1Mi"
+      env:
+        - name:  PV_SECRET_MANAGER_ID
+          value: "budibase-json"
+        - name:  PV_REQUEST_URL
+          value: "${BUDIBASE_URL_FONTES_DE_DADOS}"
+        - name:  PV_GRAPHDB_INPUT_RULE
+          value: "bb_fontes_de_dados"
+        - name:  PV_SECRET_COMPONENT_NAME
+          value: "budibase"
+        - name:  PV_GRAPHDB_INPUT_JSONPATH
+          value: "$.rows"
+
+
+
+    budibase-riscos:
+      command:
+        - /usr/bin/node
+        - dist/rest-handler/budibase/app.js
+      secretName: "budibase-json"
+      storage: "1Mi"
+      env:
+        - name:  PV_SECRET_MANAGER_ID
+          value: "budibase-json"
+        - name:  PV_REQUEST_URL
+          value: "${BUDIBASE_URL_RISCOS}"
+        - name:  PV_GRAPHDB_INPUT_RULE
+          value: "bb_riscos"
+        - name:  PV_SECRET_COMPONENT_NAME
+          value: "budibase"
+        - name:  PV_GRAPHDB_INPUT_JSONPATH
+          value: "$.rows"
+
+
+
+    budibase-aviso-privacidade:
+      command:
+        - /usr/bin/node
+        - dist/rest-handler/budibase/app.js
+      secretName: "budibase-json"
+      storage: "1Mi"
+      env:
+        - name:  PV_SECRET_MANAGER_ID
+          value: "budibase-json"
+        - name:  PV_REQUEST_URL
+          value: "${BUDIBASE_URL_AVISO_PRIVACIDADE}"
+        - name:  PV_GRAPHDB_INPUT_RULE
+          value: "bb_aviso_privacidade"
+        - name:  PV_SECRET_COMPONENT_NAME
+          value: "budibase"
+        - name:  PV_GRAPHDB_INPUT_JSONPATH
+          value: "$.rows"
+
+
+#    budibase-aviso-privacidade:
+#      command:
+#        - /usr/bin/node
+#        - dist/rest-handler/budibase/app.js
+#      secretName: "budibase-json"
+#      storage: "1Mi"
+#      env:
+#        - name:  PV_SECRET_MANAGER_ID
+#          value: "budibase-json"
+#        - name:  PV_REQUEST_URL
+#          value: "${BUDIBASE_URL_MAPEAMENTO}"
+#        - name:  PV_GRAPHDB_INPUT_RULE
+#          value: "bb_aviso_privacidade"
+#        - name:  PV_SECRET_COMPONENT_NAME
+#          value: "budibase"
+#        - name:  PV_GRAPHDB_INPUT_JSONPATH
+#          value: "$.rows"
+#
