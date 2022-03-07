@@ -303,4 +303,17 @@ pvvals:
 
 
 
+    salesforce:
+      command:
+        - /usr/bin/node
+        - dist/salesforce-handler/app.js
+      secretName: "budibase-json"
+      storage: "1Mi"
+      env:
+        - name:  PV_SECRET_MANAGER_ID
+          value: "salesforce-json"
+        - name:  PV_SECRET_COMPONENT_NAME
+          value: "salesforce"
+
+
 
