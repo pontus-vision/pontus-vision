@@ -9,7 +9,7 @@ fi
 if [[ -z ${PV_STORAGE_BASE} ]]; then
   export PV_STORAGE_BASE=${DIR}/storage
 fi
-if [[ $0 ~ lgpd ]]; then 
+if [[ $0 =~ lgpd ]]; then 
   export PV_IMAGE_SUFFIX=-pt
   export PV_MODE=lgpd
 else
