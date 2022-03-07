@@ -91,12 +91,12 @@ Pontus Vision has the following benefits:
 
 # Pre-requisites
 
- - Linux Ubuntu 20.04
-   - ensure that all packages are up to date
-   - ensure that the `git` client is installed 
- - 8-core CPU            
- - 32GB RAM
- - 250GB Disk
+  - Linux Ubuntu 20.04
+    - ensure that all packages are up to date
+    - ensure that the `git` client is installed 
+  - 8-core CPU            
+  - 32GB RAM
+  - 250GB Disk + ~1KB of storage / record
 
  <!--
 **<details><summary>Docker 🐳</summary>**

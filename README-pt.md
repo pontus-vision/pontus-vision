@@ -96,7 +96,7 @@ Pontus Vision tem os seguintes benefícios:
     - certifique-se de que o cliente `git` esteja instalado
   - Processador de 8 núcleos            
   - 32GB de RAM
-  - Disco de 250 GB
+  - Disco de 250 GB + espaço para os dados ingeridos (~1KB/registro)
 
  <!--
 **<details><summary>Docker 🐳</summary>**
