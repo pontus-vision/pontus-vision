@@ -62,17 +62,17 @@ spec:
           name: pontus-graphdb
           key: ORIENTDB_ROOT_PASSWORD
     - name: PV_RIPD_ORG
-      value: "<ADD YOUR ORGANIZATION NAME>"
+      value: "[ADD YOUR ORGANIZATION NAME]"
     - name: PV_RIPD_DPO_NAME
-      value: "<ADD YOUR DPO NAME>"
+      value: "[ADD YOUR DPO NAME]"
     - name: PV_RIPD_DPO_EMAIL
-      value: "<ADD YOUR DPO EMAIL>"
+      value: "[ADD YOUR DPO EMAIL]"
     - name: PV_DSAR_DPO_NAME
-      value: "<ADD YOUR DPO NAME>"
+      value: "[ADD YOUR DPO NAME]"
     - name: PV_DSAR_DPO_EMAIL
-      value: "<ADD YOUR DPO EMAIL>"
+      value: "[ADD YOUR DPO EMAIL]"
     - name: PV_RIPD_DPO_PHONE
-      value: "<ADD YOUR DPO PHONE>"
+      value: "[ADD YOUR DPO PHONE]"
     - name: PV_USE_JWT_AUTH
       value: "true"
     - name: PV_KEYCLOAK_PUB_KEY
