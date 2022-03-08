@@ -224,7 +224,7 @@ pvvals:
           value: "$.rows"
 
 
-    budibase-incidentes-de-seguranca-reportados:
+    budibase-incidentes-de-seguranca:
       command:
         - /usr/bin/node
         - dist/rest-handler/budibase/app.js
