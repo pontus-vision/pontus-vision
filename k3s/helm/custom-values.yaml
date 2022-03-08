@@ -130,7 +130,7 @@ pvvals:
           value: "$.rows"
 
 
-    budibase-acoes-judiciais:
+    budibase-acoes-judiciais-ppd:
       command:
         - /usr/bin/node
         - dist/rest-handler/budibase/app.js
@@ -140,9 +140,9 @@ pvvals:
         - name:  PV_SECRET_MANAGER_ID
           value: "/run/secrets/budibase-json"
         - name:  PV_REQUEST_URL
-          value: "${BUDIBASE_URL_ACOES_JUDICIAIS}"
+          value: "${BUDIBASE_URL_ACOES_JUDICIAIS_PPD}"
         - name:  PV_GRAPHDB_INPUT_RULE
-          value: "bb_acoes_judiciais"
+          value: "bb_acoes_judiciais_ppd"
         - name:  PV_SECRET_COMPONENT_NAME
           value: "budibase"
         - name:  PV_GRAPHDB_INPUT_JSONPATH
@@ -224,7 +224,7 @@ pvvals:
           value: "$.rows"
 
 
-    budibase-incidentes-de-seguranca:
+    budibase-incidentes-de-seguranca-reportados:
       command:
         - /usr/bin/node
         - dist/rest-handler/budibase/app.js
@@ -234,9 +234,9 @@ pvvals:
         - name:  PV_SECRET_MANAGER_ID
           value: "/run/secrets/budibase-json"
         - name:  PV_REQUEST_URL
-          value: "${BUDIBASE_URL_INCIDENTES_DE_SEGURANCA}"
+          value: "${BUDIBASE_URL_INCIDENTES_DE_SEGURANCA_REPORTADOS}"
         - name:  PV_GRAPHDB_INPUT_RULE
-          value: "bb_incidentes-de-seguranca"
+          value: "bb_incidentes_de_seguranca_reportados"
         - name:  PV_SECRET_COMPONENT_NAME
           value: "budibase"
         - name:  PV_GRAPHDB_INPUT_JSONPATH
