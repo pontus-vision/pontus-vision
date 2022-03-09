@@ -80,7 +80,7 @@ Pontus Vision has the following benefits:
   |------------------------------------------------------|---------|-------------------------------------------------|---------------------|------------|------------|
   |  pontusvisiongdpr/grafana:1.13.2                     |Comply   | Dashboard - historical KPIs and data tables     | Yes                 | 140.67MB   | 39MiB      |
   |  pontusvisiongdpr/pontus-comply-keycloak:latest      |Comply   | (optional) Authenticator - creates JWT token    | Yes                 | 404MB      | 492MiB     |
-  |  pontusvisiongdpr/pontus-track-graphdb-odb:1.15.1    |Track    | Graph Database to store data in the POLE model  | Yes                 | 1.04GB     | 4.5GiB     |
+  |  pontusvisiongdpr/pontus-track-graphdb-odb:1.15.11    |Track    | Graph Database to store data in the POLE model  | Yes                 | 1.04GB     | 4.5GiB     |
   |  pontusvisiongdpr/timescaledb:latest                 |Track    | Historical time series database                 | Yes                 | 73MB       | 192MiB     |
   |  pontusvisiongdpr/postgrest:latest                   |Track    | REST API front end to timescale db              | No                  | 43MB       | 13MiB      |
   |  pontusvisiongdpr/pontus-extract-spacy:1.13.2        |Extract  | (optional) Natural language processor           | No                  | 4.12GB     | 105MiB     |
@@ -91,12 +91,12 @@ Pontus Vision has the following benefits:
 
 # Pre-requisites
 
- - Linux Ubuntu 20.04
-   - ensure that all packages are up to date
-   - ensure that the `git` client is installed 
- - 8-core CPU            
- - 32GB RAM
- - 250GB Disk
+  - Linux Ubuntu 20.04
+    - ensure that all packages are up to date
+    - ensure that the `git` client is installed 
+  - 8-core CPU            
+  - 32GB RAM
+  - 250GB Disk + ~1KB of storage / record
 
  <!--
 **<details><summary>Docker 🐳</summary>**
@@ -268,7 +268,8 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
   #Update the server:
   sudo apt update
   sudo apt upgrade -y
-  sudo apt install git curl ubuntu-server
+  sudo apt install -y git curl ubuntu-server python3-pip
+  sudo pip3 install yq
   ```
 
 </details>
@@ -732,7 +733,7 @@ Here is a sample content:
 
   pvvals:
     imageVers:
-      graphdb: "pontusvisiongdpr/pontus-track-graphdb-odb:1.15.1"
+      graphdb: "pontusvisiongdpr/pontus-track-graphdb-odb:1.15.11"
       grafana: "pontusvisiongdpr/grafana:1.13.2"
     storagePath: "<add path here>" # make sure to pass the exact path (Create persistent volumes storage section)
     hostname: "<add hostname here>"
@@ -898,7 +899,7 @@ Or... Run the following to start the LGPD Demo:
   ```yaml
   pvvals:
     imageVers:
-      graphdb: "pontusvisiongdpr/pontus-track-graphdb-odb:1.15.1"
+      graphdb: "pontusvisiongdpr/pontus-track-graphdb-odb:1.15.11"
       grafana: "pontusvisiongdpr/grafana:1.13.2"
       # container: M.m.p
       # etc.

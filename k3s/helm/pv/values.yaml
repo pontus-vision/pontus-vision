@@ -1,9 +1,78 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+#pvvals:
+#  storagePath: <add path here>
+#  hostname: <add hostname here>
+#  APIUrlPrefix: "https://api"
+#  # Add as many vars as needed
+#
+
 pvvals:
-  storagePath: <add path here>
-  hostname: <add hostname here>  
-  APIUrlPrefix: "https://api"
-  # Add as many vars as needed
-  
+  imageVers:
+    graphdb: "pontusvisiongdpr/pontus-track-graphdb-odb-pt:1.15.11"
+    grafana: "pontusvisiongdpr/grafana-pt:1.13.2"
+    pvextract: "pontusvisiongdpr/pv-extract-wrapper:1.13.2"
+
+  storagePath: "/home/leo/storage"
+  hostname: "pv-demo"
+  # to get the keycloak public key, do an HTTP GET to the following URL: https://<hostname>/auth/realms/pontus
+  keycloakPubKey: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAo78Fro+GjJDsvb5XeTNCrdIvHiJ4uEh9hDLPA/7o1euqh25t4vO0pxr3npwKDxF8O/twhRYrhUdiP6DDcmxbaeANQBKnujQgQdiLwARsyUtS+Aikcwk5GU46DNuDr7FjpxV4nhtpCL/pdH4DQ1HeaBzMvvn1aRAeW5gEYrPCCXf/hnLQMvb3miE3a2m2rk9jSslzPB2yfaYKuw57eXKyq4nMBoloT/HCdSH80+kUmH8ZeFPItfLJhV5CoWx/pE6zbUKOVYe311nTvGk8i/NgdSH4P1dk3E50t0FD7p1DFuOfhu9ceFFw/pMdx54CUmaOgPa8d58gx1/utjUbkeMVUwIDAQAB"
+  defEnvVars:
+    - name: PV_DEBUG
+      value: "true"
+    - name: PV_TIMEOUT_MS
+      value: "1600000"
+    - name: PV_GRAPHDB_URL_PREFIX
+      value: http://graphdb-nifi:3001
+    - name: PV_STATE_FILE
+      value: "/mnt/pv-extract-lambda/state.json"
+    - name: PV_SHAREPOINT_SITE_ID
+      value: "some.sharepoint.com,<GUID1>,<GUID2>"
+    - name: PV_OFFICE_365_ONPREM_CREDS_FILE
+      value: "/run/secrets/sharepoint-json"
+    - name:  PV_MAX_EMAIL_MESSAGES
+      value: 1000
+
+#  extractModules:
+#    sharepoint-consent:
+#      command:
+#        - /usr/bin/node
+#        - dist/office365/sharepoint/app.js
+#      storage: 1Mi
+#      secretName: "sharepoint-json"
+#      env:
+#        - name: PV_GRAPHDB_INPUT_JSONPATH
+#          value: "$.queryResp[*].fields"
+#        - name: PV_SHAREPOINT_LIST_ID
+#          value: "<GUID3>"
+#        - name: PV_GRAPHDB_INPUT_RULE
+#          value: "sharepoint_consents"
+#
+#    kpi:
+#      command:
+#        - /bin/bash
+#        - -c
+#        - sleep 10 && getent hosts graphdb-nifi &&  /usr/bin/node dist/kpi-handler/app.js
+#      env:
+#        - name: PV_POSTGREST_PREFIX
+#          value: "http://pontus-postgrest:3000"
+#
+#    budibase-mapeamento:
+#      command:
+#        - /usr/bin/node
+#        - dist/rest-handler/budibase/app.js
+#      secretName: "budibase-json"
+#      storage: 1Mi
+#      schedule: "*/6 * * * *"
+#      env:
+#        - name:  PV_SECRET_MANAGER_ID
+#          value: budibase-json
+#        - name:  PV_REQUEST_URL
+#          value: "${BUDIBASE_URL_MAPEAMENTO}"
+#        - name:  PV_GRAPHDB_INPUT_RULE
+#          value: bb_mapeamento_de_processo
+#        - name:  PV_SECRET_COMPONENT_NAME
+#          value: budibase
+#        - name:  PV_GRAPHDB_INPUT_JSONPATH
+#          value: $.rows
