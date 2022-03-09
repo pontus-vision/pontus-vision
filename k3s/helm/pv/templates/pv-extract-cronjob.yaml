@@ -38,7 +38,7 @@ kind: CronJob
 metadata:
   name: pv-extract-{{ $k }}
 spec:
-  schedule: {{ $v.schedule | default ("*/5 * * * *") | quote }}
+  schedule: {{ $v.schedule | default ("*/1 * * * *") | quote }}
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
   concurrencyPolicy: Forbid

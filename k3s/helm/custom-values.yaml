@@ -312,7 +312,7 @@ pvvals:
         - dist/salesforce-handler/app.js
       secretName: "salesforce-json"
       storage: "1Mi"
-      schedule: "*/2 * * * *"
+      schedule: "*/1 * * * *"
 
       env:
         - name:  PV_SECRET_MANAGER_ID
