@@ -62,21 +62,22 @@ spec:
           name: pontus-graphdb
           key: ORIENTDB_ROOT_PASSWORD
     - name: PV_RIPD_ORG
-      value: "[ADD YOUR ORGANIZATION NAME]"
+      value: "Pontus Vision"
     - name: PV_RIPD_DPO_NAME
-      value: "[ADD YOUR DPO NAME]"
+      value: "Senhora DPO"
     - name: PV_RIPD_DPO_EMAIL
-      value: "[ADD YOUR DPO EMAIL]"
+      value: "dpo@pontusvision.com"
     - name: PV_DSAR_DPO_NAME
-      value: "[ADD YOUR DPO NAME]"
+      value: "Senhora DPO"
     - name: PV_DSAR_DPO_EMAIL
-      value: "[ADD YOUR DPO EMAIL]"
+      value: "dpo@pontusvision.com"
     - name: PV_RIPD_DPO_PHONE
-      value: "[ADD YOUR DPO PHONE]"
+      value: "555-2233-3344"
     - name: PV_USE_JWT_AUTH
       value: "true"
     - name: PV_KEYCLOAK_PUB_KEY
       value: "{{ .Values.pvvals.keycloakPubKey }}"
+
 #    - name: AWS_ACCESS_KEY_ID
 #      valueFrom:
 #        #configMapKeyRef:
