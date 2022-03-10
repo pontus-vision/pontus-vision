@@ -15,7 +15,7 @@ if [[ $0 =~ lgpd ]]; then
 else
   export PV_IMAGE_SUFFIX=
   export PV_MODE=gdpr
-endif
+fi
 
 
 export PV_HELM_FILE=./helm/values-resolved.yaml
