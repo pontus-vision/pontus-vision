@@ -10,7 +10,7 @@
 
 pvvals:
   imageVers:
-    graphdb: "pontusvisiongdpr/pontus-track-graphdb-odb-pt:1.15.11"
+    graphdb: "pontusvisiongdpr/pontus-track-graphdb-odb-pt:1.15.12"
     grafana: "pontusvisiongdpr/grafana-pt:1.13.2"
     pvextract: "pontusvisiongdpr/pv-extract-wrapper:1.13.2"
 
