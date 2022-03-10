@@ -7,3 +7,4 @@ k3s/storage
 storage
 k3s/secrets
 k3s/helm/values*resolved.yaml
+k3s/pv-demo-secrets.tar.gz
