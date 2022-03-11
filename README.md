@@ -25,7 +25,7 @@ Pontus Vision has the following benefits:
 
   The Pontus Vision platform solves data mapping and management of personal data challenges in 3 modules:
 
-  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/arch-components.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/arch-components.png) <!-- update picture !! -->
 
 ### EXTRACT
 
@@ -455,6 +455,7 @@ Pontus Vision has the following benefits:
     # to get the keycloak public key, do an HTTP GET to the following URL: https://<hostname>/auth/realms/pontus
     keycloakPubKey: "*********************************************************"
 
+    # change the values as necessary
     defEnvVars:
       - name: PV_DEBUG
         value: "true"
@@ -481,26 +482,27 @@ Pontus Vision has the following benefits:
           - name: PV_POSTGREST_PREFIX
             value: "http://pontus-postgrest:3000"
 
-      budibase-mapeamento-de-processo:
+      # Add and modify your own cronjobs/pods/services
+      cronjob-1:
         command:
           - /usr/bin/node
-          - dist/rest-handler/budibase/app.js
-        secretName: "budibase-json"
+          - dist/rest-handler/cronjob-1/app.js
+        secretName: "cronjob-1-json"
         storage: "1Mi"
         env:
           - name:  PV_SECRET_MANAGER_ID
-            value: "/run/secrets/budibase-json"
+            value: "/run/secrets/cronjob-1-json"
           - name:  PV_REQUEST_URL
-            value: "${BUDIBASE_URL_MAPEAMENTO_DE_PROCESSO}"
+            value: "${CRONJOB-1}"
           - name:  PV_GRAPHDB_INPUT_RULE
             value: "bb_mapeamento_de_processo"
           - name:  PV_SECRET_COMPONENT_NAME
-            value: "budibase"
+            value: "cronjob-1"
           - name:  PV_GRAPHDB_INPUT_JSONPATH
             value: "$.rows"
   ```
 
-## `cd pv/templates` to configure the **cronjobs**. <!-- Is this part necessary ?!?! -->
+<!-- ## `cd pv/templates` to configure the **cronjobs**. Is this part necessary ?!?! -->
 
 <!--
 TODO templates cronjob instructions
@@ -540,7 +542,7 @@ TODO templates cronjob instructions
   └── timescaledb
   ```
 
-  Make sure that the value for the `storagePath` key @ `pontus-vision/k3s/helm/values-gdpr.yaml` and `pontus-vision/k3s/helm/values-lgpd.yaml` is the root of the directory structure above.
+  Make sure that the value for the `storagePath` key @ `pontus-vision/k3s/helm/custom-values.yaml` is the root of the directory structure above.
   	
   Here is a set of commands that can create this structure if the value of `.Values.pvvals.storagePath` is set to `~/storage`:
     
@@ -593,8 +595,6 @@ Or... Run the following to start the LGPD Demo:
 <br/>
 
 # Management
-
-wait for all pods to be READY/ PULLED / CREATED then run the demo
 
 **Accessing Grafana (Pontus Vision Dashboard)**
 
@@ -653,22 +653,26 @@ wait for all pods to be READY/ PULLED / CREATED then run the demo
 
 **<details><summary>Pontus Vision imageVers</summary>**
 
-  Pontus Vision is constantly upgrading and updating its container images to keep up with the latest tech and security patches. To change versions simply change the `pvvals.imageVers` value @ `pontus-vision/k3s/helm/values-gdpr.yaml` and `pontus-vision/k3s/helm/values-lgpd.yaml` then restart k3s env (look bellow @ **Restart k3s env** section).
+  Pontus Vision is constantly upgrading and updating its container images to keep up with the latest tech and security patches. To change versions simply change the `pvvals.imageVers` value @ `pontus-vision/k3s/helm/custom-values.yaml` then restart k3s env (look bellow @ **Restart k3s env** section).
 
   **Json File**:
 
   ```yaml
+  # This is a YAML-formatted file.
+  # Declare variables here to be passed to your templates.
+
   pvvals:
     imageVers:
-      graphdb: "pontusvisiongdpr/pontus-track-graphdb-odb:1.15.13"
-      grafana: "pontusvisiongdpr/grafana:1.13.2"
-      # container: M.m.p
-      # etc.
-    storagePath: "<add path here>" # make sure to pass the exact path (Create persistent volumes storage section)
-    hostname: "<add hostname here>"
-    ErpUrlPrefix: "https://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-    # to get the keycloak public key, do an HTTP GET to the following URL: https1://<hostname>/auth/realms/pontus
-    keycloakPubKey: "******************************************"  
+      graphdb: "pontusvisiongdpr/pontus-track-graphdb-odb${PV_IMAGE_SUFFIX}:1.15.14"
+      grafana: "pontusvisiongdpr/grafana${PV_IMAGE_SUFFIX}:1.13.2"
+      pvextract: "pontusvisiongdpr/pv-extract-wrapper:1.13.2"
+
+    storagePath: "${PV_STORAGE_BASE}"
+    hostname: "${PV_HOSTNAME}"
+    # to get the keycloak public key, do an HTTP GET to the following URL: https://<hostname>/auth/realms/pontus
+    keycloakPubKey: "*********************************************************"
+
+  # (...)
   ```
 
 </details>
