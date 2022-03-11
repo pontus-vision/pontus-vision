@@ -223,11 +223,14 @@ Pontus Vision has the following benefits:
   The easiest way to deploy the Pontus Vision platform is to run either a VM or bare-metal Ubuntu 20.04 OS, and follow the instructions below:
 
 ```diff
-+ This Demonstration runs over a fictitious database storage/ and secrets/ so you can test Pontus Vision's tools handily. All you have to do after clonning this GitHub repo is running the start-up scripts. Skip all the way to the bottom of this section.
++ This Demonstration runs over a fictitious database storage/ and secrets/ so you can test Pontus Vision's tools handily.
++ All you have to do after clonning this GitHub repo is running the start-up scripts.
++ Skip all the way to the bottom of this section.
 ```
 
 ```diff
-- But if you want to try own data, then configuration of secrets/tokens, apis and storage will be required. Delete/overwrite the folders storage/ and secrets/ following the instructions thoroughly before starting the environment.
+- But if you want to try own data, then configuration of secrets/tokens, apis and storage will be required.
+- Delete/overwrite the folders storage/ and secrets/ following the instructions thoroughly before starting the environment.
 ```
 
   The helm chart used to configure the Pontus Vision platform exists in this repository. Clone this repository and use either the GDPR or LGPD Demo:
