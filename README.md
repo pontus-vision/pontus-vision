@@ -25,7 +25,7 @@ Pontus Vision has the following benefits:
 
   The Pontus Vision platform solves data mapping and management of personal data challenges in 3 modules:
 
-  ![](images-README/arch-components.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/arch-components.png)
 
 ### EXTRACT
 
@@ -419,11 +419,11 @@ Pontus Vision has the following benefits:
 
 <!-- add .pdf version -->
 
-  ![alt text](/images-README/azure-1.jpg)
-  ![alt text](/images-README/azure-2.jpg)
-  ![alt text](/images-README/azure-3.jpg)
-  ![alt text](/images-README/azure-4.jpg)
-  ![alt text](/images-README/azure-5.jpg)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/azure-1.jpg)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/azure-2.jpg)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/azure-3.jpg)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/azure-4.jpg)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/azure-5.jpg)
 
 </details>
 
@@ -767,11 +767,11 @@ wait for all pods to be READY/ PULLED / CREATED then run the demo
 
   If you get an **ERROR** like the one marked in the image, when running `$ kubectl describe pods <pod name>`: 
 
-  ![alt text](/images-README/k3s-taint-1.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/k3s-taint-1.png)
 
   OR, when running `$ kubectl describe nodes <node name>` the **Taints** section is different than `<none>`:
 
-  ![alt text](/images-README/k3s-taint-2.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/k3s-taint-2.png)
 
   Then copy the Taints that were shown for the specific node and run the following command to **untain** each one of them:
 
@@ -781,7 +781,7 @@ wait for all pods to be READY/ PULLED / CREATED then run the demo
 
   For example:
 
-  ![alt text](/images-README/k3s-taint-3.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/k3s-taint-3.png)
 
 </details>
 
@@ -832,35 +832,35 @@ wait for all pods to be READY/ PULLED / CREATED then run the demo
 
   Here's some screenshots steps on how to create a new user:
 
-  ![alt text](/images-README/keycloak-a.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-a.png)
 
   > When you access the link for the first time, the browser will warn that the connection isn't private, just ignore it and click on **Advanced**.
 
-  ![alt text](/images-README/keycloak-b.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-b.png)
 
   > Then click on **Proceed(Continue) to \<hostname\>**.
 
-  ![alt text](/images-README/keycloak-1.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-1.png)
 
   > This is Keycloak's home page. Click on **Administration Console**.
 
-  ![alt text](/images-README/keycloak-2.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-2.png)
 
   > Enter the default credentials and click **Sign in**.
 
-  ![alt text](/images-README/keycloak-c.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-c.png)
 
   > At the main panel, locate **Users** under **Manage** on the left menu.
 
-  ![alt text](/images-README/keycloak-3.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-3.png)
 
   > On the far right, click **Add user**.
 
-  ![alt text](/images-README/keycloak-5.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-5.png)
 
   > Fill in the fields (the mandatory at least) \**ID is auto incremented*. You can also add **User actions**.
 
-  ![alt text](/images-README/keycloak-6.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-6.png)
 
   > Finally, click on **Save**.
 
@@ -874,35 +874,35 @@ wait for all pods to be READY/ PULLED / CREATED then run the demo
 
   Here's some screenshots steps on how to create a new user:
 
-  ![alt text](/images-README/keycloak-a.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-a.png)
 
   > When you access the link for the first time, the browser will warn that the connection isn't private, just ignore it and click on **Advanced**.
 
-  ![alt text](/images-README/keycloak-b.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-b.png)
 
   > Then click on **Proceed(Continue) to \<hostname\>**.
 
-  ![alt text](/images-README/grafana-1.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/grafana-1.png)
 
   > Enter the admin credentials then click **Sign in**.
 
-  ![alt text](/images-README/grafana-2.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/grafana-2.png)
 
   > Grafana's main page is as shown. Locate the **Shield** icon (Server Admin), under it, click on **Users**.
 
-  ![alt text](/images-README/grafana-3.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/grafana-3.png)
 
   > A table containing all registered Uers wil appear. On the upper right corner, click on the blue **New user** button.
 
-  ![alt text](/images-README/grafana-4.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/grafana-4.png)
 
   > Fill in the fields (mandatory at least), then click the blue **Create user** button.
 
-  ![alt text](/images-README/grafana-5.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/grafana-5.png)
 
   > By clicking on the newly created user you can edit its Information, Permissions, Organisations it belongs and open Sessions.
 
-  ![alt text](/images-README/grafana-6.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/grafana-6.png)
 
   > To change a User's role in an Organisation, click on **Change role** *(Under Organisations)*, choose the role from the drop-down menu, then click **Save**.
 
@@ -918,43 +918,43 @@ wait for all pods to be READY/ PULLED / CREATED then run the demo
 
   Here's some screenshots steps on how to reset a user's password:
 
-  ![alt text](/images-README/keycloak-a.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-a.png)
 
   > When you access the link for the first time, the browser will warn that the connection isn't private, just ignore it and click on **Advanced**.
 
-  ![alt text](/images-README/keycloak-b.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-b.png)
 
   > Then click on **Proceed(Continue) to \<hostname\>**.
 
-  ![alt text](/images-README/keycloak-1.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-1.png)
 
   > This is Keycloak's home page. Click on **Administration Console**.
 
-  ![alt text](/images-README/keycloak-2.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-2.png)
 
   > Enter the default credentials and click **Sign in**.
 
-  ![alt text](/images-README/keycloak-c.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-c.png)
 
   > At the main panel, locate **Users** under **Manage** on the left menu.
 
-  ![alt text](/images-README/keycloak-4.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-4.png)
 
   > Click on **View all users** next to the search bar. Then a table containing all registered users will show. On the **Actions** column click on **Edit**.
 
-  ![alt text](/images-README/pass-reset-1.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/pass-reset-1.png)
 
   > Change the upper tab to **Credentials**. Then under **Reset Password** type the new password.
 
-  ![alt text](/images-README/pass-reset-2.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/pass-reset-2.png)
 
   > You can toggle the **Temporary** button, to force the user to change the password once he logs in for the first time.
 
-  ![alt text](/images-README/pass-reset-3.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/pass-reset-3.png)
 
   > Then click the **Reset Password** button. A popup will show to confirm the change. Click the red **Reset password** button.
 
-  ![alt text](/images-README/pass-reset-4.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/pass-reset-4.png)
 
   > After loading, the page will reload and a green popup will appear with the message **Success**.
 
