@@ -230,7 +230,7 @@ Pontus Vision has the following benefits:
 
 ```diff
 - If you want to try own data, then configuration of secrets, apis and storage will be required.
-- Delete the folders storage/ and secrets/ following the instructions thoroughly.
+- Overwrite the folders storage/ and secrets/ following the instructions thoroughly.
 ```
 
   The helm chart used to configure the Pontus Vision platform exists in this repository. Clone this repository and use either the GDPR or LGPD Demo:
