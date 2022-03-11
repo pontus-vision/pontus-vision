@@ -224,7 +224,7 @@ Pontus Vision has the following benefits:
 
 ```diff
 + This Demonstration runs over a fictitious database so you can test Pontus Vision's tools handily.
-+ All you have to do after clonning this GitHub repo is running the start-up scripts.
++ All you have to do after cloning this GitHub repo is running the start-up scripts.
 + Skip all the way to the bottom of this section.
 ```
 
