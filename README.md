@@ -127,7 +127,7 @@ Pontus Vision has the following benefits:
   #Update the server:
   sudo apt update
   sudo apt upgrade -y
-  sudo apt install -y git curl ubuntu-server python3-pip
+  sudo apt install -y git curl jq ubuntu-server python3-pip
   sudo pip3 install yq
   ```
 
@@ -222,16 +222,16 @@ Pontus Vision has the following benefits:
 
   The easiest way to deploy the Pontus Vision platform is to run either a VM or bare-metal Ubuntu 20.04 OS, and follow the instructions below:
 
-```diff
-+ This Demonstration runs over a fictitious database so you can test Pontus Vision's tools handily.
-+ All you have to do after cloning this GitHub repo is running the start-up scripts.
-+ Skip all the way to the bottom of this section.
-```
+  ```diff
+  + This Demonstration runs over a FICTITIOUS DATABASE so you can test Pontus Vision's tools handily.
+  + All you have to do after cloning this GitHub repo is RUNNING THE START-UP SCRIPTS.
+  + Skip all the way to the bottom of this section.
+  ```
 
-```diff
-- If you want to try own data, then configuration of secrets, apis and storage will be required.
-- Overwrite the folders storage/ and secrets/ following the instructions thoroughly.
-```
+  ```diff
+  - If you want to try own data, then CONFIGURATION of secrets, apis and storage will be required.
+  - Overwrite the folders storage/ and secrets/ following the instructions THOROUGHLY.
+  ```
 
   The helm chart used to configure the Pontus Vision platform exists in this repository. Clone this repository and use either the GDPR or LGPD Demo:
 
@@ -243,14 +243,25 @@ Pontus Vision has the following benefits:
 **<details><summary>Secret Files</summary>**
 
   This Demo uses Kubernetes secrets to store various sensitive passwords and credentials. You'll need to create your own, but to get you started, we have created a `tar.gz` file with sample formats.
+  
+  > The `create-env-secrets.sh` script is in charge of the secrets.
 
   The first time the environment is started, it will check if there's a `secrets/` folder existing (in case you want to add privates), otherwise it will use `sample-secrets.tar.gz` by default. To create the folder in a compatible manner, follow below ↓
 
+  <br/>
+
 **Edit the secret Files structure**
 
-  You should organize a directory structure similar to the one below. Secrets located inside the `env/` folder should only be modified by experienced users; add your other secrets to the main folder `secrets/`.
-
+  You should organize a directory structure similar to the example down. Make sure to create the `secrets/` folder inside `k3s/`'s. Also, be consistent with the **secrets's variable names / Environment Variables**, as you will need to use them on the HELM `templates/` yaml files.
+  
+  ```diff
+  - Secrets located inside the env/ folder should ONLY be modified by EXPERIENCED USERS.
+  - Add your other secrets to the MAIN folder secrets/.
   ```
+
+  Here's the tree structure of folders and files of the default `secrets/` generated via `sample-secrets.tar.gz`:
+
+  ```bash
   k3s/secrets/
   ├── crm-api-key                   
   ├── crm-json                      
@@ -268,9 +279,33 @@ Pontus Vision has the following benefits:
   │       ├── POSTGRES_PASSWORD     
   │       └── POSTGRES_USER         
   ├── erp-api-key                   
-  ├── google-json                   
-  └── microsoft-json                
+  ├── google-json # example                   
+  └── microsoft-json # example                
   ```
+
+  And this is the YAML template secret file for `pontus-timescaledb` @ `pontus-vision\k3s\helm\pv\templates` used by HELM-K3s. Notice how the secrets names `POSTGRES_USER` and `POSTGRES_PASSWORD` are used.
+
+  ```yaml
+  spec:
+  containers:
+  - env:
+    - name: PGUSER
+      value: postgres
+    - name: POSTGRES_PASSWORD # <---
+      valueFrom:
+        secretKeyRef:
+          name: pontus-timescaledb
+          key: POSTGRES_PASSWORD # <---
+    - name: POSTGRES_USER # <---
+      valueFrom:
+        secretKeyRef:
+          name: pontus-timescaledb
+          key: POSTGRES_USER # <---
+    image: pontusvisiongdpr/timescaledb:latest
+    name: pontus-timescaledb
+  ```
+
+  Here are other examples / templates of secrets:
 
 <details><summary>crm-api-key</summary>
 
@@ -435,7 +470,7 @@ Pontus Vision has the following benefits:
 
 **<details><summary>Configure the helm values</summary>**
 
-  The values file `pontus-vision/k3s/helm/custom-values.yaml` have configuration details that vary from environment to environment. Here's an example:
+  The values file `pontus-vision/k3s/helm/custom-values.yaml` has configuration details that vary from environment to environment. Here's an example:
 
   ```yaml
   # This is a YAML-formatted file.
@@ -447,12 +482,13 @@ Pontus Vision has the following benefits:
       grafana: "pontusvisiongdpr/grafana${PV_IMAGE_SUFFIX}:1.13.2"
       pvextract: "pontusvisiongdpr/pv-extract-wrapper:1.13.2"
 
-    storagePath: "${PV_STORAGE_BASE}"
+    storagePath: "${PV_STORAGE_BASE}" # Environment Variable
     hostname: "${PV_HOSTNAME}"
     # to get the keycloak public key, do an HTTP GET to the following URL: https://<hostname>/auth/realms/pontus
     keycloakPubKey: "*********************************************************"
 
     # change the values as necessary
+    # Be consistent with the variables!
     defEnvVars:
       - name: PV_DEBUG
         value: "true"
@@ -479,7 +515,8 @@ Pontus Vision has the following benefits:
           - name: PV_POSTGREST_PREFIX
             value: "http://pontus-postgrest:3000"
 
-      # Add / modify your own cronjobs/pods/services
+      # Add / modify your own cronjobs|pods|services
+      # Be consistent with the variables!
       cronjob-1:
         command:
           - /usr/bin/node
@@ -490,7 +527,7 @@ Pontus Vision has the following benefits:
           - name:  PV_SECRET_MANAGER_ID
             value: "/run/secrets/cronjob-1-json"
           - name:  PV_REQUEST_URL
-            value: "${CRONJOB-1}"
+            value: "${CRONJOB-1_URL}"
           - name:  PV_GRAPHDB_INPUT_RULE
             value: "bb_mapeamento_de_processo"
           - name:  PV_SECRET_COMPONENT_NAME
@@ -511,7 +548,63 @@ TODO templates cronjob instructions
 
 **<details><summary>Create persistent volumes storage</summary>**
 
-  This step is important to ensure k3s data is kept by using **persistent volumes**. To do so, please create a directory structure similar to the following:
+  ```diff
+  - This step is AUTO PERFORMED !!
+  - To ensure it runs smoothly, guarantee you setted everything @ k3s\helm\custom-values.yaml !!
+  ```
+
+  This step is important to ensure k3s data is kept by using **persistent volumes**. The script `create-storage-dirs.sh` is executed when the environment (Demo) is started. It is responsible in creating the storage folder structure.
+
+  The `extract/` inner folders are created using the `custom-values.yaml` names <!-- what is the name of the YAML paragraph/variable ?!?! -->.
+
+  Here's how it works:
+
+  ```yaml
+      kpi:
+      command:
+        - /bin/bash
+        - -c
+        - sleep 10 && getent hosts graphdb-nifi &&  /usr/bin/node dist/kpi-handler/app.js
+      env:
+        - name: PV_POSTGREST_PREFIX
+          value: "http://pontus-postgrest:3000"
+
+    # Name your cronjobs|pods|services accordingly
+    cronjob-x: # <--- this will be the name of the folder @ /storage/extract/cronjob-x
+      command:
+        - /usr/bin/node
+        - dist/rest-handler/cronjob-x/app.js
+      secretName: "cronjob-x-json" # <---
+      storage: "1Mi"
+      env:
+        - name:  PV_SECRET_MANAGER_ID
+          value: "/run/secrets/cronjob-x-json" # <---
+        - name:  PV_REQUEST_URL
+          value: "${CRONJOB-X_URL_MAPEAMENTO_DE_PROCESSO}" # <---
+        - name:  PV_GRAPHDB_INPUT_RULE
+          value: "cronjob-x" # <---
+        - name:  PV_SECRET_COMPONENT_NAME
+          value: "cronjob-x" # <---
+        - name:  PV_GRAPHDB_INPUT_JSONPATH
+          value: "$.rows"
+  ```
+
+  Here's the resulting tree structure @ `/storage/extract`:
+
+  ```bash
+  ~/storage
+  ├── db
+  ├── extract
+  │   └── cronjob-x # <---
+  |       └── state.json # <---
+  ├── grafana
+  ├── keycloak
+  └── timescaledb
+  ```
+  
+  <!-- 
+  
+  To do so, please create a directory structure similar to the following:
 
   ```
   ~/storage
@@ -539,7 +632,7 @@ TODO templates cronjob instructions
   └── timescaledb
   ```
 
-  Make sure that the value for the `storagePath` key @ `pontus-vision/k3s/helm/custom-values.yaml` is the root of the directory structure above.
+  Check that the value for the `storagePath` key @ `pontus-vision/k3s/helm/custom-values.yaml` is the root of the directory structure above.
   	
   Here is a set of commands that can create this structure if the value of `.Values.pvvals.storagePath` is set to `~/storage`:
     
@@ -568,6 +661,7 @@ TODO templates cronjob instructions
   
   chmod -R 777 *
   ```	
+  -->
 
 </details>
 
@@ -595,7 +689,7 @@ Or... Run the following to start the LGPD Demo:
 
 **Accessing Grafana (Pontus Vision Dashboard)**
 
-  1. point a browser to [https://localhost/pv](https://localhost/pv)
+  1. point a browser to [https://\<hostname\>/pv](https://\<hostname\>/pv)
   2. Use the user name `lmartins@pontusnetworks.com` and the default password `pa55word!!!`
 
 <br/>
@@ -652,14 +746,12 @@ Or... Run the following to start the LGPD Demo:
 
   Pontus Vision is constantly upgrading and updating its container images to keep up with the latest tech and security patches. To change versions simply change the `pvvals.imageVers` value @ `pontus-vision/k3s/helm/custom-values.yaml` then restart k3s env (look bellow @ **Restart k3s env** section).
 
-  **Json File**:
-
   ```yaml
   # This is a YAML-formatted file.
   # Declare variables here to be passed to your templates.
 
   pvvals:
-    imageVers:
+    imageVers: # <---
       graphdb: "pontusvisiongdpr/pontus-track-graphdb-odb${PV_IMAGE_SUFFIX}:1.15.14"
       grafana: "pontusvisiongdpr/grafana${PV_IMAGE_SUFFIX}:1.13.2"
       pvextract: "pontusvisiongdpr/pv-extract-wrapper:1.13.2"
@@ -691,7 +783,7 @@ Or... Run the following to start the LGPD Demo:
 
   ```diff
   - You may need to remove some inner folders from storage/
-  - or the folder itself so current state files are deleted
+  - or the folder itself so current state.json files are deleted
   - and updates applied on next kickoff.
   ```
 
@@ -717,9 +809,16 @@ Or... Run the following to start the LGPD Demo:
 
 **<details><summary>Listing k3s nodes | pods | cronjobs | services</summary>**
 
-  For a listing of all nodes execute the command `$ kubectl get nodes`.
+  > For a listing of all nodes execute the command `$ kubectl get nodes`.
 
-  To examine pods, run `$ kubectl get pod(s) [-o wide]` then a tab table alike is displayed:
+  ```
+  NAME      STATUS   ROLES                  AGE    VERSION
+  pv-demo   Ready    control-plane,master   3d2h   v1.22.7+k3s1
+  ```
+
+  <br/>
+
+  > To examine pods, run `$ kubectl get pod(s) [-o wide]` then a tab table alike is displayed:
 
   ```
   NAME                                                       READY   STATUS              RESTARTS   AGE  
@@ -747,12 +846,122 @@ Or... Run the following to start the LGPD Demo:
   pv-extract-google-treinamentos-27382400--1-gr6gk           0/1     Completed           0          2m29s
   pv-extract-google-policies-27382402--1-9j4tg               0/1     ContainerCreating   0          12s  
   ```
+
+  <br/>
   
-  To get details from a specific pod run `$ kubectl describe pod(s) <pod name>`.
+  > To get details from a specific pod run `$ kubectl describe pod(s) <pod name>`. Output for graphdb-nifi pod:
 
-  To list all running cronjobs, run `$ kubectl get cronjobs(.batches)`.
+  ```
+  Name:         graphdb-nifi
+  Namespace:    default
+  Priority:     0
+  Node:         pv-demo/172.16.10.100
+  Start Time:   Sat, 12 Mar 2022 20:38:36 +0000
+  Labels:       io.kompose.network/pontusvision=true
+                io.kompose.service=graphdb-nifi
+  Annotations:  <none>
+  Status:       Running
+  IP:           10.42.0.154
+  IPs:
+    IP:  10.42.0.154
+  Containers:
+    graphdb-nifi:
+      Container ID:   containerd://09aab7b76948f330ff28fda0f68053543613db20408c82982c44a5b63b1e6916
+      Image:          pontusvisiongdpr/pontus-track-graphdb-odb-pt:1.15.14
+      Image ID:       docker.io/pontusvisiongdpr/pontus-track-graphdb-odb-pt@sha256:5182a463df686e4c14e3d5203d1025183b846dad4c1a6fe910492d6c637fd6ba
+      Ports:          8183/TCP, 7000/TCP, 3001/TCP, 2480/TCP, 5007/TCP
+      Host Ports:     0/TCP, 0/TCP, 0/TCP, 0/TCP, 0/TCP
+      State:          Running
+        Started:      Sat, 12 Mar 2022 20:38:41 +0000
+      Ready:          True
+      Restart Count:  0
+      Environment:
+        ORIENTDB_ROOT_PASSWORD:  <set to the key 'ORIENTDB_ROOT_PASSWORD' in secret 'pontus-graphdb'>  Optional: false
+        PV_RIPD_ORG:             Pontus Vision
+        PV_RIPD_DPO_NAME:        Senhora DPO
+        PV_RIPD_DPO_EMAIL:       dpo@pontusvision.com
+        PV_DSAR_DPO_NAME:        Senhora DPO
+        PV_DSAR_DPO_EMAIL:       dpo@pontusvision.com
+        PV_RIPD_DPO_PHONE:       555-2233-3344
+        PV_USE_JWT_AUTH:         true
+        PV_KEYCLOAK_PUB_KEY:     MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAo78Fro+GjJDsvb5XeTNCrdIvHiJ4uEh9hDLPA/7o1euqh25t4vO0pxr3npwKDxF8O/twhRYrhUdiP6DDcmxbaeANQBKnujQgQdiLwARsyUtS+Aikcwk5GU46DNuDr7FjpxV4nhtpCL/pdH4DQ1HeaBzMvvn1aRAeW5gEYrPCCXf/hnLQMvb3miE3a2m2rk9jSslzPB2yfaYKuw57eXKyq4nMBoloT/HCdSH80+kUmH8ZeFPItfLJhV5CoWx/pE6zbUKOVYe311nTvGk8i/NgdSH4P1dk3E50t0FD7p1DFuOfhu9ceFFw/pMdx54CUmaOgPa8d58gx1/utjUbkeMVUwIDAQAB
+      Mounts:
+        /orientdb/backup from orientdb-data (rw,path="backup")
+        /orientdb/databases from orientdb-data (rw,path="databases")
+        /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-2x5bv (ro)
+  Conditions:
+    Type              Status
+    Initialized       True
+    Ready             True
+    ContainersReady   True
+    PodScheduled      True
+  Volumes:
+    mapping-salesforce-graph:
+      Type:        Secret (a volume populated by a Secret)
+      SecretName:  mapping-salesforce-graph
+      Optional:    false
+    orientdb-data:
+      Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+      ClaimName:  pontus-track-claim0
+      ReadOnly:   false
+    kube-api-access-2x5bv:
+      Type:                    Projected (a volume that contains injected data from multiple sources)
+      TokenExpirationSeconds:  3607
+      ConfigMapName:           kube-root-ca.crt
+      ConfigMapOptional:       <nil>
+      DownwardAPI:             true
+  QoS Class:                   BestEffort
+  Node-Selectors:              <none>
+  Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                              node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+  Events:
+    Type    Reason     Age    From               Message
+    ----    ------     ----   ----               -------
+    Normal  Scheduled  6m19s  default-scheduler  Successfully assigned default/graphdb-nifi to pv-demo
+    Normal  Pulling    6m16s  kubelet            Pulling image "pontusvisiongdpr/pontus-track-graphdb-odb-pt:1.15.14"
+    Normal  Pulled     6m14s  kubelet            Successfully pulled image "pontusvisiongdpr/pontus-track-graphdb-odb-pt:1.15.14" in 1.834313572s
+    Normal  Created    6m14s  kubelet            Created container graphdb-nifi
+    Normal  Started    6m14s  kubelet            Started container graphdb-nifi
+  ```
 
-  To show services type `$ kubectl get services`.
+  <br/>
+
+  > To list all running cronjobs, run `$ kubectl get cronjobs(.batches)`.
+
+  ```
+  pv-extract-cronjob-treinamento                */7 * * * *   False     0        6m9s            9m33s
+  pv-extract-cronjob-users                      */1 * * * *   False     1        9s              9m33s
+  pv-extract-crm                                */1 * * * *   False     1        9s              9m33s
+  pv-extract-cronjob-acoes-judiciais-ppd        */1 * * * *   False     1        9s              9m33s
+  pv-extract-cronjob-fontes-de-dados            */1 * * * *   False     1        9s              9m33s
+  pv-extract-cronjob-aviso-privacidade          */1 * * * *   False     1        9s              9m33s
+  pv-extract-cronjob-mapeamento-de-processo     */1 * * * *   False     1        9s              9m33s
+  pv-extract-cronjob-politicas                  */1 * * * *   False     1        9s              9m33s
+  pv-extract-cronjob-mitigacao-de-riscos        */1 * * * *   False     1        9s              9m33s
+  pv-extract-kpi                                */1 * * * *   False     1        9s              9m33s
+  pv-extract-cronjob-consentimentos             */1 * * * *   False     1        9s              9m33s
+  pv-extract-cronjob-comunicacoes-ppd           */1 * * * *   False     1        9s              9m33s
+  pv-extract-cronjob-controle-de-solicitacoes   */1 * * * *   False     1        9s              9m33s
+  pv-extract-cronjob-incidentes-de-seguranca    */1 * * * *   False     1        9s              9m33s
+  pv-extract-cronjob-riscos                     */1 * * * *   False     1        9s              9m33s
+  ```
+
+  <br/>
+
+  > To show services type `$ kubectl get services`.
+
+  ```
+  NAME                     TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)                                                 AGE
+  kubernetes               ClusterIP      10.43.0.1       <none>          443/TCP                                                 24h
+  graphdb-nifi             ClusterIP      10.43.192.0     <none>          8182/TCP,8183/TCP,7000/TCP,3001/TCP,2480/TCP,5009/TCP   11m
+  pontus-comply-keycloak   ClusterIP      10.43.162.253   <none>          8080/TCP                                                11m
+  pontus-postgrest         ClusterIP      10.43.188.181   <none>          3000/TCP                                                11m
+  spacyapi                 ClusterIP      10.43.167.32    <none>          80/TCP,8080/TCP                                         11m
+  pv-extract-tika-server   ClusterIP      10.43.170.103   <none>          3001/TCP                                                11m
+  pontus-timescaledb       ClusterIP      10.43.7.140     <none>          5432/TCP                                                11m
+  pontus-grafana           LoadBalancer   10.43.141.52    172.16.10.100   3000:30357/TCP                                          11m
+  pontus-gdpr              LoadBalancer   10.43.126.21    172.16.10.100   18443:31618/TCP                                         11m
+  ```
 
 </details>
 
