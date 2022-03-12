@@ -692,6 +692,12 @@ Or... Run the following to start the LGPD Demo:
   ./stop-env.sh 
   ```
 
+  ```diff
+  - You may need to remove some inner folders from storage/
+  - or the folder itself so current state files are deleted
+  - and updates applied on next kickoff.
+  ```
+
 #### Starting up
 
   To start the whole environment, run the following command:
@@ -712,9 +718,11 @@ Or... Run the following to start the LGPD Demo:
 
 ## Monitoring/Troubleshooting
 
-**<details><summary>Listing k3s pods | cronjobs | services</summary>**
+**<details><summary>Listing k3s nodes | pods | cronjobs | services</summary>**
 
-  To do so type `$ kubectl get pods` then a tab table alike is displayed:
+  For a listing of all nodes execute the command `$ kubectl get nodes`.
+
+  To examine pods, run `$ kubectl get pod(s) [-o wide]` then a tab table alike is displayed:
 
   ```
   NAME                                                       READY   STATUS              RESTARTS   AGE  
@@ -742,6 +750,12 @@ Or... Run the following to start the LGPD Demo:
   pv-extract-google-treinamentos-27382400--1-gr6gk           0/1     Completed           0          2m29s
   pv-extract-google-policies-27382402--1-9j4tg               0/1     ContainerCreating   0          12s  
   ```
+  
+  To get details from a specific pod run `$ kubectl describe pod(s) <pod name>`.
+
+  To list all running cronjobs, run `$ kubectl get cronjobs(.batches)`.
+
+  To show services type `$ kubectl get services`.
 
 </details>
 
@@ -750,7 +764,7 @@ Or... Run the following to start the LGPD Demo:
   To get a specific pod's log run:
 
   ```
-  kubectl logs [-f] <NAME> [--tail]
+  kubectl logs [-f] <pod name> [--tail]
   ```
 
   To follow the logging, toggle flag `-f`. And to show the most recent logs use the flag `--tail` passing the number. For example:
