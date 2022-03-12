@@ -866,9 +866,9 @@ Or... Run the following to start the LGPD Demo:
     IP:  10.42.0.154
   Containers:
     graphdb-nifi:
-      Container ID:   containerd://09aab7b76948f330ff28fda0f68053543613db20408c82982c44a5b63b1e6916
+      Container ID:   containerd://09aab7b7******************************
       Image:          pontusvisiongdpr/pontus-track-graphdb-odb-pt:1.15.14
-      Image ID:       docker.io/pontusvisiongdpr/pontus-track-graphdb-odb-pt@sha256:5182a463df686e4c14e3d5203d1025183b846dad4c1a6fe910492d6c637fd6ba
+      Image ID:       docker.io/pontusvisiongdpr/pontus-track-graphdb-odb-pt@sha256:5182a463df6***********************
       Ports:          8183/TCP, 7000/TCP, 3001/TCP, 2480/TCP, 5007/TCP
       Host Ports:     0/TCP, 0/TCP, 0/TCP, 0/TCP, 0/TCP
       State:          Running
@@ -884,7 +884,7 @@ Or... Run the following to start the LGPD Demo:
         PV_DSAR_DPO_EMAIL:       dpo@pontusvision.com
         PV_RIPD_DPO_PHONE:       555-2233-3344
         PV_USE_JWT_AUTH:         true
-        PV_KEYCLOAK_PUB_KEY:     MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAo78Fro+GjJDsvb5XeTNCrdIvHiJ4uEh9hDLPA/7o1euqh25t4vO0pxr3npwKDxF8O/twhRYrhUdiP6DDcmxbaeANQBKnujQgQdiLwARsyUtS+Aikcwk5GU46DNuDr7FjpxV4nhtpCL/pdH4DQ1HeaBzMvvn1aRAeW5gEYrPCCXf/hnLQMvb3miE3a2m2rk9jSslzPB2yfaYKuw57eXKyq4nMBoloT/HCdSH80+kUmH8ZeFPItfLJhV5CoWx/pE6zbUKOVYe311nTvGk8i/NgdSH4P1dk3E50t0FD7p1DFuOfhu9ceFFw/pMdx54CUmaOgPa8d58gx1/utjUbkeMVUwIDAQAB
+        PV_KEYCLOAK_PUB_KEY:     *****************************************************************************************************
       Mounts:
         /orientdb/backup from orientdb-data (rw,path="backup")
         /orientdb/databases from orientdb-data (rw,path="databases")
