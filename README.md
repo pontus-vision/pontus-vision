@@ -56,15 +56,15 @@ Pontus Vision has the following benefits:
 
 ### COMPLY
 
-  Gathers links to all personal data within an organization, with graphical or textual reports, using a scoring system based on the ICO’s 12 steps to GDPR compliance.
+  Gathers links to all personal data within an organisation, with graphical or textual reports, using a scoring system based on the ICO’s 12 steps to GDPR compliance.
 
   <details>
 
-  All data is consolidated in a dashboard, for graphical or textual visualization.
+  All data is consolidated in a dashboard, for graphical or textual visualisation.
 
-  The solution gathers links to all personal data within an organization, with graphical or textual reports, using a scoring system based on the ICO’s 12 steps to GDPR compliance.
+  The solution gathers links to all personal data within an organisation, with graphical or textual reports, using a scoring system based on the ICO’s 12 steps to GDPR compliance.
 
-  All forms and reports are managed in real time, showing the areas of the organization that have personal data.
+  All forms and reports are managed in real time, showing the areas of the organisation that have personal data.
 
 </details>
 
@@ -890,7 +890,7 @@ Or... Run the following to start the LGPD Demo:
 
 **<details><summary>Grafana</summary>**
 
-  Grafana is a multi-platform open source analytics and interactive visualization web application. Connected with Pontus Vision's product, provides charts, graphs, and alerts on the web.
+  Grafana is a multi-platform open source analytics and interactive visualisation web application. Connected with Pontus Vision's product, provides charts, graphs, and alerts on the web.
 
   The same **Super User** privilege is needed here ...go to the main login page [https://\<add-hostname-here\>/pv](https://\<add-hostname-here\>/pv) and enter the admin credentials sent by your administrator.
 
