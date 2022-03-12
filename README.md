@@ -242,16 +242,13 @@ Pontus Vision has the following benefits:
 
 **<details><summary>Secret Files</summary>**
 
-  This Demo uses Kubernetes secrets to store various sensitive passwords and credentials. You'll need to create your own, but to get you started, we have created a `tar` file with sample formats.
+  This Demo uses Kubernetes secrets to store various sensitive passwords and credentials. You'll need to create your own, but to get you started, we have created a `tar.gz` file with sample formats.
 
-  To download and extract the sample secrets run the following command:
-  ```
-  ./download-sample-secrets.sh
-  ```
+  The first time the environment is started, it will check if there's a `secrets/` folder existing (in case you want to add privates), otherwise it will use `sample-secrets.tar.gz` by default. To create the folder in a compatible manner, follow below ↓
 
 **Edit the secret Files structure**
 
-  That should produce a directory structure similar to the one below. Secrets located inside the `env/` folder should only be modified by experienced users; add your other secrets to the main folder `secrets/`.
+  You should organize a directory structure similar to the one below. Secrets located inside the `env/` folder should only be modified by experienced users; add your other secrets to the main folder `secrets/`.
 
   ```
   k3s/secrets/
@@ -482,7 +479,7 @@ Pontus Vision has the following benefits:
           - name: PV_POSTGREST_PREFIX
             value: "http://pontus-postgrest:3000"
 
-      # Add and modify your own cronjobs/pods/services
+      # Add / modify your own cronjobs/pods/services
       cronjob-1:
         command:
           - /usr/bin/node
