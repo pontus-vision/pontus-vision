@@ -838,7 +838,7 @@ Or... Run the following to start the LGPD Demo:
 **Accessing Grafana (Pontus Vision Dashboard)**
 
   1. point a browser to [https://localhost/pv](https://localhost/pv)
-  2. Use the user name `lmartins@pontusnetworks.com` and the default password `pa55word`
+  2. Use the user name `lmartins@pontusnetworks.com` and the default password `pa55word!!!`
 
 <br/>
 
