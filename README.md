@@ -223,7 +223,7 @@ Pontus Vision has the following benefits:
   The easiest way to deploy the Pontus Vision platform is to run either a VM or bare-metal Ubuntu 20.04 OS, and follow the instructions below:
 
   ```diff
-  + This Demonstration runs over a FICTITIOUS DATABASE so you can test Pontus Vision's tools handily.
+  + This Demonstration runs over a SAMPLE DATABASE so you can test Pontus Vision's tools easily.
   + All you have to do after cloning this GitHub repo is RUNNING THE START-UP SCRIPTS.
   + Skip all the way to the bottom of this section.
   ```
