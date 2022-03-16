@@ -275,10 +275,7 @@ Or... Run the following to start the LGPD Demo:
 
   You should organize a directory structure similar to the example down. Make sure to create the `secrets/` folder inside `k3s/`'s. Also, be consistent with the **secrets's variable names / Environment Variables**, as you will need to use them on the HELM `templates/` yaml files.
   
-  ```diff
-  - Secrets located inside the env/ folder should ONLY be modified by EXPERIENCED USERS.
-  - Add your other secrets to the MAIN folder secrets/.
-  ```
+  > **WARNING**: Secrets located inside the env/ folder should ONLY be modified by EXPERIENCED USERS. Add your other secrets to the MAIN folder secrets/.
 
   Here's the tree structure of folders and files of the default `secrets/` generated via `sample-secrets.tar.gz`:
 
