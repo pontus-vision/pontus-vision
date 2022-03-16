@@ -79,7 +79,7 @@ Pontus Vision has the following benefits:
   |------------------------------------------------------|---------|-------------------------------------------------|---------------------|------------|------------|
   |  pontusvisiongdpr/grafana:1.13.2                     |Comply   | Dashboard - historical KPIs and data tables     | Yes                 | 140.67MB   | 39MiB      |
   |  pontusvisiongdpr/pontus-comply-keycloak:latest      |Comply   | (optional) Authenticator - creates JWT token    | Yes                 | 404MB      | 492MiB     |
-  |  pontusvisiongdpr/pontus-track-graphdb-odb:1.15.14    |Track    | Graph Database to store data in the POLE model  | Yes                 | 1.04GB     | 4.5GiB     |
+  |  pontusvisiongdpr/pontus-track-graphdb-odb:1.15.15    |Track    | Graph Database to store data in the POLE model  | Yes                 | 1.04GB     | 4.5GiB     |
   |  pontusvisiongdpr/timescaledb:latest                 |Track    | Historical time series database                 | Yes                 | 73MB       | 192MiB     |
   |  pontusvisiongdpr/postgrest:latest                   |Track    | REST API front end to timescale db              | No                  | 43MB       | 13MiB      |
   |  pontusvisiongdpr/pontus-extract-spacy:1.13.2        |Extract  | (optional) Natural language processor           | No                  | 4.12GB     | 105MiB     |
@@ -119,7 +119,7 @@ Pontus Vision has the following benefits:
 
   sudo rm -rf /var/cache/snapd/
 
-  yes | sudo apt autoremove --purge snapd gnome-software-plugin-snap
+  sudo apt autoremove --purge snapd gnome-software-plugin-snap
 
   rm -fr ~/snap
   sudo apt-mark hold snapd

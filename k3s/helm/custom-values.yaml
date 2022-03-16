@@ -3,7 +3,7 @@
 
 pvvals:
   imageVers:
-    graphdb: "pontusvisiongdpr/pontus-track-graphdb-odb${PV_IMAGE_SUFFIX}:1.15.14"
+    graphdb: "pontusvisiongdpr/pontus-track-graphdb-odb${PV_IMAGE_SUFFIX}:1.15.15"
     grafana: "pontusvisiongdpr/grafana${PV_IMAGE_SUFFIX}:1.13.2"
     pvextract: "pontusvisiongdpr/pv-extract-wrapper:1.13.2"
 
@@ -305,6 +305,24 @@ pvvals:
           value: "$.rows"
 
 
+    budibase-reunioes:
+      command:
+        - /usr/bin/node
+        - dist/rest-handler/budibase/app.js
+      secretName: "budibase-json"
+      storage: "1Mi"
+      schedule: "*/1 * * * *"
+      env:
+        - name:  PV_SECRET_MANAGER_ID
+          value: "/run/secrets/budibase-json"
+        - name:  PV_REQUEST_URL
+          value: "${BUDIBASE_URL_REUNIOES}"
+        - name:  PV_GRAPHDB_INPUT_RULE
+          value: "bb_reunioes_ppd"
+        - name:  PV_SECRET_COMPONENT_NAME
+          value: "budibase"
+        - name:  PV_GRAPHDB_INPUT_JSONPATH
+          value: "$.rows"
 
     salesforce:
       command:
@@ -319,6 +337,5 @@ pvvals:
           value: "/run/secrets/salesforce-json"
         - name:  PV_SECRET_COMPONENT_NAME
           value: "salesforce"
-
 
 
