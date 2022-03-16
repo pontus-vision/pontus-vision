@@ -1,7 +1,7 @@
 
 # Pontus Vision
 
-  [Pontus Vision](https://www.pontusvision.com) is an open source platform for data mapping and management of personal data. It helps companies comply with data protection regulations, such as California's **CCPA**, Brazil's **LGPD** and EU's **GDPR**.
+  [Pontus Vision](https://www.pontusvision.com) is an open source platform for data mapping and management of personal data. It helps companies comply with data protection regulations, such as EU's **GDPR**, Brazil's **LGPD** and California's **CCPA**.
 
 <br/>
 
@@ -25,8 +25,7 @@ Pontus Vision has the following benefits:
 
   The Pontus Vision platform solves data mapping and management of personal data challenges in 3 modules:
 
-  ![](images-README/arch-components.png)
-
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/arch-components.png) <!-- update picture !! -->
 
 ### EXTRACT
 
@@ -57,15 +56,15 @@ Pontus Vision has the following benefits:
 
 ### COMPLY
 
-  Gathers links to all personal data within an organization, with graphical or textual reports, using a scoring system based on the ICO’s 12 steps to GDPR compliance.
+  Gathers links to all personal data within an organisation, with graphical or textual reports, using a scoring system based on the ICO’s 12 steps to GDPR compliance.
 
   <details>
 
-  All data is consolidated in a dashboard, for graphical or textual visualization.
+  All data is consolidated in a dashboard, for graphical or textual visualisation.
 
-  The solution gathers links to all personal data within an organization, with graphical or textual reports, using a scoring system based on the ICO’s 12 steps to GDPR compliance.
+  The solution gathers links to all personal data within an organisation, with graphical or textual reports, using a scoring system based on the ICO’s 12 steps to GDPR compliance.
 
-  All forms and reports are managed in real time, showing the areas of the organization that have personal data.
+  All forms and reports are managed in real time, showing the areas of the organisation that have personal data.
 
 </details>
 
@@ -98,146 +97,6 @@ Pontus Vision has the following benefits:
   - 32GB RAM
   - 250GB Disk + ~1KB of storage / record
 
- <!--
-**<details><summary>Docker 🐳</summary>**
-
-<details><summary>Windows Instructions</summary>
-
- * [Install Windows WSL2 Ubuntu 20.04](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
- * [Install Windows Docker desktop](https://docs.docker.com/docker-for-windows/install/) 
- * Enable Kubernetes on Docker Desktop:
-   * Use WSL Engine: ![](images-README/windows-docker-desktop-settings.jpg)
-   * Enable WSL2 Integration: ![](images-README/windows-docker-desktop-wsl-integration.jpg)
-   * Enable Kubernetes: ![](images-README/windows-docker-desktop-kubernetes.jpg)
-
-</details> 
-
-<details><summary>MacOS Instructions</summary>
-  
- * [Install MacOS Docker Desktop](https://docs.docker.com/docker-for-mac/install/)
- * Enable Kubernetes: ![](images-README/macos-dockerd-k8s.jpg)
- 
-</details>
-
-<details><summary>Linux Instructions (Ubuntu 20.04)</summary>
-  
- * [Install Docker](https://docs.docker.com/engine/install/ubuntu/)
- * [Install Kubernetes](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
- * here are instructions from scratch:
-```
-sudo apt-get update
-sudo apt-get install -y apt-transport-https ca-certificates curl
-sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
-echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
-sudo apt-get update
-sudo apt-get install -y kubelet kubeadm kubectl
-sudo apt-mark hold kubelet kubeadm kubectl
-
-cat  <<EOF > /tmp/kubeadm-config.yaml
-# kubeadm-config.yaml
-kind: ClusterConfiguration
-apiVersion: kubeadm.k8s.io/v1beta2  // k8s OR k3s
-kubernetesVersion: v1.22.2
----
-kind: KubeletConfiguration
-apiVersion: kubelet.config.k8s.io/v1beta1  //k8s SHOULDNT be k3s
-cgroupDriver: systemd
-EOF
-#  sudo kubeadm init --pod-network-cidr=
-
-sudo mkdir /etc/docker
-cat <<EOF | sudo tee /etc/docker/daemon.json
-{
-  "exec-opts": ["native.cgroupdriver=systemd"],
-  "log-driver": "json-file",
-  "log-opts": {
-    "max-size": "100m"
-  },
-  "storage-driver": "overlay2"
-}
-EOF
-sudo systemctl enable docker
-sudo systemctl daemon-reload
-sudo systemctl restart docker
-
-sudo swapoff -a
-
-cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
-overlay
-br_netfilter
-EOF
-
-sudo modprobe overlay
-sudo modprobe br_netfilter
-
-# Setup required sysctl params, these persist across reboots.
-cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
-net.bridge.bridge-nf-call-iptables  = 1
-net.ipv4.ip_forward                 = 1
-net.bridge.bridge-nf-call-ip6tables = 1
-EOF
-
-# Apply sysctl params without reboot
-sudo sysctl --system
-```
-##### systemd cgroup driver:
-  To use the systemd cgroup driver in /etc/containerd/config.toml with runc, set
-```
-[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
-  ...
-  [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
-    SystemdCgroup = true
-```
-If you apply this change make sure to restart containerd again:
-```
-sudo systemctl restart containerd
-```
-
-##### Cluster creation:
-```
-sudo kubeadm init --config=/tmp/kubeadm-config.yaml
-```
-If all goes well, you should see something similar to this:
-```
-Your Kubernetes control-plane has initialized successfully!
-
-To start using your cluster, you need to run the following as a regular user:
-
-  mkdir -p $HOME/.kube
-  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-  sudo chown $(id -u):$(id -g) $HOME/.kube/config
-
-Alternatively, if you are the root user, you can run:
-
-  export KUBECONFIG=/etc/kubernetes/admin.conf
-
-You should now deploy a pod network to the cluster.
-Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
-  https://kubernetes.io/docs/concepts/cluster-administration/addons/
-
-Then you can join any number of worker nodes by running the following on each as root:
-
-kubeadm join 192.xx.xx.xx:6443 --token xxxxx.yyyyyyyyyyyyyy \
-        --discovery-token-ca-cert-hash sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-  
-```
-If running on a single cluster, you may have to run the following commands (to enable the master node and to add a network:
-```
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
-
-kubectl apply -f  https://docs.projectcalico.org/manifests/calico.yaml
-kubectl taint nodes --all node-role.kubernetes.io/master-
-
-```
-
-</details>
-
-</details>
-
--->
-
 **<details><summary>Removing Snap (optional - not required for WSL)</summary>**
 
   Before the `k3s` installation, remove `Snap` package manager, as it consumes too much CPU on small servers; this can be done by running the following:
@@ -268,7 +127,7 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
   #Update the server:
   sudo apt update
   sudo apt upgrade -y
-  sudo apt install -y git curl ubuntu-server python3-pip
+  sudo apt install -y git curl jq ubuntu-server python3-pip
   sudo pip3 install yq
   ```
 
@@ -343,7 +202,6 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
 
 **<details><summary>Certificate Manager installation</summary>**
 
- 
   After installing helm, create the cert-manager namespace and install cert manager; this will enable https certificates to be managed:
   ```
   helm repo add jetstack https://charts.jetstack.io
@@ -360,11 +218,41 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
 
 <br/>
 
-# Installation
+  # Demo Installation
+
+  The easiest way to deploy the Pontus Vision platform is to run a VM with Ubuntu 20.04 OS, with a minimum of 16GB of RAM, 4 cores and 250GB of disk space.
+  Note that the VM must be called `pv-demo`; otherwise, Keycloak's rules will have to be changed to allow traffic from other prefixes
+  > **WARNING**: Please ensure that the VM used for the demo is called pv-demo
+
+  If you want to try own data, then CONFIGURATION of secrets, apis and storage will be required.  Overwrite the folders storage/ and secrets/ following the instructions in the next section THOROUGHLY.
+
+  The helm chart used to configure the Pontus Vision platform exists in this repository. Clone this repository and use either the GDPR or LGPD Demo:
+
+
+  ```bash
+  git clone https://github.com/pontus-vision/pontus-vision.git
+  cd pontus-vision/k3s
+  ```
+  To run the GDPR Demo, run the following command:
+```bash
+  ./start-env-gdpr.sh
+  # Note: The command above may fail the first time, as k3s will be dowloading large images and may time out.  If that happens, run it again
+```
+
+Or... Run the following to start the LGPD Demo:
+
+```bash
+  ./start-env-lgpd.sh
+  # Note: The command above may fail the first time, as k3s will be dowloading large images and may time out.  If that happens, run it again
+```
+
+<br/>
+
+
+
+# Custom Installation
 
   The easiest way to deploy the Pontus Vision platform is to run either a VM or bare-metal Ubuntu 20.04 OS, and follow the instructions below:
-
-**<details><summary>Pontus Vision Solution installation</summary>**
 
   The helm chart used to configure the Pontus Vision platform exists in this repository. Clone this repository and use either the GDPR or LGPD Demo:
 
@@ -373,174 +261,25 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
   cd pontus-vision/k3s
   ```
 
-## Secret Files
+**<details><summary>Secret Files</summary>**
 
-  This Demo uses Kubernetes secrets to store various sensitive passwords and credentials. You'll need to create your own, but to get you started, we have created a `tar` file with sample formats.
+  This Demo uses Kubernetes secrets to store various sensitive passwords and credentials. You'll need to create your own, but to get you started, we have created a `tar.gz` file with sample formats.
+  
+  > The `create-env-secrets.sh` script is in charge of the secrets.
 
-  To download and extract the sample secrets run the following command:
-  ```
-  ./download-sample-secrets.sh
-  ```
-  <!--
-That should produce a directory structure similar to this:
-```
-secrets/
-├── env
-│   ├── pontus-grafana
-│   │   └── GF_PATHS_CONFIG
-│   ├── pontus-graphdb
-│   │   ├── AWS_ACCESS_KEY_ID
-│   │   ├── AWS_SECRET_ACCESS_KEY
-│   │   └── ORIENTDB_ROOT_PASSWORD
-│   ├── pontus-postgrest
-│   │   ├── PGRST_DB_ANON_ROLE
-│   │   └── PGRST_DB_URI
-│   └── pontus-timescaledb
-│       ├── POSTGRES_PASSWORD
-│       └── POSTGRES_USER
-├── google-creds-json
-├── mapping-salesforce-graph
-├── office-365-auth-client-id
-├── office-365-auth-client-secret
-├── office-365-auth-tenant-id
-├── s3-creds
-├── salesforce-client-id
-├── salesforce-client-secret
-├── salesforce-password
-├── salesforce-username
-├── watson-password
-└── watson-user-name
-```
-### env/pontus-grafana/GF_PATHS_CONFIG
-Path to the grafana configuration file
-```
-/etc/grafana/grafana-pontus.ini
-```
+  The first time the environment is started, it will check if there's a `secrets/` folder existing (in case you want to add privates), otherwise it will use `sample-secrets.tar.gz` by default. To create the folder in a compatible manner, follow below ↓
 
-
-### env/pontus-graphdb/AWS_ACCESS_KEY_ID
-AWS ACCESS KEY Used to pull graphdb information from S3 buckets from the graph database
- 
-### env/pontus-graphdb/AWS_SECRET_ACCESS_KEY
-AWS SECRET KEY Used to pull graphdb information from S3 buckets from the graph database
-
-### env/pontus-graphdb/ORIENTDB_ROOT_PASSWORD
-Master password file for orient db
-```
-admin
-```
-
-### env/pontus-postgrest/PGRST_DB_ANON_ROLE
-Role used to connect from postgrest to postgres (used to store time series data)
-```
-postgres
-```
-
-### env/pontus-postgrest/PGRST_DB_URI
-```
-postgres://postgres:mysecretpassword@pontus-timescaledb:5432/dtm
-```
-
-### env/pontus-timescaledb/POSTGRES_PASSWORD
-```
-mysecretpassword
-```
-
-### env/pontus-timescaledb/POSTGRES_USER
-```
-postgres
-```
-
-### google-creds-json
-This file has the credentials required for Google's NLP Engine
-
-Here is a sample content:
-```json
-{ "type": "service_account", "project_id": "<PROJID_GOES_HERE>", "private_key_id": "<PRIV_KEY_ID_GOES_HERE>", "private_key": "-----BEGIN PRIVATE KEY-----\nPLEASE_ADD_YOUR_PRIVATE_KEY_HERE\n-----END PRIVATE KEY-----\n", "client_email": "<some.email.com>", "client_id": "<CLIENT_ID_GOES_HERE>", "auth_uri": "https://accounts.google.com/o/oauth2/auth", "token_uri": "https://accounts.google.com/o/oauth2/token", "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs", "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/<ADD_YOUR_DETAILS_HERE>" }
-```
-
-### mapping-salesforce-graph
-This file has the POLE mappings for Salesforce; note that this may also be added in-situ in the NiFi workflow, or stored in S3.
-Here is a sample content:
-```json
-{ "updatereq": { "vertices": [ { "label": "Person.Natural", "props": [ { "name": "Person.Natural.Full_Name", "val": "${pg_FirstName?.toUpperCase()?.trim()} ${pg_LastName?.toUpperCase()?.trim()}", "predicate": "eq", "mandatoryInSearch": true }, { "name": "Person.Natural.Full_Name_fuzzy", "val": "${pg_FirstName?.toUpperCase()?.trim()} ${pg_LastName?.toUpperCase()?.trim()}", "excludeFromSearch": true }, { "name": "Person.Natural.Last_Name", "val": "${pg_LastName?.toUpperCase()?.trim()}", "excludeFromSubsequenceSearch": true }, { "name": "Person.Natural.Date_Of_Birth", "val": "${pg_Birthdate?:'1666-01-01'}", "type": "java.util.Date", "mandatoryInSearch": false, "excludeFromSubsequenceSearch": true }, { "name": "Person.Natural.Title", "val": "${pg_Salutation?:''}", "excludeFromSearch": true }, { "name": "Person.Natural.Nationality", "val": "${pg_MailingCountry?:'Unknown'}", "excludeFromSearch": true }, { "name": "Person.Natural.Customer_ID", "val": "${pg_Id}", "mandatoryInSearch": true }, { "name": "Person.Natural.Gender", "val": "Unknown", "mandatoryInSearch": false, "excludeFromSubsequenceSearch": true } ] }, { "label": "Location.Address", "props": [ { "name": "Location.Address.Full_Address", "val": "${ ( (pg_MailingStreet?:'')+ '\\\\n' + (pg_MailingCity?:'') + '\\\\n' + (pg_MailingState?:'') + '\\\\n' + (pg_MailingCountry?:'')).replaceAll('\\\\n', ' ') }", "mandatoryInSearch": true }, { "name": "Location.Address.parser", "val": "${ ( (pg_MailingStreet?:'')+ '\\\\n' + (pg_MailingCity?:'') + '\\\\n' + (pg_MailingState?:'') + '\\\\n' + (pg_MailingCountry?:'')).replaceAll('\\\\n', ' ') }", "excludeFromSearch": true, "type": "com.pontusvision.utils.LocationAddress" }, { "name": "Location.Address.Post_Code", "val": "${com.pontusvision.utils.PostCode.format(pg_MailingPostalCode)}", "excludeFromSearch": true } ] }, { "label": "Object.Email_Address", "props": [ { "name": "Object.Email_Address.Email", "val": "${pg_Email}", "mandatoryInSearch": true } ] }, { "label": "Object.Phone_Number", "props": [ { "name": "Object.Phone_Number.Raw", "val": "${pg_Phone}", "mandatoryInSearch": false }, { "name": "Object.Phone_Number.Type", "val": "Work", "excludeFromSubsequenceSearch": true }, { "name": "Object.Phone_Number.Numbers_Only", "val": "${(pg_Phone?.replaceAll('[^0-9]', '')?:'00000000')}", "excludeFromSearch": true, "type":"[Ljava.lang.String;" }, { "name": "Object.Phone_Number.Last_7_Digits", "val": "${(((pg_Phone?.replaceAll('[^0-9]', ''))?:'0000000')[-7..-1])}", "mandatoryInSearch": true, "type":"[Ljava.lang.String;" } ] }, { "label": "Object.Data_Source", "props": [ { "name": "Object.Data_Source.Name", "val": "salesforce.com", "mandatoryInSearch": true, "excludeFromUpdate": true } ] }, { "label": "Event.Group_Ingestion", "props": [ { "name": "Event.Group_Ingestion.Metadata_Start_Date", "val": "${pg_currDate}", "mandatoryInSearch": true, "excludeFromSearch": false, "type": "java.util.Date" }, { "name": "Event.Group_Ingestion.Metadata_End_Date", "val": "${new Date()}", "excludeFromSearch": true, "type": "java.util.Date" }, { "name": "Event.Group_Ingestion.Type", "val": "Marketing Email System", "excludeFromSearch": true }, { "name": "Event.Group_Ingestion.Operation", "val": "Structured Data Insertion", "excludeFromSearch": true } ] }, { "label": "Event.Ingestion", "props": [ { "name": "Event.Ingestion.Type", "val": "Marketing Email System", "excludeFromSearch": true }, { "name": "Event.Ingestion.Operation", "val": "Structured Data Insertion", "excludeFromSearch": true }, { "name": "Event.Ingestion.Domain_b64", "val": "${original_request?.bytes?.encodeBase64()?.toString()}", "excludeFromSearch": true }, { "name": "Event.Ingestion.Metadata_Create_Date", "val": "${new Date()}", "excludeFromSearch": true, "type": "java.util.Date" } ] } ], "edges": [ { "label": "Uses_Email", "fromVertexLabel": "Person.Natural", "toVertexLabel": "Object.Email_Address" }, { "label": "Has_Phone", "fromVertexLabel": "Person.Natural", "toVertexLabel": "Object.Home_Phone_Number" }, { "label": "Has_Phone", "fromVertexLabel": "Person.Natural", "toVertexLabel": "Object.Phone_Number" }, { "label": "Lives", "fromVertexLabel": "Person.Natural", "toVertexLabel": "Location.Address" }, { "label": "Has_Policy", "fromVertexLabel": "Person.Natural", "toVertexLabel": "Object.Phone_Number" }, { "label": "Has_Ingestion_Event", "fromVertexLabel": "Person.Natural", "toVertexLabel": "Event.Ingestion" }, { "label": "Has_Ingestion_Event", "fromVertexLabel": "Event.Group_Ingestion", "toVertexLabel": "Event.Ingestion" }, { "label": "Has_Ingestion_Event", "toVertexLabel": "Event.Group_Ingestion", "fromVertexLabel": "Object.Data_Source" } ] } }
-```
-### office-365-auth-client-id
-This file has the Office 365 auth client id; the format is typically just a GUID.
-Here is a sample content:
-```
-12345678-90ab-cdef-0123-456789abcdef
-```
-
-### office-365-auth-client-secret
-This file has the Office 365 auth client secret; the format has randomly generated strings
-Here is a sample content:
-```
-Aasdf888^%8>73321;;123k4k123k415k123
-```
-### office-365-auth-tenant-id
-This file has the Office 365 auth tenant id; the format is typically just a GUID.
-Here is a sample content:
-```
-87654321-90ab-cdef-0123-456789abcdef
-```
-### s3-creds
-This file has the credentials to connect to AWS S3 Buckets
-Here is a sample content:
-```
-aws_access_key = AKIAQQQQQQQQQQQQQQQQ
-aws_secret_key = cccccccccccccccccccccccccccccccccccccccc
-#assumed_role = True
-#assumed_role_arn = arn:aws:iam::012345678901:role/orientdb-role
-aws_access_key_id = AKIAQQQQQQQQQQQQQQQQ
-aws_secret_access_key = cccccccccccccccccccccccccccccccccccccccc
-accessKey=AKIAQQQQQQQQQQQQQQQQ
-secretKey=cccccccccccccccccccccccccccccccccccccccc
-```
-### salesforce-client-id
-This file has the Salesforce alphanumeric API client id
-Here is a sample content:
-```
-00000000000000000000000000000000000.abcdefghijklmnopqrstuvwzyzABCDEFGHIJKLMNOPQRSTUVW
-```
-### salesforce-client-secret
-This file has the Salesforce HEX API client secret
-Here is a sample content:
-```
-01234567890DEADBEE01234567890DEADBEE01234567890DEADBEEFFF0123456
-```
-### salesforce-password
-This file has the Salesforce API's alphanumeric password
-Here is a sample content:
-```
-passwordpasswordpassword123456789
-```
-### salesforce-username
-This file has the Salesforce API's user name (typically an e-mail address)
-Here is a sample content:
-```
-my@email.com
-```
-### watson-password
-This file has the IBM Watson API Password (typically an alpha-numeric random string)
-Here is a sample content:
-```
-dfghjkl32j3
-```
-
-### watson-user-name
-This file has the IBM Watson API User Name (typically a GUID)
-Here is a sample content:
-```
-87654321-90ab-cdef-0123-456789abcdef
-```
--->
+  <br/>
 
 **Edit the secret Files structure**
 
-  That should produce a directory structure similar to the one below. Secrets located inside the `env/` folder should only be modified by experienced users; add your other secrets to the main folder `secrets/`.
+  You should organize a directory structure similar to the example down. Make sure to create the `secrets/` folder inside `k3s/`'s. Also, be consistent with the **secrets's variable names / Environment Variables**, as you will need to use them on the HELM `templates/` yaml files.
+  
+  > **WARNING**: Secrets located inside the env/ folder should ONLY be modified by EXPERIENCED USERS. Add your other secrets to the MAIN folder secrets/.
 
-  ```
+  Here's the tree structure of folders and files of the default `secrets/` generated via `sample-secrets.tar.gz`:
+
+  ```bash
   k3s/secrets/
   ├── crm-api-key                   
   ├── crm-json                      
@@ -558,9 +297,33 @@ Here is a sample content:
   │       ├── POSTGRES_PASSWORD     
   │       └── POSTGRES_USER         
   ├── erp-api-key                   
-  ├── google-json                   
-  └── microsoft-json                
+  ├── google-json # example                   
+  └── microsoft-json # example                
   ```
+
+  And this is the YAML template secret file for `pontus-timescaledb` @ `pontus-vision\k3s\helm\pv\templates` used by HELM-K3s. Notice how the secrets names `POSTGRES_USER` and `POSTGRES_PASSWORD` are used.
+
+  ```yaml
+  spec:
+  containers:
+  - env:
+    - name: PGUSER
+      value: postgres
+    - name: POSTGRES_PASSWORD # <---
+      valueFrom:
+        secretKeyRef:
+          name: pontus-timescaledb
+          key: POSTGRES_PASSWORD # <---
+    - name: POSTGRES_USER # <---
+      valueFrom:
+        secretKeyRef:
+          name: pontus-timescaledb
+          key: POSTGRES_USER # <---
+    image: pontusvisiongdpr/timescaledb:latest
+    name: pontus-timescaledb
+  ```
+
+  Here are other examples / templates of secrets:
 
 <details><summary>crm-api-key</summary>
 
@@ -713,11 +476,11 @@ Here is a sample content:
 
 <!-- add .pdf version -->
 
-  ![alt text](/images-README/azure-1.jpg)
-  ![alt text](/images-README/azure-2.jpg)
-  ![alt text](/images-README/azure-3.jpg)
-  ![alt text](/images-README/azure-4.jpg)
-  ![alt text](/images-README/azure-5.jpg)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/azure-1.jpg)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/azure-2.jpg)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/azure-3.jpg)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/azure-4.jpg)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/azure-5.jpg)
 
 </details>
 
@@ -725,27 +488,77 @@ Here is a sample content:
 
 **<details><summary>Configure the helm values</summary>**
 
-  The values files `pontus-vision/k3s/helm/values-gdpr.yaml` and `pontus-vision/k3s/helm/values-lgpd.yaml` have configuration details that vary from environment to environment. Here's an example:
+  The values file `pontus-vision/k3s/helm/custom-values.yaml` has configuration details that vary from environment to environment. Here's an example:
 
   ```yaml
-  # Default values for pv/.
   # This is a YAML-formatted file.
+  # Declare variables here to be passed to your templates.
 
   pvvals:
     imageVers:
-      graphdb: "pontusvisiongdpr/pontus-track-graphdb-odb:1.15.15"
-      grafana: "pontusvisiongdpr/grafana:1.13.2"
-    storagePath: "<add path here>" # make sure to pass the exact path (Create persistent volumes storage section)
-    hostname: "<add hostname here>"
-    # to get the keycloak public key <keycloakPubKey>, do an HTTP GET to the following URL: https://<hostname>/auth/realms/pontus
-    keycloakPubKey: "******************************************"
+      graphdb: "pontusvisiongdpr/pontus-track-graphdb-odb${PV_IMAGE_SUFFIX}:1.15.14"
+      grafana: "pontusvisiongdpr/grafana${PV_IMAGE_SUFFIX}:1.13.2"
+      pvextract: "pontusvisiongdpr/pv-extract-wrapper:1.13.2"
+
+    storagePath: "${PV_STORAGE_BASE}" # Environment Variable
+    hostname: "${PV_HOSTNAME}"
+    # to get the keycloak public key, do an HTTP GET to the following URL: https://<hostname>/auth/realms/pontus
+    keycloakPubKey: "*********************************************************"
+
+    # change the values as necessary
+    # Be consistent with the variables!
+    defEnvVars:
+      - name: PV_DEBUG
+        value: "true"
+      - name: PV_TIMEOUT_MS
+        value: "1600000"
+      - name: PV_GRAPHDB_URL_PREFIX
+        value: http://graphdb-nifi:3001
+      - name: PV_STATE_FILE
+        value: "/mnt/pv-extract-lambda/state.json"
+      - name: PV_SHAREPOINT_SITE_ID
+        value: "some.sharepoint.com,<GUID1>,<GUID2>"
+      - name: PV_OFFICE_365_ONPREM_CREDS_FILE
+        value: "/run/secrets/sharepoint-json"
+      - name:  PV_MAX_EMAIL_MESSAGES
+        value: "1000"
+
+    extractModules:
+      kpi:
+        command:
+          - /bin/bash
+          - -c
+          - sleep 10 && getent hosts graphdb-nifi &&  /usr/bin/node dist/kpi-handler/app.js
+        env:
+          - name: PV_POSTGREST_PREFIX
+            value: "http://pontus-postgrest:3000"
+
+      # Add / modify your own cronjobs|pods|services
+      # Be consistent with the variables!
+      cronjob-1:
+        command:
+          - /usr/bin/node
+          - dist/rest-handler/cronjob-1/app.js
+        secretName: "cronjob-1-json"
+        storage: "1Mi"
+        env:
+          - name:  PV_SECRET_MANAGER_ID
+            value: "/run/secrets/cronjob-1-json"
+          - name:  PV_REQUEST_URL
+            value: "${CRONJOB-1_URL}"
+          - name:  PV_GRAPHDB_INPUT_RULE
+            value: "bb_mapeamento_de_processo"
+          - name:  PV_SECRET_COMPONENT_NAME
+            value: "cronjob-1"
+          - name:  PV_GRAPHDB_INPUT_JSONPATH
+            value: "$.rows"
   ```
 
-## `cd pv/templates` to configure the **cronjobs**.
+<!-- ## `cd pv/templates` to configure the **cronjobs**. Is this part necessary ?!?! -->
 
-  <!--
-  TODO templates cronjob documentation
-  -->
+<!--
+TODO templates cronjob instructions
+-->
 
 <br/>
 
@@ -753,7 +566,63 @@ Here is a sample content:
 
 **<details><summary>Create persistent volumes storage</summary>**
 
-  This step is important to ensure k3s data is kept by using **persistent volumes**. To do so, please create a directory structure similar to the following:
+  ```diff
+  - This step is AUTO PERFORMED !!
+  - To ensure it runs smoothly, guarantee you setted everything @ k3s\helm\custom-values.yaml !!
+  ```
+
+  This step is important to ensure k3s data is kept by using **persistent volumes**. The script `create-storage-dirs.sh` is executed when the environment (Demo) is started. It is responsible in creating the storage folder structure.
+
+  The `extract/` inner folders are created using the `custom-values.yaml` names <!-- what is the name of the YAML paragraph/variable ?!?! -->.
+
+  Here's how it works:
+
+  ```yaml
+      kpi:
+      command:
+        - /bin/bash
+        - -c
+        - sleep 10 && getent hosts graphdb-nifi &&  /usr/bin/node dist/kpi-handler/app.js
+      env:
+        - name: PV_POSTGREST_PREFIX
+          value: "http://pontus-postgrest:3000"
+
+    # Name your cronjobs|pods|services accordingly
+    cronjob-x: # <--- this will be the name of the folder @ /storage/extract/cronjob-x
+      command:
+        - /usr/bin/node
+        - dist/rest-handler/cronjob-x/app.js
+      secretName: "cronjob-x-json" # <---
+      storage: "1Mi"
+      env:
+        - name:  PV_SECRET_MANAGER_ID
+          value: "/run/secrets/cronjob-x-json" # <---
+        - name:  PV_REQUEST_URL
+          value: "${CRONJOB-X_URL_MAPEAMENTO_DE_PROCESSO}" # <---
+        - name:  PV_GRAPHDB_INPUT_RULE
+          value: "cronjob-x" # <---
+        - name:  PV_SECRET_COMPONENT_NAME
+          value: "cronjob-x" # <---
+        - name:  PV_GRAPHDB_INPUT_JSONPATH
+          value: "$.rows"
+  ```
+
+  Here's the resulting tree structure @ `/storage/extract`:
+
+  ```bash
+  ~/storage
+  ├── db
+  ├── extract
+  │   └── cronjob-x # <---
+  |       └── state.json # <---
+  ├── grafana
+  ├── keycloak
+  └── timescaledb
+  ```
+  
+  <!-- 
+  
+  To do so, please create a directory structure similar to the following:
 
   ```
   ~/storage
@@ -781,7 +650,7 @@ Here is a sample content:
   └── timescaledb
   ```
 
-  Make sure that the value for the `storagePath` key @ `pontus-vision/k3s/helm/values-gdpr.yaml` and `pontus-vision/k3s/helm/values-lgpd.yaml` is the root of the directory structure above.
+  Check that the value for the `storagePath` key @ `pontus-vision/k3s/helm/custom-values.yaml` is the root of the directory structure above.
   	
   Here is a set of commands that can create this structure if the value of `.Values.pvvals.storagePath` is set to `~/storage`:
     
@@ -810,6 +679,7 @@ Here is a sample content:
   
   chmod -R 777 *
   ```	
+  -->
 
 </details>
 
@@ -837,7 +707,7 @@ Or... Run the following to start the LGPD Demo:
 
 **Accessing Grafana (Pontus Vision Dashboard)**
 
-  1. point a browser to [https://localhost/pv](https://localhost/pv)
+  1. point a browser to [https://\<hostname\>/pv](https://\<hostname\>/pv)
   2. Use the user name `lmartins@pontusnetworks.com` and the default password `pa55word!!!`
 
 <br/>
@@ -892,22 +762,24 @@ Or... Run the following to start the LGPD Demo:
 
 **<details><summary>Pontus Vision imageVers</summary>**
 
-  Pontus Vision is constantly upgrading and updating its container images to keep up with the latest tech and security patches. To change versions simply change the `pvvals.imageVers` value @ `pontus-vision/k3s/helm/values-gdpr.yaml` and `pontus-vision/k3s/helm/values-lgpd.yaml` then restart k3s env (look bellow @ **Restart k3s env** section).
-
-  **Json File**:
+  Pontus Vision is constantly upgrading and updating its container images to keep up with the latest tech and security patches. To change versions simply change the `pvvals.imageVers` value @ `pontus-vision/k3s/helm/custom-values.yaml` then restart k3s env (look bellow @ **Restart k3s env** section).
 
   ```yaml
+  # This is a YAML-formatted file.
+  # Declare variables here to be passed to your templates.
+
   pvvals:
-    imageVers:
-      graphdb: "pontusvisiongdpr/pontus-track-graphdb-odb:1.15.15"
-      grafana: "pontusvisiongdpr/grafana:1.13.2"
-      # container: M.m.p
-      # etc.
-    storagePath: "<add path here>" # make sure to pass the exact path (Create persistent volumes storage section)
-    hostname: "<add hostname here>"
-    ErpUrlPrefix: "https://xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-    # to get the keycloak public key, do an HTTP GET to the following URL: https1://<hostname>/auth/realms/pontus
-    keycloakPubKey: "******************************************"  
+    imageVers: # <---
+      graphdb: "pontusvisiongdpr/pontus-track-graphdb-odb${PV_IMAGE_SUFFIX}:1.15.14"
+      grafana: "pontusvisiongdpr/grafana${PV_IMAGE_SUFFIX}:1.13.2"
+      pvextract: "pontusvisiongdpr/pv-extract-wrapper:1.13.2"
+
+    storagePath: "${PV_STORAGE_BASE}"
+    hostname: "${PV_HOSTNAME}"
+    # to get the keycloak public key, do an HTTP GET to the following URL: https://<hostname>/auth/realms/pontus
+    keycloakPubKey: "*********************************************************"
+
+  # (...)
   ```
 
 </details>
@@ -925,6 +797,12 @@ Or... Run the following to start the LGPD Demo:
   To stop the whole environment, run the following command: 
   ```
   ./stop-env.sh 
+  ```
+
+  ```diff
+  - You may need to remove some inner folders from storage/
+  - or the folder itself so current state.json files are deleted
+  - and updates applied on next kickoff.
   ```
 
 #### Starting up
@@ -947,9 +825,18 @@ Or... Run the following to start the LGPD Demo:
 
 ## Monitoring/Troubleshooting
 
-**<details><summary>Listing k3s pods</summary>**
+**<details><summary>Listing k3s nodes | pods | cronjobs | services</summary>**
 
-  To do so type `$ kubectl get pods` then a tab table alike is displayed:
+  > For a listing of all nodes execute the command `$ kubectl get nodes`.
+
+  ```
+  NAME      STATUS   ROLES                  AGE    VERSION
+  pv-demo   Ready    control-plane,master   3d2h   v1.22.7+k3s1
+  ```
+
+  <br/>
+
+  > To examine pods, run `$ kubectl get pod(s) [-o wide]` then a tab table alike is displayed:
 
   ```
   NAME                                                       READY   STATUS              RESTARTS   AGE  
@@ -978,6 +865,122 @@ Or... Run the following to start the LGPD Demo:
   pv-extract-google-policies-27382402--1-9j4tg               0/1     ContainerCreating   0          12s  
   ```
 
+  <br/>
+  
+  > To get details from a specific pod run `$ kubectl describe pod(s) <pod name>`. Output for graphdb-nifi pod:
+
+  ```
+  Name:         graphdb-nifi
+  Namespace:    default
+  Priority:     0
+  Node:         pv-demo/172.16.10.100
+  Start Time:   Sat, 12 Mar 2022 20:38:36 +0000
+  Labels:       io.kompose.network/pontusvision=true
+                io.kompose.service=graphdb-nifi
+  Annotations:  <none>
+  Status:       Running
+  IP:           10.42.0.154
+  IPs:
+    IP:  10.42.0.154
+  Containers:
+    graphdb-nifi:
+      Container ID:   containerd://09aab7b7******************************
+      Image:          pontusvisiongdpr/pontus-track-graphdb-odb-pt:1.15.14
+      Image ID:       docker.io/pontusvisiongdpr/pontus-track-graphdb-odb-pt@sha256:5182a463df6***********************
+      Ports:          8183/TCP, 7000/TCP, 3001/TCP, 2480/TCP, 5007/TCP
+      Host Ports:     0/TCP, 0/TCP, 0/TCP, 0/TCP, 0/TCP
+      State:          Running
+        Started:      Sat, 12 Mar 2022 20:38:41 +0000
+      Ready:          True
+      Restart Count:  0
+      Environment:
+        ORIENTDB_ROOT_PASSWORD:  <set to the key 'ORIENTDB_ROOT_PASSWORD' in secret 'pontus-graphdb'>  Optional: false
+        PV_RIPD_ORG:             Pontus Vision
+        PV_RIPD_DPO_NAME:        Senhora DPO
+        PV_RIPD_DPO_EMAIL:       dpo@pontusvision.com
+        PV_DSAR_DPO_NAME:        Senhora DPO
+        PV_DSAR_DPO_EMAIL:       dpo@pontusvision.com
+        PV_RIPD_DPO_PHONE:       555-2233-3344
+        PV_USE_JWT_AUTH:         true
+        PV_KEYCLOAK_PUB_KEY:     *****************************************************************************************************
+      Mounts:
+        /orientdb/backup from orientdb-data (rw,path="backup")
+        /orientdb/databases from orientdb-data (rw,path="databases")
+        /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-2x5bv (ro)
+  Conditions:
+    Type              Status
+    Initialized       True
+    Ready             True
+    ContainersReady   True
+    PodScheduled      True
+  Volumes:
+    mapping-salesforce-graph:
+      Type:        Secret (a volume populated by a Secret)
+      SecretName:  mapping-salesforce-graph
+      Optional:    false
+    orientdb-data:
+      Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+      ClaimName:  pontus-track-claim0
+      ReadOnly:   false
+    kube-api-access-2x5bv:
+      Type:                    Projected (a volume that contains injected data from multiple sources)
+      TokenExpirationSeconds:  3607
+      ConfigMapName:           kube-root-ca.crt
+      ConfigMapOptional:       <nil>
+      DownwardAPI:             true
+  QoS Class:                   BestEffort
+  Node-Selectors:              <none>
+  Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                              node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+  Events:
+    Type    Reason     Age    From               Message
+    ----    ------     ----   ----               -------
+    Normal  Scheduled  6m19s  default-scheduler  Successfully assigned default/graphdb-nifi to pv-demo
+    Normal  Pulling    6m16s  kubelet            Pulling image "pontusvisiongdpr/pontus-track-graphdb-odb-pt:1.15.14"
+    Normal  Pulled     6m14s  kubelet            Successfully pulled image "pontusvisiongdpr/pontus-track-graphdb-odb-pt:1.15.14" in 1.834313572s
+    Normal  Created    6m14s  kubelet            Created container graphdb-nifi
+    Normal  Started    6m14s  kubelet            Started container graphdb-nifi
+  ```
+
+  <br/>
+
+  > To list all running cronjobs, run `$ kubectl get cronjobs(.batches)`.
+
+  ```
+  pv-extract-cronjob-treinamento                */7 * * * *   False     0        6m9s            9m33s
+  pv-extract-cronjob-users                      */1 * * * *   False     1        9s              9m33s
+  pv-extract-crm                                */1 * * * *   False     1        9s              9m33s
+  pv-extract-cronjob-acoes-judiciais-ppd        */1 * * * *   False     1        9s              9m33s
+  pv-extract-cronjob-fontes-de-dados            */1 * * * *   False     1        9s              9m33s
+  pv-extract-cronjob-aviso-privacidade          */1 * * * *   False     1        9s              9m33s
+  pv-extract-cronjob-mapeamento-de-processo     */1 * * * *   False     1        9s              9m33s
+  pv-extract-cronjob-politicas                  */1 * * * *   False     1        9s              9m33s
+  pv-extract-cronjob-mitigacao-de-riscos        */1 * * * *   False     1        9s              9m33s
+  pv-extract-kpi                                */1 * * * *   False     1        9s              9m33s
+  pv-extract-cronjob-consentimentos             */1 * * * *   False     1        9s              9m33s
+  pv-extract-cronjob-comunicacoes-ppd           */1 * * * *   False     1        9s              9m33s
+  pv-extract-cronjob-controle-de-solicitacoes   */1 * * * *   False     1        9s              9m33s
+  pv-extract-cronjob-incidentes-de-seguranca    */1 * * * *   False     1        9s              9m33s
+  pv-extract-cronjob-riscos                     */1 * * * *   False     1        9s              9m33s
+  ```
+
+  <br/>
+
+  > To show services type `$ kubectl get services`.
+
+  ```
+  NAME                     TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)                                                 AGE
+  kubernetes               ClusterIP      10.43.0.1       <none>          443/TCP                                                 24h
+  graphdb-nifi             ClusterIP      10.43.192.0     <none>          8182/TCP,8183/TCP,7000/TCP,3001/TCP,2480/TCP,5009/TCP   11m
+  pontus-comply-keycloak   ClusterIP      10.43.162.253   <none>          8080/TCP                                                11m
+  pontus-postgrest         ClusterIP      10.43.188.181   <none>          3000/TCP                                                11m
+  spacyapi                 ClusterIP      10.43.167.32    <none>          80/TCP,8080/TCP                                         11m
+  pv-extract-tika-server   ClusterIP      10.43.170.103   <none>          3001/TCP                                                11m
+  pontus-timescaledb       ClusterIP      10.43.7.140     <none>          5432/TCP                                                11m
+  pontus-grafana           LoadBalancer   10.43.141.52    172.16.10.100   3000:30357/TCP                                          11m
+  pontus-gdpr              LoadBalancer   10.43.126.21    172.16.10.100   18443:31618/TCP                                         11m
+  ```
+
 </details>
 
 **<details><summary>k3s logs</summary>**
@@ -985,7 +988,7 @@ Or... Run the following to start the LGPD Demo:
   To get a specific pod's log run:
 
   ```
-  kubectl logs [-f] <NAME> [--tail]
+  kubectl logs [-f] <pod name> [--tail]
   ```
 
   To follow the logging, toggle flag `-f`. And to show the most recent logs use the flag `--tail` passing the number. For example:
@@ -1013,11 +1016,11 @@ Or... Run the following to start the LGPD Demo:
 
   If you get an **ERROR** like the one marked in the image, when running `$ kubectl describe pods <pod name>`: 
 
-  ![alt text](/images-README/k3s-taint-1.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/k3s-taint-1.png)
 
   OR, when running `$ kubectl describe nodes <node name>` the **Taints** section is different than `<none>`:
 
-  ![alt text](/images-README/k3s-taint-2.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/k3s-taint-2.png)
 
   Then copy the Taints that were shown for the specific node and run the following command to **untain** each one of them:
 
@@ -1027,7 +1030,7 @@ Or... Run the following to start the LGPD Demo:
 
   For example:
 
-  ![alt text](/images-README/k3s-taint-3.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/k3s-taint-3.png)
 
 </details>
 
@@ -1078,35 +1081,35 @@ Or... Run the following to start the LGPD Demo:
 
   Here's some screenshots steps on how to create a new user:
 
-  ![alt text](/images-README/keycloak-a.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-a.png)
 
   > When you access the link for the first time, the browser will warn that the connection isn't private, just ignore it and click on **Advanced**.
 
-  ![alt text](/images-README/keycloak-b.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-b.png)
 
   > Then click on **Proceed(Continue) to \<hostname\>**.
 
-  ![alt text](/images-README/keycloak-1.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-1.png)
 
   > This is Keycloak's home page. Click on **Administration Console**.
 
-  ![alt text](/images-README/keycloak-2.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-2.png)
 
   > Enter the default credentials and click **Sign in**.
 
-  ![alt text](/images-README/keycloak-c.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-c.png)
 
   > At the main panel, locate **Users** under **Manage** on the left menu.
 
-  ![alt text](/images-README/keycloak-3.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-3.png)
 
   > On the far right, click **Add user**.
 
-  ![alt text](/images-README/keycloak-5.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-5.png)
 
   > Fill in the fields (the mandatory at least) \**ID is auto incremented*. You can also add **User actions**.
 
-  ![alt text](/images-README/keycloak-6.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-6.png)
 
   > Finally, click on **Save**.
 
@@ -1114,41 +1117,41 @@ Or... Run the following to start the LGPD Demo:
 
 **<details><summary>Grafana</summary>**
 
-  Grafana is a multi-platform open source analytics and interactive visualization web application. Connected with Pontus Vision's product, provides charts, graphs, and alerts on the web.
+  Grafana is a multi-platform open source analytics and interactive visualisation web application. Connected with Pontus Vision's product, provides charts, graphs, and alerts on the web.
 
   The same **Super User** privilege is needed here ...go to the main login page [https://\<add-hostname-here\>/pv](https://\<add-hostname-here\>/pv) and enter the admin credentials sent by your administrator.
 
   Here's some screenshots steps on how to create a new user:
 
-  ![alt text](/images-README/keycloak-a.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-a.png)
 
   > When you access the link for the first time, the browser will warn that the connection isn't private, just ignore it and click on **Advanced**.
 
-  ![alt text](/images-README/keycloak-b.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-b.png)
 
   > Then click on **Proceed(Continue) to \<hostname\>**.
 
-  ![alt text](/images-README/grafana-1.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/grafana-1.png)
 
   > Enter the admin credentials then click **Sign in**.
 
-  ![alt text](/images-README/grafana-2.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/grafana-2.png)
 
   > Grafana's main page is as shown. Locate the **Shield** icon (Server Admin), under it, click on **Users**.
 
-  ![alt text](/images-README/grafana-3.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/grafana-3.png)
 
   > A table containing all registered Uers wil appear. On the upper right corner, click on the blue **New user** button.
 
-  ![alt text](/images-README/grafana-4.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/grafana-4.png)
 
   > Fill in the fields (mandatory at least), then click the blue **Create user** button.
 
-  ![alt text](/images-README/grafana-5.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/grafana-5.png)
 
   > By clicking on the newly created user you can edit its Information, Permissions, Organisations it belongs and open Sessions.
 
-  ![alt text](/images-README/grafana-6.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/grafana-6.png)
 
   > To change a User's role in an Organisation, click on **Change role** *(Under Organisations)*, choose the role from the drop-down menu, then click **Save**.
 
@@ -1164,43 +1167,43 @@ Or... Run the following to start the LGPD Demo:
 
   Here's some screenshots steps on how to reset a user's password:
 
-  ![alt text](/images-README/keycloak-a.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-a.png)
 
   > When you access the link for the first time, the browser will warn that the connection isn't private, just ignore it and click on **Advanced**.
 
-  ![alt text](/images-README/keycloak-b.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-b.png)
 
   > Then click on **Proceed(Continue) to \<hostname\>**.
 
-  ![alt text](/images-README/keycloak-1.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-1.png)
 
   > This is Keycloak's home page. Click on **Administration Console**.
 
-  ![alt text](/images-README/keycloak-2.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-2.png)
 
   > Enter the default credentials and click **Sign in**.
 
-  ![alt text](/images-README/keycloak-c.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-c.png)
 
   > At the main panel, locate **Users** under **Manage** on the left menu.
 
-  ![alt text](/images-README/keycloak-4.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-4.png)
 
   > Click on **View all users** next to the search bar. Then a table containing all registered users will show. On the **Actions** column click on **Edit**.
 
-  ![alt text](/images-README/pass-reset-1.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/pass-reset-1.png)
 
   > Change the upper tab to **Credentials**. Then under **Reset Password** type the new password.
 
-  ![alt text](/images-README/pass-reset-2.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/pass-reset-2.png)
 
   > You can toggle the **Temporary** button, to force the user to change the password once he logs in for the first time.
 
-  ![alt text](/images-README/pass-reset-3.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/pass-reset-3.png)
 
   > Then click the **Reset Password** button. A popup will show to confirm the change. Click the red **Reset password** button.
 
-  ![alt text](/images-README/pass-reset-4.png)
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/pass-reset-4.png)
 
   > After loading, the page will reload and a green popup will appear with the message **Success**.
 

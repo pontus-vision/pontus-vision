@@ -3,6 +3,9 @@ DIR="$( cd "$(dirname "$0")" ; pwd -P )"
 cd $DIR
 
 ./create-env-secrets.sh
+
+echo "finished creating secrets"
+
 if [[ -z ${PV_HOSTNAME} ]]; then
   export PV_HOSTNAME=$(hostname)
 fi
@@ -23,4 +26,7 @@ envsubst ./helm/custom-values.yaml > $PV_HELM_FILE
 
 ./create-storage-dirs.sh
 
-helm template -s templates/graphdb.yaml -f ./helm/values-lgpd-resolved.yaml pv ./helm/pv | k3s kubectl apply -f -
+
+echo "finished creating storage"
+
+helm template -s templates/graphdb.yaml -f $PV_HELM_FILE pv ./helm/pv | k3s kubectl apply -f -
