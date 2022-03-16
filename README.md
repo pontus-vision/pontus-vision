@@ -218,20 +218,41 @@ Pontus Vision has the following benefits:
 
 <br/>
 
+  # Pontus Vision Demo Installation
+  
+  The easiest way to deploy the Pontus Vision platform is to run a VM with Ubuntu 20.04 OS, with a minimum of 16GB of RAM, 4 cores and 250GB of disk space.
+  Note that the VM must be called `pv-demo`; otherwise, Keycloak's rules will have to be changed to allow traffic from other prefixes
+  > **WARNING**: Please ensure that the VM used for the demo is called pv-demo
+
+  If you want to try own data, then CONFIGURATION of secrets, apis and storage will be required.  Overwrite the folders storage/ and secrets/ following the instructions in the next section THOROUGHLY.
+
+  The helm chart used to configure the Pontus Vision platform exists in this repository. Clone this repository and use either the GDPR or LGPD Demo:
+
+
+  ```bash
+  git clone https://github.com/pontus-vision/pontus-vision.git
+  cd pontus-vision/k3s
+  ```
+  To run the GDPR Demo, run the following command:
+```bash
+  ./start-env-gdpr.sh
+  # Note: The command above may fail the first time, as k3s will be dowloading large images and may time out.  If that happens, run it again
+```
+
+Or... Run the following to start the LGPD Demo:
+
+```bash
+  ./start-env-lgpd.sh
+  # Note: The command above may fail the first time, as k3s will be dowloading large images and may time out.  If that happens, run it again
+```
+
+<br/>
+
+
+
 # Pontus Vision Solution installation
 
   The easiest way to deploy the Pontus Vision platform is to run either a VM or bare-metal Ubuntu 20.04 OS, and follow the instructions below:
-
-  ```diff
-  + This Demonstration runs over a SAMPLE DATABASE so you can test Pontus Vision's tools easily.
-  + All you have to do after cloning this GitHub repo is RUNNING THE START-UP SCRIPTS.
-  + Skip all the way to the bottom of this section.
-  ```
-
-  ```diff
-  - If you want to try own data, then CONFIGURATION of secrets, apis and storage will be required.
-  - Overwrite the folders storage/ and secrets/ following the instructions THOROUGHLY.
-  ```
 
   The helm chart used to configure the Pontus Vision platform exists in this repository. Clone this repository and use either the GDPR or LGPD Demo:
 
