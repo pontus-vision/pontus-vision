@@ -218,8 +218,8 @@ Pontus Vision has the following benefits:
 
 <br/>
 
-  # Pontus Vision Demo Installation
-  
+  # Demo Installation
+
   The easiest way to deploy the Pontus Vision platform is to run a VM with Ubuntu 20.04 OS, with a minimum of 16GB of RAM, 4 cores and 250GB of disk space.
   Note that the VM must be called `pv-demo`; otherwise, Keycloak's rules will have to be changed to allow traffic from other prefixes
   > **WARNING**: Please ensure that the VM used for the demo is called pv-demo
@@ -250,7 +250,7 @@ Or... Run the following to start the LGPD Demo:
 
 
 
-# Pontus Vision Solution installation
+# Custom Installation
 
   The easiest way to deploy the Pontus Vision platform is to run either a VM or bare-metal Ubuntu 20.04 OS, and follow the instructions below:
 
