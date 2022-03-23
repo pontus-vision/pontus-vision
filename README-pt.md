@@ -123,7 +123,7 @@ Pontus Vision tem os seguintes benefícios:
   yes | sudo apt autoremove --purge snapd gnome-software-plugin-snap
 
   rm -fr ~/snap && sudo apt-mark hold snapd
-
+                                             
   ```
 
   **Atualizar o servidor e baixar ferramentas:**
@@ -133,7 +133,7 @@ Pontus Vision tem os seguintes benefícios:
   sudo apt upgrade -y && \                                      
   sudo apt install -y git curl jq ubuntu-server python3-pip && \
   sudo pip3 install yq                                          
-
+                                                      
   ```
 
 </details>
