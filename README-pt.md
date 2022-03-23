@@ -126,7 +126,9 @@ Pontus Vision tem os seguintes benefícios:
                                              
   ```
 
-  **Atualizar o servidor e baixar ferramentas:**
+</details>
+
+**<details><summary>Atualizar o servidor e baixar ferramentas:</summary>**
 
   ```
   sudo apt update && \                                          

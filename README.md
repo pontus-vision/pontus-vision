@@ -125,7 +125,10 @@ Pontus Vision has the following benefits:
                                                
   ```  
 
-  **Update the server and install tools:**
+</details>
+
+
+**<details><summary>Update the server and install tools:</summary>**
 
   ```
   sudo apt update && \
