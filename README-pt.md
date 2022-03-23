@@ -655,7 +655,7 @@ Ou... Execute o seguinte para iniciar a demo personalizada da LGPD:
 
 **Acessando o Grafana (Dashboard Pontus Vision)**
 
-  1. Aponte um navegador para [https://localhost/pv](https://localhost/pv)
+  1. Aponte um navegador para [https://pv-demo/pv](https://pv-demo/pv)
   2. Use o nome de usuário `lmartins@pontusnetworks.com` e a senha padrão `pa55word!!!`
 
 <br/>
