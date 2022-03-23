@@ -1,7 +1,7 @@
 
 # Pontus Vision
 
-  [Pontus Vision](https://www.pontusvision.com) is an open source platform for data mapping and management of personal data. It helps companies comply with data protection regulations, such as EU's **GDPR**, Brazil's **LGPD** and California's **CCPA**.
+  [Pontus Vision](https://www.pontusvision.com) is an open source platform for data mapping and management of personal data. It helps companies comply with data protection regulations, such as the European Union's **GDPR**, Brazil's **LGPD** and California's State **CCPA**.
 
 <br/>
 
@@ -145,8 +145,8 @@ Pontus Vision has the following benefits:
 
   Note: when using WSL the following error message will appear, but can be safely ignored:
   
-   > System has not been booted with systemd as init system (PID 1). Can't operate. <br/>
-   > Failed to connect to bus: Host is down
+  > System has not been booted with systemd as init system (PID 1). Can't operate. <br/>
+  > Failed to connect to bus: Host is down
 
   After running the commands above, add the following to the end of the `.bashrc` file:
 
@@ -182,6 +182,7 @@ Pontus Vision has the following benefits:
   ```
 
   Source the .bashrc above to apply the changes:
+
   ```
   . ~/.bashrc
   ```
@@ -203,6 +204,7 @@ Pontus Vision has the following benefits:
 **<details><summary>Certificate Manager installation</summary>**
 
   After installing helm, create the cert-manager namespace and install cert manager; this will enable https certificates to be managed:
+
   ```
   helm repo add jetstack https://charts.jetstack.io
   helm repo update
@@ -214,41 +216,47 @@ Pontus Vision has the following benefits:
     --version v1.6.1 \
     --set installCRDs=true
   ```
+
 </details>
 
 <br/>
 
-  # Demo Installation
+# Demo Installation
 
   The easiest way to deploy the Pontus Vision platform is to run a VM with Ubuntu 20.04 OS, with a minimum of 16GB of RAM, 4 cores and 250GB of disk space.
-  Note that the VM must be called `pv-demo`; otherwise, Keycloak's rules will have to be changed to allow traffic from other prefixes
-  > **WARNING**: Please ensure that the VM used for the demo is called pv-demo
+
+  Note that the VM must be called `pv-demo`; otherwise, Keycloak's rules will have to be changed to allow traffic from other prefixes.
+
+  > **WARNING**: Please ensure that the VM used for the demo is called **pv-demo**
 
   If you want to try own data, then CONFIGURATION of secrets, apis and storage will be required.  Overwrite the folders storage/ and secrets/ following the instructions in the next section THOROUGHLY.
 
   The helm chart used to configure the Pontus Vision platform exists in this repository. Clone this repository and use either the GDPR or LGPD Demo:
 
-
   ```bash
   git clone https://github.com/pontus-vision/pontus-vision.git
   cd pontus-vision/k3s
   ```
+
   To run the GDPR Demo, run the following command:
-```bash
+
+  ```bash
   ./start-env-gdpr.sh
-  # Note: The command above may fail the first time, as k3s will be dowloading large images and may time out.  If that happens, run it again
-```
+  # Note: The command above may fail the first time,
+  # as k3s will be dowloading large images and may time out.
+  # If that happens, run it again
+  ```
 
-Or... Run the following to start the LGPD Demo:
+  Or... Run the following to start the LGPD Demo:
 
-```bash
+  ```bash
   ./start-env-lgpd.sh
-  # Note: The command above may fail the first time, as k3s will be dowloading large images and may time out.  If that happens, run it again
-```
+  # Note: The command above may fail the first time,
+  # as k3s will be dowloading large images and may time out.
+  # If that happens, run it again
+  ```
 
 <br/>
-
-
 
 # Custom Installation
 
@@ -269,7 +277,7 @@ Or... Run the following to start the LGPD Demo:
 
   The first time the environment is started, it will check if there's a `secrets/` folder existing (in case you want to add privates), otherwise it will use `sample-secrets.tar.gz` by default. To create the folder in a compatible manner, follow below ↓
 
-  <br/>
+<br/>
 
 **Edit the secret Files structure**
 
@@ -301,7 +309,7 @@ Or... Run the following to start the LGPD Demo:
   └── microsoft-json # example                
   ```
 
-  And this is the YAML template secret file for `pontus-timescaledb` @ `pontus-vision\k3s\helm\pv\templates` used by HELM-K3s. Notice how the secrets names `POSTGRES_USER` and `POSTGRES_PASSWORD` are used.
+  And this is the YAML template secret file for `pontus-timescaledb` @ `pontus-vision\k3s\helm\pv\templates` used by HELM-K3S. Notice how the secrets names `POSTGRES_USER` and `POSTGRES_PASSWORD` are used.
 
   ```yaml
   spec:
@@ -566,14 +574,12 @@ TODO templates cronjob instructions
 
 **<details><summary>Create persistent volumes storage</summary>**
 
-  ```diff
-  - This step is AUTO PERFORMED !!
-  - To ensure it runs smoothly, guarantee you setted everything @ k3s\helm\custom-values.yaml !!
-  ```
+  > This step is **AUTO PERFORMED** !!
+  > To ensure it runs smoothly, guarantee you setted everything @ k3s\helm\custom-values.yaml !!
 
   This step is important to ensure k3s data is kept by using **persistent volumes**. The script `create-storage-dirs.sh` is executed when the environment (Demo) is started. It is responsible in creating the storage folder structure.
 
-  The `extract/` inner folders are created using the `custom-values.yaml` names <!-- what is the name of the YAML paragraph/variable ?!?! -->.
+  The `extract/` inner folders are created using the `custom-values.yaml`'s highest hierarchy keys.
 
   Here's how it works:
 
@@ -598,7 +604,7 @@ TODO templates cronjob instructions
         - name:  PV_SECRET_MANAGER_ID
           value: "/run/secrets/cronjob-x-json" # <---
         - name:  PV_REQUEST_URL
-          value: "${CRONJOB-X_URL_MAPEAMENTO_DE_PROCESSO}" # <---
+          value: "${CRONJOB-X_URL}" # <---
         - name:  PV_GRAPHDB_INPUT_RULE
           value: "cronjob-x" # <---
         - name:  PV_SECRET_COMPONENT_NAME
@@ -620,85 +626,82 @@ TODO templates cronjob instructions
   └── timescaledb
   ```
   
-  <!-- 
-  
-  To do so, please create a directory structure similar to the following:
-
-  ```
-  ~/storage
-  ├── db
-  ├── extract
-  │   ├── CRM
-  │   ├── ERP
-  │   ├── email
-  │   ├── google
-  │   │   ├── meetings
-  │   │   ├── policies
-  │   │   ├── privacy-docs
-  │   │   ├── privacy-notice
-  │   │   ├── risk
-  │   │   ├── risk-mitigations
-  │   │   └── treinamentos
-  │   └── microsoft
-  │       ├── data-breaches
-  │       ├── dsar
-  │       ├── fontes-de-dados
-  │       ├── legal-actions
-  │       └── mapeamentos
-  ├── grafana
-  ├── keycloak
-  └── timescaledb
-  ```
-
-  Check that the value for the `storagePath` key @ `pontus-vision/k3s/helm/custom-values.yaml` is the root of the directory structure above.
-  	
-  Here is a set of commands that can create this structure if the value of `.Values.pvvals.storagePath` is set to `~/storage`:
-    
-  ```bash
-  mkdir ~/storage
-  cd ~/storage
-  mkdir -p extract/email \
-      extract/CRM \
-      extract/ERP \
-      extract/microsoft/data-breaches \
-      extract/microsoft/dsar \
-      extract/microsoft/fontes-de-dados \
-      extract/microsoft/legal-actions \
-      extract/microsoft/mapeamentos \
-      extract/google/meetings \
-      extract/google/policies \
-      extract/google/privacy-docs \
-      extract/google/privacy-notice \
-      extract/google/risk \
-      extract/google/risk-mitigations \
-      extract/google/treinamentos \
-    db \
-    grafana \
-    keycloak \
-    timescaledb
-  
-  chmod -R 777 *
-  ```	
-  -->
+<!--
+To do so, please create a directory structure similar to the following:
+```
+~/storage
+├── db
+├── extract
+│   ├── CRM
+│   ├── ERP
+│   ├── email
+│   ├── google
+│   │   ├── meetings
+│   │   ├── policies
+│   │   ├── privacy-docs
+│   │   ├── privacy-notice
+│   │   ├── risk
+│   │   ├── risk-mitigations
+│   │   └── treinamentos
+│   └── microsoft
+│       ├── data-breaches
+│       ├── dsar
+│       ├── fontes-de-dados
+│       ├── legal-actions
+│       └── mapeamentos
+├── grafana
+├── keycloak
+└── timescaledb
+Check that the value for the `storagePath` key @ `pontus-vision/k3s/helm/custom-values.yaml` is the root of the directory structure above.
+Here is a set of commands that can create this structure if the value of `.Values.pvvals.storagePath` is set to `~/storage`:
+```bash
+mkdir ~/storage
+cd ~/storage
+mkdir -p extract/email \
+extract/CRM \
+extract/ERP \
+extract/microsoft/data-breaches \
+extract/microsoft/dsar \
+extract/microsoft/fontes-de-dados \
+extract/microsoft/legal-actions \
+extract/microsoft/mapeamentos \
+extract/google/meetings \
+extract/google/policies \
+extract/google/privacy-docs \
+extract/google/privacy-notice \
+extract/google/risk \
+extract/google/risk-mitigations \
+extract/google/treinamentos \
+db \
+grafana \
+keycloak \
+timescaledb
+chmod -R 777 *
+```	
+-->
 
 </details>
 
 <br/>
 
-Only when configured the previous steps, go back to `pontus-vision/k3s` folder to play the Demo.
+Only when configured the previous steps, go back to `pontus-vision/k3s` folder to play your custom Demo.
 
-Run the following to start the GDPR Demo:
+Run the following to start the GDPR custom Demo:
 
 ```bash
 ./start-env-gdpr.sh
-# Note: The command above may fail the first time, as k3s will be dowloading large images and may time out.
+# Note: The command above may fail the first time,
+# as k3s will be dowloading large images and may time out.
+# If that happens, run it again
 ```
 
-Or... Run the following to start the LGPD Demo:
+Or... Run the following to start the LGPD custom Demo:
 
 ```bash
 ./start-env-lgpd.sh
-# Note: The command above may fail the first time, as k3s will be dowloading large images and may time out.
+# Note: The command above may fail the first time,
+# as k3s will be dowloading large images and may time out.
+# If that happens, run it again
 ```
 
 <br/>
@@ -799,11 +802,9 @@ Or... Run the following to start the LGPD Demo:
   ./stop-env.sh 
   ```
 
-  ```diff
-  - You may need to remove some inner folders from storage/
-  - or the folder itself so current state.json files are deleted
-  - and updates applied on next kickoff.
-  ```
+  > You may need to remove some inner folders from storage/
+  > or the folder itself so current state.json files are deleted
+  > and updates applied on next kickoff.
 
 #### Starting up
 
@@ -834,7 +835,7 @@ Or... Run the following to start the LGPD Demo:
   pv-demo   Ready    control-plane,master   3d2h   v1.22.7+k3s1
   ```
 
-  <br/>
+<br/>
 
   > To examine pods, run `$ kubectl get pod(s) [-o wide]` then a tab table alike is displayed:
 
@@ -865,7 +866,7 @@ Or... Run the following to start the LGPD Demo:
   pv-extract-google-policies-27382402--1-9j4tg               0/1     ContainerCreating   0          12s  
   ```
 
-  <br/>
+<br/>
   
   > To get details from a specific pod run `$ kubectl describe pod(s) <pod name>`. Output for graphdb-nifi pod:
 
@@ -942,7 +943,7 @@ Or... Run the following to start the LGPD Demo:
     Normal  Started    6m14s  kubelet            Started container graphdb-nifi
   ```
 
-  <br/>
+<br/>
 
   > To list all running cronjobs, run `$ kubectl get cronjobs(.batches)`.
 
@@ -964,7 +965,7 @@ Or... Run the following to start the LGPD Demo:
   pv-extract-cronjob-riscos                     */1 * * * *   False     1        9s              9m33s
   ```
 
-  <br/>
+<br/>
 
   > To show services type `$ kubectl get services`.
 
