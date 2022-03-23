@@ -658,6 +658,15 @@ Ou... Execute o seguinte para iniciar a demo personalizada da LGPD:
 **Acessando o Grafana (Dashboard Pontus Vision)**
 
   1. Aponte um navegador para [https://pv-demo/pv](https://pv-demo/pv)
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/pv-demo-1.png)
+
+  > Ao acessar o link pela primeira vez, o navegador avisará que a conexão não é privada, basta ignorar e clicar em **Advanced**.
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/pv-demo-2.png)
+
+  > Depois clique em **Continue to pv-demo (unsafe)**.
+
   2. Use o nome de usuário `lmartins@pontusnetworks.com` e a senha padrão `pa55word!!!`
 
 <br/>
@@ -1018,7 +1027,7 @@ Ou... Execute o seguinte para iniciar a demo personalizada da LGPD:
 
   ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-b.png)
 
-  > Depois clique em **Proceed(Continue) to \<hostname\>**.
+  > Depois clique em **Proceed to \<hostname\> (unsafe)**.
 
   ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-1.png)
 
@@ -1060,7 +1069,7 @@ Ou... Execute o seguinte para iniciar a demo personalizada da LGPD:
 
   ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-b.png)
 
-  > Depois clique em **Proceed(Continue) to \<hostname\>**.
+  > Depois clique em **Proceed to \<hostname\> (unsafe)**.
 
   ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/grafana-1.png)
 
@@ -1104,7 +1113,7 @@ Ou... Execute o seguinte para iniciar a demo personalizada da LGPD:
 
   ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-b.png)
 
-  > Depois clique em **Proceed(Continue) to \<hostname\>**.
+  > Depois clique em **Proceed to \<hostname\> (unsafe)**.
 
   ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-1.png)
 
