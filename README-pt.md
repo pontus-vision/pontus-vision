@@ -107,7 +107,7 @@ Pontus Vision tem os seguintes benefícios:
   sudo ls
   ```
 
-**execute os loops abaixo duas vezes; isso NÃO é um erro de digitação:**
+  **execute os loops abaixo duas vezes; isso NÃO é um erro de digitação:**
 
   ```bash
   for i in ${SNAP_LIST}; do
@@ -124,8 +124,11 @@ Pontus Vision tem os seguintes benefícios:
 
   rm -fr ~/snap
   sudo apt-mark hold snapd
-  
-  #Update the server:
+  ```
+
+  **Atualizar o servidor e baixar ferramentas:**
+
+  ```
   sudo apt update
   sudo apt upgrade -y
   sudo apt install -y git curl jq ubuntu-server python3-pip
