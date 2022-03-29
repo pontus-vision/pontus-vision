@@ -52,290 +52,290 @@ pvvals:
         - name: PV_POSTGREST_PREFIX
           value: "http://pontus-postgrest:3000"
 
-    budibase-mapeamento-de-processo:
-      command:
-        - /usr/bin/node
-        - dist/rest-handler/budibase/app.js
-      secretName: "budibase-json"
-      storage: "1Mi"
-      env:
-        - name:  PV_SECRET_MANAGER_ID
-          value: "/run/secrets/budibase-json"
-        - name:  PV_REQUEST_URL
-          value: "${BUDIBASE_URL_MAPEAMENTO_DE_PROCESSO}"
-        - name:  PV_GRAPHDB_INPUT_RULE
-          value: "bb_mapeamento_de_processo"
-        - name:  PV_SECRET_COMPONENT_NAME
-          value: "budibase"
-        - name:  PV_GRAPHDB_INPUT_JSONPATH
-          value: "$.rows"
+    # budibase-mapeamento-de-processo:
+    #   command:
+    #     - /usr/bin/node
+    #     - dist/rest-handler/budibase/app.js
+    #   secretName: "budibase-json"
+    #   storage: "1Mi"
+    #   env:
+    #     - name:  PV_SECRET_MANAGER_ID
+    #       value: "/run/secrets/budibase-json"
+    #     - name:  PV_REQUEST_URL
+    #       value: "${BUDIBASE_URL_MAPEAMENTO_DE_PROCESSO}"
+    #     - name:  PV_GRAPHDB_INPUT_RULE
+    #       value: "bb_mapeamento_de_processo"
+    #     - name:  PV_SECRET_COMPONENT_NAME
+    #       value: "budibase"
+    #     - name:  PV_GRAPHDB_INPUT_JSONPATH
+    #       value: "$.rows"
 
 
-    budibase-fontes-de-dados:
-      command:
-        - /usr/bin/node
-        - dist/rest-handler/budibase/app.js
-      secretName: "budibase-json"
-      storage: "1Mi"
-      schedule: "*/1 * * * *"
-      env:
-        - name:  PV_SECRET_MANAGER_ID
-          value: "/run/secrets/budibase-json"
-        - name:  PV_REQUEST_URL
-          value: "${BUDIBASE_URL_FONTES_DE_DADOS}"
-        - name:  PV_GRAPHDB_INPUT_RULE
-          value: "bb_fontes_de_dados"
-        - name:  PV_SECRET_COMPONENT_NAME
-          value: "budibase"
-        - name:  PV_GRAPHDB_INPUT_JSONPATH
-          value: "$.rows"
-
-
-
-    budibase-riscos:
-      command:
-        - /usr/bin/node
-        - dist/rest-handler/budibase/app.js
-      secretName: "budibase-json"
-      storage: "1Mi"
-      env:
-        - name:  PV_SECRET_MANAGER_ID
-          value: "/run/secrets/budibase-json"
-        - name:  PV_REQUEST_URL
-          value: "${BUDIBASE_URL_RISCOS}"
-        - name:  PV_GRAPHDB_INPUT_RULE
-          value: "bb_riscos"
-        - name:  PV_SECRET_COMPONENT_NAME
-          value: "budibase"
-        - name:  PV_GRAPHDB_INPUT_JSONPATH
-          value: "$.rows"
+    # budibase-fontes-de-dados:
+    #   command:
+    #     - /usr/bin/node
+    #     - dist/rest-handler/budibase/app.js
+    #   secretName: "budibase-json"
+    #   storage: "1Mi"
+    #   schedule: "*/1 * * * *"
+    #   env:
+    #     - name:  PV_SECRET_MANAGER_ID
+    #       value: "/run/secrets/budibase-json"
+    #     - name:  PV_REQUEST_URL
+    #       value: "${BUDIBASE_URL_FONTES_DE_DADOS}"
+    #     - name:  PV_GRAPHDB_INPUT_RULE
+    #       value: "bb_fontes_de_dados"
+    #     - name:  PV_SECRET_COMPONENT_NAME
+    #       value: "budibase"
+    #     - name:  PV_GRAPHDB_INPUT_JSONPATH
+    #       value: "$.rows"
 
 
 
-    budibase-aviso-privacidade:
-      command:
-        - /usr/bin/node
-        - dist/rest-handler/budibase/app.js
-      secretName: "budibase-json"
-      storage: "1Mi"
-      env:
-        - name:  PV_SECRET_MANAGER_ID
-          value: "/run/secrets/budibase-json"
-        - name:  PV_REQUEST_URL
-          value: "${BUDIBASE_URL_AVISO_PRIVACIDADE}"
-        - name:  PV_GRAPHDB_INPUT_RULE
-          value: "bb_aviso_privacidade"
-        - name:  PV_SECRET_COMPONENT_NAME
-          value: "budibase"
-        - name:  PV_GRAPHDB_INPUT_JSONPATH
-          value: "$.rows"
-
-
-    budibase-acoes-judiciais-ppd:
-      command:
-        - /usr/bin/node
-        - dist/rest-handler/budibase/app.js
-      secretName: "budibase-json"
-      storage: "1Mi"
-      env:
-        - name:  PV_SECRET_MANAGER_ID
-          value: "/run/secrets/budibase-json"
-        - name:  PV_REQUEST_URL
-          value: "${BUDIBASE_URL_ACOES_JUDICIAIS_PPD}"
-        - name:  PV_GRAPHDB_INPUT_RULE
-          value: "bb_acoes_judiciais_ppd"
-        - name:  PV_SECRET_COMPONENT_NAME
-          value: "budibase"
-        - name:  PV_GRAPHDB_INPUT_JSONPATH
-          value: "$.rows"
-
-    budibase-treinamento:
-      command:
-        - /usr/bin/node
-        - dist/rest-handler/budibase/app.js
-      secretName: "budibase-json"
-      storage: "1Mi"
-      schedule: "*/7 * * * *"
-
-      env:
-        - name:  PV_SECRET_MANAGER_ID
-          value: "/run/secrets/budibase-json"
-        - name:  PV_REQUEST_URL
-          value: "${BUDIBASE_URL_TREINAMENTO}"
-        - name:  PV_GRAPHDB_INPUT_RULE
-          value: "bb_treinamento"
-        - name:  PV_SECRET_COMPONENT_NAME
-          value: "budibase"
-        - name:  PV_GRAPHDB_INPUT_JSONPATH
-          value: "$.rows"
-
-
-    budibase-controle-de-solicitacoes:
-      command:
-        - /usr/bin/node
-        - dist/rest-handler/budibase/app.js
-      secretName: "budibase-json"
-      storage: "1Mi"
-      env:
-        - name:  PV_SECRET_MANAGER_ID
-          value: "/run/secrets/budibase-json"
-        - name:  PV_REQUEST_URL
-          value: "${BUDIBASE_URL_CONTROLE_DE_SOLICITACOES}"
-        - name:  PV_GRAPHDB_INPUT_RULE
-          value: "bb_controle_de_solicitacoes"
-        - name:  PV_SECRET_COMPONENT_NAME
-          value: "budibase"
-        - name:  PV_GRAPHDB_INPUT_JSONPATH
-          value: "$.rows"
-
-
-    budibase-comunicacoes-ppd:
-      command:
-        - /usr/bin/node
-        - dist/rest-handler/budibase/app.js
-      secretName: "budibase-json"
-      storage: "1Mi"
-      env:
-        - name:  PV_SECRET_MANAGER_ID
-          value: "/run/secrets/budibase-json"
-        - name:  PV_REQUEST_URL
-          value: "${BUDIBASE_URL_COMUNICACOES_PPD}"
-        - name:  PV_GRAPHDB_INPUT_RULE
-          value: "bb_comunicacoes_ppd"
-        - name:  PV_SECRET_COMPONENT_NAME
-          value: "budibase"
-        - name:  PV_GRAPHDB_INPUT_JSONPATH
-          value: "$.rows"
-
-
-    budibase-politicas:
-      command:
-        - /usr/bin/node
-        - dist/rest-handler/budibase/app.js
-      secretName: "budibase-json"
-      storage: "1Mi"
-      env:
-        - name:  PV_SECRET_MANAGER_ID
-          value: "/run/secrets/budibase-json"
-        - name:  PV_REQUEST_URL
-          value: "${BUDIBASE_URL_POLITICAS}"
-        - name:  PV_GRAPHDB_INPUT_RULE
-          value: "bb_politicas"
-        - name:  PV_SECRET_COMPONENT_NAME
-          value: "budibase"
-        - name:  PV_GRAPHDB_INPUT_JSONPATH
-          value: "$.rows"
-
-
-    budibase-incidentes-de-seguranca:
-      command:
-        - /usr/bin/node
-        - dist/rest-handler/budibase/app.js
-      secretName: "budibase-json"
-      storage: "1Mi"
-      env:
-        - name:  PV_SECRET_MANAGER_ID
-          value: "/run/secrets/budibase-json"
-        - name:  PV_REQUEST_URL
-          value: "${BUDIBASE_URL_INCIDENTES_DE_SEGURANCA_REPORTADOS}"
-        - name:  PV_GRAPHDB_INPUT_RULE
-          value: "bb_incidentes_de_seguranca_reportados"
-        - name:  PV_SECRET_COMPONENT_NAME
-          value: "budibase"
-        - name:  PV_GRAPHDB_INPUT_JSONPATH
-          value: "$.rows"
+    # budibase-riscos:
+    #   command:
+    #     - /usr/bin/node
+    #     - dist/rest-handler/budibase/app.js
+    #   secretName: "budibase-json"
+    #   storage: "1Mi"
+    #   env:
+    #     - name:  PV_SECRET_MANAGER_ID
+    #       value: "/run/secrets/budibase-json"
+    #     - name:  PV_REQUEST_URL
+    #       value: "${BUDIBASE_URL_RISCOS}"
+    #     - name:  PV_GRAPHDB_INPUT_RULE
+    #       value: "bb_riscos"
+    #     - name:  PV_SECRET_COMPONENT_NAME
+    #       value: "budibase"
+    #     - name:  PV_GRAPHDB_INPUT_JSONPATH
+    #       value: "$.rows"
 
 
 
-    budibase-consentimentos:
-      command:
-        - /usr/bin/node
-        - dist/rest-handler/budibase/app.js
-      secretName: "budibase-json"
-      storage: "1Mi"
-      env:
-        - name:  PV_SECRET_MANAGER_ID
-          value: "/run/secrets/budibase-json"
-        - name:  PV_REQUEST_URL
-          value: "${BUDIBASE_URL_CONSENTIMENTOS}"
-        - name:  PV_GRAPHDB_INPUT_RULE
-          value: "bb_consentimentos"
-        - name:  PV_SECRET_COMPONENT_NAME
-          value: "budibase"
-        - name:  PV_GRAPHDB_INPUT_JSONPATH
-          value: "$.rows"
+    # budibase-aviso-privacidade:
+    #   command:
+    #     - /usr/bin/node
+    #     - dist/rest-handler/budibase/app.js
+    #   secretName: "budibase-json"
+    #   storage: "1Mi"
+    #   env:
+    #     - name:  PV_SECRET_MANAGER_ID
+    #       value: "/run/secrets/budibase-json"
+    #     - name:  PV_REQUEST_URL
+    #       value: "${BUDIBASE_URL_AVISO_PRIVACIDADE}"
+    #     - name:  PV_GRAPHDB_INPUT_RULE
+    #       value: "bb_aviso_privacidade"
+    #     - name:  PV_SECRET_COMPONENT_NAME
+    #       value: "budibase"
+    #     - name:  PV_GRAPHDB_INPUT_JSONPATH
+    #       value: "$.rows"
+
+
+    # budibase-acoes-judiciais-ppd:
+    #   command:
+    #     - /usr/bin/node
+    #     - dist/rest-handler/budibase/app.js
+    #   secretName: "budibase-json"
+    #   storage: "1Mi"
+    #   env:
+    #     - name:  PV_SECRET_MANAGER_ID
+    #       value: "/run/secrets/budibase-json"
+    #     - name:  PV_REQUEST_URL
+    #       value: "${BUDIBASE_URL_ACOES_JUDICIAIS_PPD}"
+    #     - name:  PV_GRAPHDB_INPUT_RULE
+    #       value: "bb_acoes_judiciais_ppd"
+    #     - name:  PV_SECRET_COMPONENT_NAME
+    #       value: "budibase"
+    #     - name:  PV_GRAPHDB_INPUT_JSONPATH
+    #       value: "$.rows"
+
+    # budibase-treinamento:
+    #   command:
+    #     - /usr/bin/node
+    #     - dist/rest-handler/budibase/app.js
+    #   secretName: "budibase-json"
+    #   storage: "1Mi"
+    #   schedule: "*/7 * * * *"
+
+    #   env:
+    #     - name:  PV_SECRET_MANAGER_ID
+    #       value: "/run/secrets/budibase-json"
+    #     - name:  PV_REQUEST_URL
+    #       value: "${BUDIBASE_URL_TREINAMENTO}"
+    #     - name:  PV_GRAPHDB_INPUT_RULE
+    #       value: "bb_treinamento"
+    #     - name:  PV_SECRET_COMPONENT_NAME
+    #       value: "budibase"
+    #     - name:  PV_GRAPHDB_INPUT_JSONPATH
+    #       value: "$.rows"
+
+
+    # budibase-controle-de-solicitacoes:
+    #   command:
+    #     - /usr/bin/node
+    #     - dist/rest-handler/budibase/app.js
+    #   secretName: "budibase-json"
+    #   storage: "1Mi"
+    #   env:
+    #     - name:  PV_SECRET_MANAGER_ID
+    #       value: "/run/secrets/budibase-json"
+    #     - name:  PV_REQUEST_URL
+    #       value: "${BUDIBASE_URL_CONTROLE_DE_SOLICITACOES}"
+    #     - name:  PV_GRAPHDB_INPUT_RULE
+    #       value: "bb_controle_de_solicitacoes"
+    #     - name:  PV_SECRET_COMPONENT_NAME
+    #       value: "budibase"
+    #     - name:  PV_GRAPHDB_INPUT_JSONPATH
+    #       value: "$.rows"
+
+
+    # budibase-comunicacoes-ppd:
+    #   command:
+    #     - /usr/bin/node
+    #     - dist/rest-handler/budibase/app.js
+    #   secretName: "budibase-json"
+    #   storage: "1Mi"
+    #   env:
+    #     - name:  PV_SECRET_MANAGER_ID
+    #       value: "/run/secrets/budibase-json"
+    #     - name:  PV_REQUEST_URL
+    #       value: "${BUDIBASE_URL_COMUNICACOES_PPD}"
+    #     - name:  PV_GRAPHDB_INPUT_RULE
+    #       value: "bb_comunicacoes_ppd"
+    #     - name:  PV_SECRET_COMPONENT_NAME
+    #       value: "budibase"
+    #     - name:  PV_GRAPHDB_INPUT_JSONPATH
+    #       value: "$.rows"
+
+
+    # budibase-politicas:
+    #   command:
+    #     - /usr/bin/node
+    #     - dist/rest-handler/budibase/app.js
+    #   secretName: "budibase-json"
+    #   storage: "1Mi"
+    #   env:
+    #     - name:  PV_SECRET_MANAGER_ID
+    #       value: "/run/secrets/budibase-json"
+    #     - name:  PV_REQUEST_URL
+    #       value: "${BUDIBASE_URL_POLITICAS}"
+    #     - name:  PV_GRAPHDB_INPUT_RULE
+    #       value: "bb_politicas"
+    #     - name:  PV_SECRET_COMPONENT_NAME
+    #       value: "budibase"
+    #     - name:  PV_GRAPHDB_INPUT_JSONPATH
+    #       value: "$.rows"
+
+
+    # budibase-incidentes-de-seguranca:
+    #   command:
+    #     - /usr/bin/node
+    #     - dist/rest-handler/budibase/app.js
+    #   secretName: "budibase-json"
+    #   storage: "1Mi"
+    #   env:
+    #     - name:  PV_SECRET_MANAGER_ID
+    #       value: "/run/secrets/budibase-json"
+    #     - name:  PV_REQUEST_URL
+    #       value: "${BUDIBASE_URL_INCIDENTES_DE_SEGURANCA_REPORTADOS}"
+    #     - name:  PV_GRAPHDB_INPUT_RULE
+    #       value: "bb_incidentes_de_seguranca_reportados"
+    #     - name:  PV_SECRET_COMPONENT_NAME
+    #       value: "budibase"
+    #     - name:  PV_GRAPHDB_INPUT_JSONPATH
+    #       value: "$.rows"
 
 
 
-    budibase-mitigacao-de-riscos:
-      command:
-        - /usr/bin/node
-        - dist/rest-handler/budibase/app.js
-      secretName: "budibase-json"
-      storage: "1Mi"
-      env:
-        - name:  PV_SECRET_MANAGER_ID
-          value: "/run/secrets/budibase-json"
-        - name:  PV_REQUEST_URL
-          value: "${BUDIBASE_URL_MITIGACAO_DE_RISCOS}"
-        - name:  PV_GRAPHDB_INPUT_RULE
-          value: "bb_mitigacao_de_riscos"
-        - name:  PV_SECRET_COMPONENT_NAME
-          value: "budibase"
-        - name:  PV_GRAPHDB_INPUT_JSONPATH
-          value: "$.rows"
+    # budibase-consentimentos:
+    #   command:
+    #     - /usr/bin/node
+    #     - dist/rest-handler/budibase/app.js
+    #   secretName: "budibase-json"
+    #   storage: "1Mi"
+    #   env:
+    #     - name:  PV_SECRET_MANAGER_ID
+    #       value: "/run/secrets/budibase-json"
+    #     - name:  PV_REQUEST_URL
+    #       value: "${BUDIBASE_URL_CONSENTIMENTOS}"
+    #     - name:  PV_GRAPHDB_INPUT_RULE
+    #       value: "bb_consentimentos"
+    #     - name:  PV_SECRET_COMPONENT_NAME
+    #       value: "budibase"
+    #     - name:  PV_GRAPHDB_INPUT_JSONPATH
+    #       value: "$.rows"
 
 
-    budibase-users:
-      command:
-        - /usr/bin/node
-        - dist/rest-handler/budibase/app.js
-      secretName: "budibase-json"
-      storage: "1Mi"
-      env:
-        - name:  PV_SECRET_MANAGER_ID
-          value: "/run/secrets/budibase-json"
-        - name:  PV_REQUEST_URL
-          value: "${BUDIBASE_URL_USERS}"
-        - name:  PV_GRAPHDB_INPUT_RULE
-          value: "bb_users"
-        - name:  PV_SECRET_COMPONENT_NAME
-          value: "budibase"
-        - name:  PV_GRAPHDB_INPUT_JSONPATH
-          value: "$.rows"
+
+    # budibase-mitigacao-de-riscos:
+    #   command:
+    #     - /usr/bin/node
+    #     - dist/rest-handler/budibase/app.js
+    #   secretName: "budibase-json"
+    #   storage: "1Mi"
+    #   env:
+    #     - name:  PV_SECRET_MANAGER_ID
+    #       value: "/run/secrets/budibase-json"
+    #     - name:  PV_REQUEST_URL
+    #       value: "${BUDIBASE_URL_MITIGACAO_DE_RISCOS}"
+    #     - name:  PV_GRAPHDB_INPUT_RULE
+    #       value: "bb_mitigacao_de_riscos"
+    #     - name:  PV_SECRET_COMPONENT_NAME
+    #       value: "budibase"
+    #     - name:  PV_GRAPHDB_INPUT_JSONPATH
+    #       value: "$.rows"
 
 
-    budibase-reunioes:
-      command:
-        - /usr/bin/node
-        - dist/rest-handler/budibase/app.js
-      secretName: "budibase-json"
-      storage: "1Mi"
-      schedule: "*/1 * * * *"
-      env:
-        - name:  PV_SECRET_MANAGER_ID
-          value: "/run/secrets/budibase-json"
-        - name:  PV_REQUEST_URL
-          value: "${BUDIBASE_URL_REUNIOES}"
-        - name:  PV_GRAPHDB_INPUT_RULE
-          value: "bb_reunioes_ppd"
-        - name:  PV_SECRET_COMPONENT_NAME
-          value: "budibase"
-        - name:  PV_GRAPHDB_INPUT_JSONPATH
-          value: "$.rows"
+    # budibase-users:
+    #   command:
+    #     - /usr/bin/node
+    #     - dist/rest-handler/budibase/app.js
+    #   secretName: "budibase-json"
+    #   storage: "1Mi"
+    #   env:
+    #     - name:  PV_SECRET_MANAGER_ID
+    #       value: "/run/secrets/budibase-json"
+    #     - name:  PV_REQUEST_URL
+    #       value: "${BUDIBASE_URL_USERS}"
+    #     - name:  PV_GRAPHDB_INPUT_RULE
+    #       value: "bb_users"
+    #     - name:  PV_SECRET_COMPONENT_NAME
+    #       value: "budibase"
+    #     - name:  PV_GRAPHDB_INPUT_JSONPATH
+    #       value: "$.rows"
 
-    salesforce:
-      command:
-        - /usr/bin/node
-        - dist/salesforce-handler/app.js
-      secretName: "salesforce-json"
-      storage: "1Mi"
-      schedule: "*/1 * * * *"
 
-      env:
-        - name:  PV_SECRET_MANAGER_ID
-          value: "/run/secrets/salesforce-json"
-        - name:  PV_SECRET_COMPONENT_NAME
-          value: "salesforce"
+    # budibase-reunioes:
+    #   command:
+    #     - /usr/bin/node
+    #     - dist/rest-handler/budibase/app.js
+    #   secretName: "budibase-json"
+    #   storage: "1Mi"
+    #   schedule: "*/1 * * * *"
+    #   env:
+    #     - name:  PV_SECRET_MANAGER_ID
+    #       value: "/run/secrets/budibase-json"
+    #     - name:  PV_REQUEST_URL
+    #       value: "${BUDIBASE_URL_REUNIOES}"
+    #     - name:  PV_GRAPHDB_INPUT_RULE
+    #       value: "bb_reunioes_ppd"
+    #     - name:  PV_SECRET_COMPONENT_NAME
+    #       value: "budibase"
+    #     - name:  PV_GRAPHDB_INPUT_JSONPATH
+    #       value: "$.rows"
+
+    # salesforce:
+    #   command:
+    #     - /usr/bin/node
+    #     - dist/salesforce-handler/app.js
+    #   secretName: "salesforce-json"
+    #   storage: "1Mi"
+    #   schedule: "*/1 * * * *"
+
+    #   env:
+    #     - name:  PV_SECRET_MANAGER_ID
+    #       value: "/run/secrets/salesforce-json"
+    #     - name:  PV_SECRET_COMPONENT_NAME
+    #       value: "salesforce"
 
 
