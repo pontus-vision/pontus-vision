@@ -52,6 +52,15 @@ pvvals:
         - name: PV_POSTGREST_PREFIX
           value: "http://pontus-postgrest:3000"
 
+
+  #############################################################################################
+  # Note that the following values are not used in the current demo
+  # that is because the commented out cronjobs below need secrets to be set
+  # and for obvious reasons we don't want to expose them in the repo.
+  # apart from not having a real time update of the Dashboard, the demo should run just fine
+  #############################################################################################
+
+
     # budibase-mapeamento-de-processo:
     #   command:
     #     - /usr/bin/node
