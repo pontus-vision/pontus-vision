@@ -1151,8 +1151,8 @@ Or... Run the following to start the LGPD custom Demo:
   **id** - Time spent in idle operations -->
   Pay special attention to `wa` (Time spent on waiting I/O), the lower the better!
   <!-- **hi** - Time spent handling hardware interrupt routines. (Whenever a peripheral unit want attention form the CPU, it literally pulls a line, to signal the CPU to service it)
-**si** - Time spent handling software interrupt routines. (a piece of code, calls an interrupt routine...)
-**st** - Time spent on involuntary waits by virtual cpu while hypervisor is servicing another processor (stolen from a virtual machine) -->
+  **si** - Time spent handling software interrupt routines. (a piece of code, calls an interrupt routine...)
+  **st** - Time spent on involuntary waits by virtual cpu while hypervisor is servicing another processor (stolen from a virtual machine) -->
 
 </details>
 
