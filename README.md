@@ -238,7 +238,7 @@ Pontus Vision has the following benefits:
 
   Note that the VM must be called `pv-demo`; otherwise, Keycloak's rules will have to be changed to allow traffic from other prefixes.
 
-</br>
+<br/>
 
   > **WARNING**: Please ensure that the VM used for the demo is called **pv-demo**.
 
@@ -332,7 +332,7 @@ Pontus Vision has the following benefits:
 
   The easiest way to deploy the Pontus Vision platform is to run either a VM or bare-metal Ubuntu 20.04 OS, and follow the instructions below:
 
-</br>
+<br/>
 
   > **WARNING**: Please ensure that the VM used for the demo is called **pv-demo**.
 
@@ -390,7 +390,7 @@ Pontus Vision has the following benefits:
 
 --------------------------------------------------------------------
 
-</br>
+<br/>
 
   The helm chart used to configure the Pontus Vision platform exists in this repository. Clone this repository and use either the GDPR or LGPD Demo:
 

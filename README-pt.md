@@ -238,7 +238,7 @@ Pontus Vision tem os seguintes benefícios:
 
   Observe que a VM deve ser chamada `pv-demo`; caso contrário, as regras do Keycloak terão que ser alteradas para permitir o tráfego de outros prefixos.
 
-</br>
+<br/>
 
   > **AVISO**: Certifique-se de que a VM usada para a demonstração se chama **pv-demo**
 
@@ -296,7 +296,7 @@ Pontus Vision tem os seguintes benefícios:
 
 --------------------------------------------------------------------
 
-</br>
+<br/>
 
   Se você quiser experimentar dados próprios, será necessária a CONFIGURAÇÃO de segredos, apis e armazenamento. Substitua as pastas storage/ e secrets/ seguindo as instruções da próxima seção MINUCIOSAMENTE.
 
@@ -332,7 +332,7 @@ Pontus Vision tem os seguintes benefícios:
 
   A maneira mais fácil de implantar a plataforma Pontus Vision é executar uma VM com sistema operacional Ubuntu 20.04, com um mínimo de 16 GB de RAM, 4 núcleos e 250 GB de espaço em disco.
 
-</br>
+<br/>
 
   > **AVISO**: Certifique-se de que a VM usada para a demonstração se chama **pv-demo**
 
@@ -390,7 +390,7 @@ Pontus Vision tem os seguintes benefícios:
 
 --------------------------------------------------------------------
 
-</br>
+<br/>
 
   O _helm chart_ usado para configurar a plataforma Pontus Vision existe neste repositório. Clone este repositório e utilize a Demo GDPR ou LGPD:
 
