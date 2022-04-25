@@ -288,7 +288,7 @@ Pontus Vision has the following benefits:
 
   > Go back to the **Clients** page and click on the **test** Client ID and perform the same changes made on the **broker** Client ID.
 
-  That should do it! Now you will be able to access the Dashboard using  [https://\<add-hostname-here\>/pv](https://$\<add-hostname-here\>/pv) instead of https://pv-demo/pv.
+  That should do it! Now you will be able to access the Dashboard using  [https://\<add-hostname-here\>/pv](https://$\<add-hostname-here\>/pv).
 
   **MAYBE AN ENVIRONMENT RESTART IS NEEDED**. Check the **Restart k3s env** section below.
 
@@ -382,7 +382,7 @@ Pontus Vision has the following benefits:
 
   > Go back to the **Clients** page and click on the **test** Client ID and perform the same changes made on the **broker** Client ID.
 
-  That should do it! Now you will be able to access the Dashboard using  [https://\<add-hostname-here\>/pv](https://$\<add-hostname-here\>/pv) instead of https://pv-demo/pv.
+  That should do it! Now you will be able to access the Dashboard using  [https://\<add-hostname-here\>/pv](https://$\<add-hostname-here\>/pv).
 
   **MAYBE AN ENVIRONMENT RESTART IS NEEDED**. Check the **Restart k3s env** section below.
 
