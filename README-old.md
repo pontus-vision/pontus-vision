@@ -138,6 +138,8 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
 
 -->
 
+-----------------------------------------------------------------------------------------------------------------
+
 <!--
 That should produce a directory structure similar to this:
 ```
@@ -291,4 +293,60 @@ Here is a sample content:
 ```
 87654321-90ab-cdef-0123-456789abcdef
 ```
+-->
+
+-----------------------------------------------------------------------------------------------------------------
+
+<!--
+To do so, please create a directory structure similar to the following:
+```
+~/storage
+├── db
+├── extract
+│   ├── CRM
+│   ├── ERP
+│   ├── email
+│   ├── google
+│   │   ├── meetings
+│   │   ├── policies
+│   │   ├── privacy-docs
+│   │   ├── privacy-notice
+│   │   ├── risk
+│   │   ├── risk-mitigations
+│   │   └── treinamentos
+│   └── microsoft
+│       ├── data-breaches
+│       ├── dsar
+│       ├── fontes-de-dados
+│       ├── legal-actions
+│       └── mapeamentos
+├── grafana
+├── keycloak
+└── timescaledb
+Check that the value for the `storagePath` key @ `pontus-vision/k3s/helm/custom-values.yaml` is the root of the directory structure above.
+Here is a set of commands that can create this structure if the value of `.Values.pvvals.storagePath` is set to `~/storage`:
+```bash
+mkdir ~/storage
+cd ~/storage
+mkdir -p extract/email \
+extract/CRM \
+extract/ERP \
+extract/microsoft/data-breaches \
+extract/microsoft/dsar \
+extract/microsoft/fontes-de-dados \
+extract/microsoft/legal-actions \
+extract/microsoft/mapeamentos \
+extract/google/meetings \
+extract/google/policies \
+extract/google/privacy-docs \
+extract/google/privacy-notice \
+extract/google/risk \
+extract/google/risk-mitigations \
+extract/google/treinamentos \
+db \
+grafana \
+keycloak \
+timescaledb
+chmod -R 777 *
+```	
 -->

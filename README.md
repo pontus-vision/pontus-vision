@@ -102,8 +102,9 @@ Pontus Vision has the following benefits:
   Before the `k3s` installation, remove `Snap` package manager, as it consumes too much CPU on small servers; this can be done by running the following:
 
   ```bash
-  export SNAP_LIST=$(snap list)
+  export SNAP_LIST=$(snap list) && \
   sudo ls
+                                         
   ```
 
   **run the loops below twice; this is NOT A TYPO:**
@@ -148,6 +149,7 @@ Pontus Vision has the following benefits:
   mkdir -p ~/work/client/
   cd ~/work/client/
   curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
+                              
   ```
 
   Note: when using WSL the following error message will appear, but can be safely ignored:
@@ -202,8 +204,9 @@ Pontus Vision has the following benefits:
 
   ```bash
   curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-  chmod 700 get_helm.sh
+  chmod 700 get_helm.sh && \
   ./get_helm.sh
+                                   
   ```
 
 </details>
@@ -215,13 +218,14 @@ Pontus Vision has the following benefits:
   ```
   helm repo add jetstack https://charts.jetstack.io
   helm repo update
-  kubectl create namespace cert-manager
+  kubectl create namespace cert-manager && \
   helm install \
     cert-manager jetstack/cert-manager \
     --namespace cert-manager \
     --create-namespace \
     --version v1.6.1 \
     --set installCRDs=true
+                                  
   ```
 
 </details>
@@ -234,7 +238,65 @@ Pontus Vision has the following benefits:
 
   Note that the VM must be called `pv-demo`; otherwise, Keycloak's rules will have to be changed to allow traffic from other prefixes.
 
-  > **WARNING**: Please ensure that the VM used for the demo is called **pv-demo**
+<br/>
+
+  > **WARNING**: Please ensure that the VM used for the demo is called **pv-demo**.
+
+--------------------------------------------------------------------
+
+  _If hostname is different than `pv-demo`, then follow this steps:_
+
+**<details><summary>Change Keycloak URI redirection</summary>**
+
+  To be able to change the URI redirection on Keycloak, one needs to login as a **Super User**. To do so, go to the following link => [https://\<add-hostname-here\>/auth/](https://$\<add-hostname-here\>/auth/) and authenticate with admin default credential **username: admin / password: admin**.
+
+  Here's some screenshots steps on how to change URI redirects:
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-a.png)
+
+  > When you access the link for the first time, the browser will warn that the connection isn't private, just ignore it and click on **Advanced**.
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-b.png)
+
+  > Then click on **Proceed to \<hostname\> (unsafe)**.
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-1.png)
+
+  > This is Keycloak's home page. Click on **Administration Console**.
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-2.png)
+
+  > Enter the default credentials and click **Sign in**.
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/hostname2.png)
+
+  > At the main panel, locate **Clients** under **Realm settings** on the left menu.
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/hostname3.png)
+
+  > On the Clients table, click on **broker** Client ID.
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/hostname5.png)
+
+  > On the Broker page scroll down till you see **Valid Redirect URIs**. The last value of this list will always be default `https://pv-demo/*`. Change it to `https://\<add-hostname-here\>/*`.
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/hostname9.png)
+
+  > Scroll down and click on **Save** and wait for the **Success!** message popup.
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/hostname6.png)
+
+  > Go back to the **Clients** page and click on the **test** Client ID and perform the same changes made on the **broker** Client ID.
+
+  That should do it! Now you will be able to access the Dashboard using  [https://\<add-hostname-here\>/pv](https://$\<add-hostname-here\>/pv).
+
+  **MAYBE AN ENVIRONMENT RESTART IS NEEDED**. Check the **Restart k3s env** section below.
+
+</details>
+
+--------------------------------------------------------------------
+
+<br/>
 
   If you want to try own data, then CONFIGURATION of secrets, apis and storage will be required.  Overwrite the folders storage/ and secrets/ following the instructions in the next section THOROUGHLY.
 
@@ -243,6 +305,7 @@ Pontus Vision has the following benefits:
   ```bash
   git clone https://github.com/pontus-vision/pontus-vision.git
   cd pontus-vision/k3s
+                                   
   ```
 
   To run the GDPR Demo, run the following command:
@@ -269,11 +332,72 @@ Pontus Vision has the following benefits:
 
   The easiest way to deploy the Pontus Vision platform is to run either a VM or bare-metal Ubuntu 20.04 OS, and follow the instructions below:
 
+<br/>
+
+  > **WARNING**: Please ensure that the VM used for the demo is called **pv-demo**.
+
+--------------------------------------------------------------------
+
+  _If hostname is different than `pv-demo`, then follow this steps:_
+
+**<details><summary>Change Keycloak URI redirection</summary>**
+
+  To be able to change the URI redirection on Keycloak, one needs to login as a **Super User**. To do so, go to the following link => [https://\<add-hostname-here\>/auth/](https://$\<add-hostname-here\>/auth/) and authenticate with admin default credential **username: admin / password: admin**.
+
+  Here's some screenshots steps on how to change URI redirects:
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-a.png)
+
+  > When you access the link for the first time, the browser will warn that the connection isn't private, just ignore it and click on **Advanced**.
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-b.png)
+
+  > Then click on **Proceed to \<hostname\> (unsafe)**.
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-1.png)
+
+  > This is Keycloak's home page. Click on **Administration Console**.
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-2.png)
+
+  > Enter the default credentials and click **Sign in**.
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/hostname2.png)
+
+  > At the main panel, locate **Clients** under **Realm settings** on the left menu.
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/hostname3.png)
+
+  > On the Clients table, click on **broker** Client ID.
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/hostname5.png)
+
+  > On the Broker page scroll down till you see **Valid Redirect URIs**. The last value of this list will always be default `https://pv-demo/*`. Change it to `https://\<add-hostname-here\>/*`.
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/hostname9.png)
+
+  > Scroll down and click on **Save** and wait for the **Success!** message popup.
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/hostname6.png)
+
+  > Go back to the **Clients** page and click on the **test** Client ID and perform the same changes made on the **broker** Client ID.
+
+  That should do it! Now you will be able to access the Dashboard using  [https://\<add-hostname-here\>/pv](https://$\<add-hostname-here\>/pv).
+
+  **MAYBE AN ENVIRONMENT RESTART IS NEEDED**. Check the **Restart k3s env** section below.
+
+</details>
+
+--------------------------------------------------------------------
+
+<br/>
+
   The helm chart used to configure the Pontus Vision platform exists in this repository. Clone this repository and use either the GDPR or LGPD Demo:
 
   ```bash
   git clone https://github.com/pontus-vision/pontus-vision.git
   cd pontus-vision/k3s
+                                    
   ```
 
 **<details><summary>Secret Files</summary>**
@@ -586,7 +710,7 @@ TODO templates cronjob instructions
 
   This step is important to ensure k3s data is kept by using **persistent volumes**. The script `create-storage-dirs.sh` is executed when the environment (Demo) is started. It is responsible in creating the storage folder structure.
 
-  The `extract/` inner folders are created using the `custom-values.yaml`'s highest hierarchy keys.
+  The `extract/` inner folders are created using the `custom-values.yaml`'s map keys.
 
   Here's how it works:
 
@@ -632,60 +756,6 @@ TODO templates cronjob instructions
   ├── keycloak
   └── timescaledb
   ```
-  
-<!--
-To do so, please create a directory structure similar to the following:
-```
-~/storage
-├── db
-├── extract
-│   ├── CRM
-│   ├── ERP
-│   ├── email
-│   ├── google
-│   │   ├── meetings
-│   │   ├── policies
-│   │   ├── privacy-docs
-│   │   ├── privacy-notice
-│   │   ├── risk
-│   │   ├── risk-mitigations
-│   │   └── treinamentos
-│   └── microsoft
-│       ├── data-breaches
-│       ├── dsar
-│       ├── fontes-de-dados
-│       ├── legal-actions
-│       └── mapeamentos
-├── grafana
-├── keycloak
-└── timescaledb
-Check that the value for the `storagePath` key @ `pontus-vision/k3s/helm/custom-values.yaml` is the root of the directory structure above.
-Here is a set of commands that can create this structure if the value of `.Values.pvvals.storagePath` is set to `~/storage`:
-```bash
-mkdir ~/storage
-cd ~/storage
-mkdir -p extract/email \
-extract/CRM \
-extract/ERP \
-extract/microsoft/data-breaches \
-extract/microsoft/dsar \
-extract/microsoft/fontes-de-dados \
-extract/microsoft/legal-actions \
-extract/microsoft/mapeamentos \
-extract/google/meetings \
-extract/google/policies \
-extract/google/privacy-docs \
-extract/google/privacy-notice \
-extract/google/risk \
-extract/google/risk-mitigations \
-extract/google/treinamentos \
-db \
-grafana \
-keycloak \
-timescaledb
-chmod -R 777 *
-```	
--->
 
 </details>
 
@@ -1081,8 +1151,8 @@ Or... Run the following to start the LGPD custom Demo:
   **id** - Time spent in idle operations -->
   Pay special attention to `wa` (Time spent on waiting I/O), the lower the better!
   <!-- **hi** - Time spent handling hardware interrupt routines. (Whenever a peripheral unit want attention form the CPU, it literally pulls a line, to signal the CPU to service it)
-**si** - Time spent handling software interrupt routines. (a piece of code, calls an interrupt routine...)
-**st** - Time spent on involuntary waits by virtual cpu while hypervisor is servicing another processor (stolen from a virtual machine) -->
+  **si** - Time spent handling software interrupt routines. (a piece of code, calls an interrupt routine...)
+  **st** - Time spent on involuntary waits by virtual cpu while hypervisor is servicing another processor (stolen from a virtual machine) -->
 
 </details>
 

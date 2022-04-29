@@ -103,8 +103,9 @@ Pontus Vision tem os seguintes benefícios:
   Antes da instalação do `k3s`, remova o gerenciador de pacotes `Snap`, pois ele consome muita CPU em servidores pequenos; isso pode ser feito executando os seguintes comandos:
 
   ```bash
-  export SNAP_LIST=$(snap list)
+  export SNAP_LIST=$(snap list) && \
   sudo ls
+                              
   ```
 
   **execute os loops abaixo duas vezes; isso NÃO é um erro de digitação:**
@@ -148,6 +149,7 @@ Pontus Vision tem os seguintes benefícios:
   mkdir -p ~/work/client/
   cd ~/work/client/
   curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
+                                                     
   ```
 
   Observação: ao usar o WSL, a seguinte mensagem de erro aparecerá, mas pode ser ignorada:
@@ -202,8 +204,9 @@ Pontus Vision tem os seguintes benefícios:
 
   ```bash
   curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-  chmod 700 get_helm.sh
+  chmod 700 get_helm.sh && \
   ./get_helm.sh
+                                           
   ```
 
 </details>
@@ -215,13 +218,14 @@ Pontus Vision tem os seguintes benefícios:
   ```
   helm repo add jetstack https://charts.jetstack.io
   helm repo update
-  kubectl create namespace cert-manager
+  kubectl create namespace cert-manager && \
   helm install \
     cert-manager jetstack/cert-manager \
     --namespace cert-manager \
     --create-namespace \
     --version v1.6.1 \
     --set installCRDs=true
+                                          
   ```
 
 </details>
@@ -234,15 +238,74 @@ Pontus Vision tem os seguintes benefícios:
 
   Observe que a VM deve ser chamada `pv-demo`; caso contrário, as regras do Keycloak terão que ser alteradas para permitir o tráfego de outros prefixos.
 
+<br/>
+
   > **AVISO**: Certifique-se de que a VM usada para a demonstração se chama **pv-demo**
+
+--------------------------------------------------------------------
+
+ _Se o nome do host for diferente de `pv-demo`, siga estas etapas:_
+
+**<details><summary>Alterar o redirecionamento de URI do Keycloak</summary>**
+
+  Para poder alterar o redirecionamento de URI no Keycloak, é necessário fazer login como **Superusuário**. Para fazer isso, acesse o link a seguir => [https://\<adicione-o-hostname-aqui\>/auth/](https://$\<adicione-o-hostname-aqui\>/auth/) e autentique-se com a credencial padrão do administrador **nome de usuário: admin / senha: admin**.
+
+  Aqui estão algumas capturas de tela das etapas de como criar um novo usuário:
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-a.png)
+
+  > Ao acessar o link pela primeira vez, o navegador avisará que a conexão não é privada, basta ignorar e clicar em **Advanced**.
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-b.png)
+
+  > Depois clique em **Proceed to \<hostname\> (unsafe)**.
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-1.png)
+
+  > Esta é a página inicial do Keycloak. Clique em **Administration Console**.
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-2.png)
+
+  > Insira as credenciais padrão e clique em **Sign in**.
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/hostname2.png)
+
+  > No painel principal, localize **Clients** em **Realm settings** no menu à esquerda.
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/hostname3.png)
+
+  > Na tabela Clients, clique em **broker** (Client ID).
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/hostname5.png)
+
+  > Na página do broker, role para baixo até **Valid Redirect URIs**. O último valor desta lista sempre será o padrão `https://pv-demo/*`. Altere para `https://\<adicione-o-hostname-aqui\>/*`.
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/hostname9.png)
+
+  > Role para baixo e clique em **Save** e aguarde o pop-up de mensagem **Success!**.
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/hostname6.png)
+
+  > Volte para a página **Clients** e clique no Client ID **test** e faça as mesmas alterações feitas anteriormente.
+
+  Isso deve resolver! Agora você poderá acessar o Dashboard usando [https://\<adicione-o-hostname-aqui\>/pv](https://\<adicione-o-hostname-aqui\>/pv).
+
+  **TALVEZ SEJA NECESSÁRIO UM REINÍCIO DO AMBIENTE**. Verifique a seção **Reiniciar o ambiente k3s** abaixo.
+
+</details>
+
+--------------------------------------------------------------------
+
+<br/>
 
   Se você quiser experimentar dados próprios, será necessária a CONFIGURAÇÃO de segredos, apis e armazenamento. Substitua as pastas storage/ e secrets/ seguindo as instruções da próxima seção MINUCIOSAMENTE.
 
   O _helm chart_ usado para configurar a plataforma Pontus Vision existe neste repositório. Clone este repositório e utilize a Demo GDPR ou LGPD:
 
   ```bash
-  git clone https://github.com/pontus-vision/pontus-vision.git
+  git clone https://github.com/pontus-vision/pontus-vision.git && \
   cd pontus-vision/k3s
+                                    
   ```
 
   Execute o seguinte para iniciar a demonstração do GDPR:
@@ -269,11 +332,72 @@ Pontus Vision tem os seguintes benefícios:
 
   A maneira mais fácil de implantar a plataforma Pontus Vision é executar uma VM com sistema operacional Ubuntu 20.04, com um mínimo de 16 GB de RAM, 4 núcleos e 250 GB de espaço em disco.
 
+<br/>
+
+  > **AVISO**: Certifique-se de que a VM usada para a demonstração se chama **pv-demo**
+
+--------------------------------------------------------------------
+
+ _Se o nome do host for diferente de `pv-demo`, siga estas etapas:_
+
+**<details><summary>Alterar o redirecionamento de URI do Keycloak</summary>**
+
+  Para poder alterar o redirecionamento de URI no Keycloak, é necessário fazer login como **Superusuário**. Para fazer isso, acesse o link a seguir => [https://\<adicione-o-hostname-aqui\>/auth/](https://$\<adicione-o-hostname-aqui\>/auth/) e autentique-se com a credencial padrão do administrador **nome de usuário: admin / senha: admin**.
+
+  Aqui estão algumas capturas de tela das etapas de como criar um novo usuário:
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-a.png)
+
+  > Ao acessar o link pela primeira vez, o navegador avisará que a conexão não é privada, basta ignorar e clicar em **Advanced**.
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-b.png)
+
+  > Depois clique em **Proceed to \<hostname\> (unsafe)**.
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-1.png)
+
+  > Esta é a página inicial do Keycloak. Clique em **Administration Console**.
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-2.png)
+
+  > Insira as credenciais padrão e clique em **Sign in**.
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/hostname2.png)
+
+  > No painel principal, localize **Clients** em **Realm settings** no menu à esquerda.
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/hostname3.png)
+
+  > Na tabela Clients, clique em **broker** (Client ID).
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/hostname5.png)
+
+  > Na página do broker, role para baixo até **Valid Redirect URIs**. O último valor desta lista sempre será o padrão `https://pv-demo/*`. Altere para `https://\<adicione-o-hostname-aqui\>/*`.
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/hostname9.png)
+
+  > Role para baixo e clique em **Save** e aguarde o pop-up de mensagem **Success!**.
+
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/hostname6.png)
+
+  > Volte para a página **Clients** e clique no Client ID **test** e faça as mesmas alterações feitas anteriormente.
+
+  Isso deve resolver! Agora você poderá acessar o Dashboard usando [https://\<adicione-o-hostname-aqui\>/pv](https://\<adicione-o-hostname-aqui\>/pv).
+
+  **TALVEZ SEJA NECESSÁRIO UM REINÍCIO DO AMBIENTE**. Verifique a seção **Reiniciar o ambiente k3s** abaixo.
+
+</details>
+
+--------------------------------------------------------------------
+
+<br/>
+
   O _helm chart_ usado para configurar a plataforma Pontus Vision existe neste repositório. Clone este repositório e utilize a Demo GDPR ou LGPD:
 
   ```bash
-  git clone https://github.com/pontus-vision/pontus-vision.git
+  git clone https://github.com/pontus-vision/pontus-vision.git && \
   cd pontus-vision/k3s
+                                       
   ```
 
 **<details><summary>Arquivos Secret</summary>**
@@ -580,7 +704,7 @@ Pontus Vision tem os seguintes benefícios:
 
   Esta etapa é importante para garantir que os dados do k3s sejam mantidos usando **volumes persistentes**. O script `create-storage-dirs.sh` é executado quando o ambiente (Demo) é iniciado. Ele é responsável por criar a estrutura de pastas de armazenamento.
 
-  As pastas internas `extract/` são criadas usando as chaves de hierarquia mais altas do `custom-values.yaml`.
+  As pastas internas `extract/` são criadas usando as chaves (_keys_) do map no `custom-values.yaml`.
 
   Veja como funciona:
 
