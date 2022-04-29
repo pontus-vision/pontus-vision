@@ -635,7 +635,7 @@ Pontus Vision tem os seguintes benefícios:
 
   pvvals:
     imageVers:
-      graphdb: "pontusvisiongdpr/pontus-track-graphdb-odb${PV_IMAGE_SUFFIX}:'1.15.32'"
+      graphdb: "pontusvisiongdpr/pontus-track-graphdb-odb${PV_IMAGE_SUFFIX}:1.15.32"
       grafana: "pontusvisiongdpr/grafana${PV_IMAGE_SUFFIX}:1.13.2"
       pvextract: "pontusvisiongdpr/pv-extract-wrapper:1.13.2"
 
