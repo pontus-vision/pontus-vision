@@ -79,7 +79,7 @@ Pontus Vision has the following benefits:
   |------------------------------------------------------|---------|-------------------------------------------------|---------------------|------------|------------|
   |  pontusvisiongdpr/grafana:1.13.2                     |Comply   | Dashboard - historical KPIs and data tables     | Yes                 | 140.67MB   | 39MiB      |
   |  pontusvisiongdpr/pontus-comply-keycloak:latest      |Comply   | (optional) Authenticator - creates JWT token    | Yes                 | 404MB      | 492MiB     |
-  |  pontusvisiongdpr/pontus-track-graphdb-odb:1.15.15    |Track    | Graph Database to store data in the POLE model  | Yes                 | 1.04GB     | 4.5GiB     |
+  |  pontusvisiongdpr/pontus-track-graphdb-odb:1.15.32    |Track    | Graph Database to store data in the POLE model  | Yes                 | 1.04GB     | 4.5GiB     |
   |  pontusvisiongdpr/timescaledb:latest                 |Track    | Historical time series database                 | Yes                 | 73MB       | 192MiB     |
   |  pontusvisiongdpr/postgrest:latest                   |Track    | REST API front end to timescale db              | No                  | 43MB       | 13MiB      |
   |  pontusvisiongdpr/pontus-extract-spacy:1.13.2        |Extract  | (optional) Natural language processor           | No                  | 4.12GB     | 105MiB     |
@@ -511,7 +511,7 @@ Pontus Vision has the following benefits:
 
   pvvals:
     imageVers:
-      graphdb: "pontusvisiongdpr/pontus-track-graphdb-odb${PV_IMAGE_SUFFIX}:1.15.14"
+      graphdb: "pontusvisiongdpr/pontus-track-graphdb-odb${PV_IMAGE_SUFFIX}:1.15.32"
       grafana: "pontusvisiongdpr/grafana${PV_IMAGE_SUFFIX}:1.13.2"
       pvextract: "pontusvisiongdpr/pv-extract-wrapper:1.13.2"
 
@@ -789,7 +789,7 @@ Or... Run the following to start the LGPD custom Demo:
 
   pvvals:
     imageVers: # <---
-      graphdb: "pontusvisiongdpr/pontus-track-graphdb-odb${PV_IMAGE_SUFFIX}:1.15.14"
+      graphdb: "pontusvisiongdpr/pontus-track-graphdb-odb${PV_IMAGE_SUFFIX}:1.15.32"
       grafana: "pontusvisiongdpr/grafana${PV_IMAGE_SUFFIX}:1.13.2"
       pvextract: "pontusvisiongdpr/pv-extract-wrapper:1.13.2"
 
@@ -902,7 +902,7 @@ Or... Run the following to start the LGPD custom Demo:
   Containers:
     graphdb-nifi:
       Container ID:   containerd://09aab7b7******************************
-      Image:          pontusvisiongdpr/pontus-track-graphdb-odb-pt:1.15.14
+      Image:          pontusvisiongdpr/pontus-track-graphdb-odb-pt:1.15.32
       Image ID:       docker.io/pontusvisiongdpr/pontus-track-graphdb-odb-pt@sha256:5182a463df6***********************
       Ports:          8183/TCP, 7000/TCP, 3001/TCP, 2480/TCP, 5007/TCP
       Host Ports:     0/TCP, 0/TCP, 0/TCP, 0/TCP, 0/TCP
@@ -953,8 +953,8 @@ Or... Run the following to start the LGPD custom Demo:
     Type    Reason     Age    From               Message
     ----    ------     ----   ----               -------
     Normal  Scheduled  6m19s  default-scheduler  Successfully assigned default/graphdb-nifi to pv-demo
-    Normal  Pulling    6m16s  kubelet            Pulling image "pontusvisiongdpr/pontus-track-graphdb-odb-pt:1.15.14"
-    Normal  Pulled     6m14s  kubelet            Successfully pulled image "pontusvisiongdpr/pontus-track-graphdb-odb-pt:1.15.14" in 1.834313572s
+    Normal  Pulling    6m16s  kubelet            Pulling image "pontusvisiongdpr/pontus-track-graphdb-odb-pt:1.15.32"
+    Normal  Pulled     6m14s  kubelet            Successfully pulled image "pontusvisiongdpr/pontus-track-graphdb-odb-pt:1.15.32" in 1.834313572s
     Normal  Created    6m14s  kubelet            Created container graphdb-nifi
     Normal  Started    6m14s  kubelet            Started container graphdb-nifi
   ```
