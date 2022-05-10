@@ -243,9 +243,18 @@ Pontus Vision has the following benefits:
   > **WARNING**: Please ensure that the VM used for the demo is called **pv-demo**.
 
 --------------------------------------------------------------------
-
+<a href="#user-content-changing-host" id="changing-host"></a>
   _If hostname is different than `pv-demo`, then follow this steps:_
+  
+**<details><summary>Change the environment variable 'PV_HOSTNAME'</summary>**
+Change the environment variable PV_HOSTNAME in the .bashrc (or equivalent) that runs the start-up script (./start-env-gdpr.sh).  
 
+```bash
+  export PV_HOSTNAME="mydemo.myorg.com"
+```
+Note that you *MUST* use the exactly the same name here and in the next session.  Even if the change is just a domain name suffix, a URL like https://mydemo/pv, will not work; you must use exactly the same name as above (e.g. https://mydemo.myorg.com) both in the browser and in the next step.
+  
+</details>
 **<details><summary>Change Keycloak URI redirection</summary>**
 
   To be able to change the URI redirection on Keycloak, one needs to login as a **Super User**. To do so, go to the following link => [https://\<add-hostname-here\>/auth/](https://$\<add-hostname-here\>/auth/) and authenticate with admin default credential **username: admin / password: admin**.
