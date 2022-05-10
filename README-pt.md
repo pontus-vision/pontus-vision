@@ -248,10 +248,10 @@ Pontus Vision tem os seguintes benefícios:
 **<details><summary>Alterar a variável de ambiente 'PV_HOSTNAME'</summary>**
   Mude a variável PV_HOSTNAME no arquivo .bashrc do usuário que roda o script de inicialização (./start-env-lgpd.sh).  
 
-```
+```bash
   export PV_HOSTNAME="mydemo.myorg.com"
 ```
-    Note que terá que ser usado o mesmo nome exatamente aqui e no Browser, portanto se o browser usar https://mydemo/pv, não irá funcionar; será preciso usar https://mydemo.myorg.com no browser e na etapa abaixo do keycloak.
+Note que terá que ser usado o mesmo nome exatamente aqui e no Browser, portanto se o browser usar https://mydemo/pv, não irá funcionar; será preciso usar https://mydemo.myorg.com no browser e na etapa abaixo do keycloak.
   </details>
 **<details><summary>Alterar o redirecionamento de URI do Keycloak</summary>**
 
