@@ -247,7 +247,7 @@ Pontus Vision has the following benefits:
   _If hostname is different than `pv-demo`, then follow this steps:_
   
 **<details><summary>Change the environment variable 'PV_HOSTNAME'</summary>**
-Change the environment variable PV_HOSTNAME in the .bashrc (or equivalent) that runs the start-up script (./start-env-gdpr.sh).  
+Change the environment variable PV_HOSTNAME in the .bashrc (or equivalent) of the user that runs the start-up script (./start-env-gdpr.sh).  
 
 ```bash
   export PV_HOSTNAME="mydemo.myorg.com"
