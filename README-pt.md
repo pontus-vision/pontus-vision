@@ -243,7 +243,7 @@ Pontus Vision tem os seguintes benefícios:
   > **AVISO**: Certifique-se de que a VM usada para a demonstração se chama **pv-demo**
 
 --------------------------------------------------------------------
-
+ <a href="#user-content-mudar-host" id="mudar-host"></a>
  _Se o nome do host for diferente de `pv-demo`, siga estas etapas:_
 **<details><summary>Alterar a variável de ambiente 'PV_HOSTNAME'</summary>**
   Mude a variável PV_HOSTNAME no arquivo .bashrc do usuário que roda o script de inicialização (./start-env-lgpd.sh).  
