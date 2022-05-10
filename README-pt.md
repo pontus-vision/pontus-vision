@@ -245,7 +245,14 @@ Pontus Vision tem os seguintes benefícios:
 --------------------------------------------------------------------
 
  _Se o nome do host for diferente de `pv-demo`, siga estas etapas:_
+**<details><summary>Alterar a variável de ambiente 'PV_HOSTNAME'</summary>**
+  Mude a variável PV_HOSTNAME no arquivo .bashrc do usuário que roda o script de inicialização (./start-env-lgpd.sh).  
 
+```
+  export PV_HOSTNAME="mydemo.myorg.com"
+```
+    Note que terá que ser usado o mesmo nome exatamente aqui e no Browser, portanto se o browser usar https://mydemo/pv, não irá funcionar; será preciso usar https://mydemo.myorg.com no browser e na etapa abaixo do keycloak.
+</details
 **<details><summary>Alterar o redirecionamento de URI do Keycloak</summary>**
 
   Para poder alterar o redirecionamento de URI no Keycloak, é necessário fazer login como **Superusuário**. Para fazer isso, acesse o link a seguir => [https://\<adicione-o-hostname-aqui\>/auth/](https://$\<adicione-o-hostname-aqui\>/auth/) e autentique-se com a credencial padrão do administrador **nome de usuário: admin / senha: admin**.
