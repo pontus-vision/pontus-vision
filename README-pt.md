@@ -234,6 +234,8 @@ Pontus Vision tem os seguintes benefícios:
 
 # Instalação da Demo
 
+  [Tutorial em Vídeo 📽️](https://youtu.be/Ay2b8IoGeHQ)
+
   A maneira mais fácil de implantar a plataforma Pontus Vision é executar uma VM com sistema operacional Ubuntu 20.04, com um mínimo de 16 GB de RAM, 4 núcleos e 250 GB de espaço em disco.
 
   Observe que a VM deve ser chamada `pv-demo`; caso contrário, as regras do Keycloak terão que ser alteradas para permitir o tráfego de outros prefixos.
