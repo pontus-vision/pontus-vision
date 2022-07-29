@@ -240,13 +240,18 @@ Pontus Vision has the following benefits:
 
 <br/>
 
-  > **WARNING**: Please ensure that the VM used for the demo is called **pv-demo**.
+  > **WARNING**: Please ensure that the VM used for the demo is called **pv-demo** by running:
+
+  ```bash
+  hostnamectl set-hostname pv-demo
+  ```
 
 --------------------------------------------------------------------
-<a href="#user-content-changing-host" id="changing-host"></a>
-  _If hostname is different than `pv-demo`, then follow this steps:_
+
+  _If you wish to mantain the hostname, then follow this steps:_
   
 **<details><summary>Change the environment variable 'PV_HOSTNAME'</summary>**
+
 Change the environment variable PV_HOSTNAME in the .bashrc (or equivalent) of the user that runs the start-up script (./start-env-gdpr.sh).  
 
 ```bash
@@ -344,11 +349,15 @@ Note that you *MUST* use the exactly the same name here and in the next session.
 
 <br/>
 
-  > **WARNING**: Please ensure that the VM used for the demo is called **pv-demo**.
+  > **WARNING**: Please ensure that the VM used for the demo is called **pv-demo** by running: 
+  
+  ```bash
+  hostnamectl set-hostname pv-demo
+  ```
 
 --------------------------------------------------------------------
 
-  _If hostname is different than `pv-demo`, then follow this steps:_
+  _If you wish to mantain the hostname, then follow this steps:_
 
 **<details><summary>Change Keycloak URI redirection</summary>**
 
