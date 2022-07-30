@@ -248,7 +248,7 @@ Pontus Vision has the following benefits:
 
 --------------------------------------------------------------------
 
-  _If you wish to mantain the hostname, then follow this steps:_
+  > _If you wish to mantain the hostname, then follow this steps:_
   
 **<details><summary>Change the environment variable 'PV_HOSTNAME'</summary>**
 
@@ -357,7 +357,7 @@ Note that you *MUST* use the exactly the same name here and in the next session.
 
 --------------------------------------------------------------------
 
-  _If you wish to mantain the hostname, then follow this steps:_
+  > _If you wish to mantain the hostname, then follow this steps:_
 
 **<details><summary>Change Keycloak URI redirection</summary>**
 
