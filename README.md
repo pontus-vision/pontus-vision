@@ -248,7 +248,7 @@ Pontus Vision has the following benefits:
 
 --------------------------------------------------------------------
 
-  > _If you wish to mantain the hostname, then follow this steps:_
+  > _If you wish to change the hostname, then follow this steps:_
   
 **<details><summary>Change the environment variable 'PV_HOSTNAME'</summary>**
 
