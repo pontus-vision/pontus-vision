@@ -247,10 +247,11 @@ Pontus Vision has the following benefits:
   ```
 
 --------------------------------------------------------------------
-
+<details>
+<summary>
   > _If you wish to change the hostname, then follow this steps:_
-  
-**<details><summary>Change the environment variable 'PV_HOSTNAME'</summary>**
+</summary>
+**Change the environment variable 'PV_HOSTNAME'**
 
 Change the environment variable PV_HOSTNAME in the .bashrc (or equivalent) of the user that runs the start-up script (./start-env-gdpr.sh).  
 
