@@ -319,7 +319,7 @@ Note that you *MUST* use the exactly the same name here and in the next session.
 
   ```bash
   cd && cd work \
-  git clone --depth=1 https://github.com/pontus-vision/pontus-vision.git
+  git clone --depth=1 https://github.com/pontus-vision/pontus-vision.git && \
   cd pontus-vision/k3s
                                    
   ```
@@ -416,7 +416,7 @@ Note that you *MUST* use the exactly the same name here and in the next session.
 
   ```bash
   cd && cd work \
-  git clone --depth=1 https://github.com/pontus-vision/pontus-vision.git
+  git clone --depth=1 https://github.com/pontus-vision/pontus-vision.git && \
   cd pontus-vision/k3s
                                     
   ```
