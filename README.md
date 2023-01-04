@@ -234,7 +234,7 @@ Pontus Vision has the following benefits:
 
 # Demo Installation
 
-  The easiest way to deploy the Pontus Vision platform is to run a VM with Ubuntu 20.04 OS, with a minimum of 16GB of RAM, 4 cores and 250GB of disk space.
+  The easiest way to deploy the Pontus Vision platform is to run a VM with Ubuntu 20.04/22.04 OS, with a minimum of 32GB of RAM, 8 cores and 250GB of disk space.
 
   Note that the VM must be called `pv-demo`; otherwise, Keycloak's rules will have to be changed to allow traffic from other prefixes.
 
@@ -263,9 +263,9 @@ Note that you *MUST* use the exactly the same name here and in the next session.
 
 **<details><summary>Change Keycloak URI redirection</summary>**
 
-  To be able to change the URI redirection on Keycloak, one needs to login as a **Super User**. To do so, go to the following link => [https://\<add-hostname-here\>/auth/](https://$\<add-hostname-here\>/auth/) and authenticate with admin default credential **username: admin / password: admin**.
+  To change the URI redirection on Keycloak, login as a **Super User**. To do so, go to the following link => [https://\<add-hostname-here\>/auth/](https://$\<add-hostname-here\>/auth/) and authenticate with admin default credential **username: admin / password: admin**.
 
-  Here's some screenshots steps on how to change URI redirects:
+  Here are some screenshots steps on how to change URI redirects:
 
   ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/keycloak-a.png)
 
@@ -313,7 +313,7 @@ Note that you *MUST* use the exactly the same name here and in the next session.
 
 <br/>
 
-  If you want to try own data, then CONFIGURATION of secrets, apis and storage will be required.  Overwrite the folders storage/ and secrets/ following the instructions in the next section THOROUGHLY.
+  If you want to use your own data, you must configure secrets, apis and storage settings in the folders storage/ and secrets/, following the instructions in the next section THOROUGHLY.
 
   The helm chart used to configure the Pontus Vision platform exists in this repository. Clone this repository and use either the GDPR or LGPD Demo:
 
