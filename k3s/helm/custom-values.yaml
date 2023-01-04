@@ -3,8 +3,8 @@
 
 pvvals:
   imageVers:
-    graphdb: "pontusvisiongdpr/pontus-track-graphdb-odb${PV_IMAGE_SUFFIX}:1.15.34"
-    grafana: "pontusvisiongdpr/grafana${PV_IMAGE_SUFFIX}:1.13.2"
+    graphdb: "pontusvisiongdpr/pontus-track-graphdb-odb${PV_IMAGE_SUFFIX}:1.15.103"
+    grafana: "pontusvisiongdpr/grafana${PV_IMAGE_SUFFIX}:1.15.3"
     pvextract: "pontusvisiongdpr/pv-extract-wrapper:1.13.2"
 
   storagePath: "${PV_STORAGE_BASE}"
