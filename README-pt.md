@@ -318,7 +318,7 @@ Note que terá que ser usado o mesmo nome exatamente aqui e no Browser, portanto
   O _helm chart_ usado para configurar a plataforma Pontus Vision existe neste repositório. Clone este repositório e utilize a Demo GDPR ou LGPD:
 
   ```bash
-  cd && cd work \
+  cd && cd work &&
   git clone --depth=1 https://github.com/pontus-vision/pontus-vision.git && \
   cd pontus-vision/k3s
                                     
@@ -415,7 +415,7 @@ Note que terá que ser usado o mesmo nome exatamente aqui e no Browser, portanto
   O _helm chart_ usado para configurar a plataforma Pontus Vision existe neste repositório. Clone este repositório e utilize a Demo GDPR ou LGPD:
 
   ```bash
-  cd && cd work \
+  cd && cd work &&
   git clone --depth=1 https://github.com/pontus-vision/pontus-vision.git && \
   cd pontus-vision/k3s
                                        
