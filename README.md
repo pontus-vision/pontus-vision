@@ -132,10 +132,12 @@ Pontus Vision has the following benefits:
 **<details><summary>Update the server and install tools:</summary>**
 
   ```
-  sudo apt update && \
-  sudo apt upgrade -y && \
-  sudo apt install -y git curl jq ubuntu-server python3-pip && \
-  sudo pip3 install yq
+  sudo apt update
+    #<enter your local ubuntu user password>
+  
+  sudo apt upgrade -y 
+  sudo apt install -y git curl jq ubuntu-server python3-pip 
+  pip3 install yq
                              
   ```
 
@@ -218,13 +220,9 @@ Pontus Vision has the following benefits:
   ```
   helm repo add jetstack https://charts.jetstack.io
   helm repo update
-  kubectl create namespace cert-manager && \
-  helm install \
-    cert-manager jetstack/cert-manager \
-    --namespace cert-manager \
-    --create-namespace \
-    --version v1.6.1 \
-    --set installCRDs=true
+  kubectl create namespace cert-manager
+  export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+  helm install  cert-manager jetstack/cert-manager  --namespace cert-manager  --create-namespace  --version v1.6.1  --set installCRDs=true
                                   
   ```
 
