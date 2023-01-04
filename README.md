@@ -316,7 +316,7 @@ Note that you *MUST* use the exactly the same name here and in the next session.
   The helm chart used to configure the Pontus Vision platform exists in this repository. Clone this repository and use either the GDPR or LGPD Demo:
 
   ```bash
-  cd && cd work &&
+  cd ~/work 
   git clone --depth=1 https://github.com/pontus-vision/pontus-vision.git && \
   cd pontus-vision/k3s
                                    
