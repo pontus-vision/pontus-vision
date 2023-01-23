@@ -25,7 +25,7 @@ Pontus Vision tem os seguintes benefícios:
 
   A plataforma Pontus Vision resolve os desafios de mapeamento de dados e gerenciamento de dados pessoais em 3 módulos:
 
-  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/arch-components.png) <!-- atualizar imagem !! -->
+  ![](https://raw.githubusercontent.com/pontus-vision/README-images/main/3-partes-pv.png)
 
 
 ### EXTRAIR (EXTRACT)
