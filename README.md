@@ -90,7 +90,7 @@ Pontus Vision has the following benefits:
 
 # Pre-requisites
 
-  - Linux Ubuntu 20.04
+  - Linux Ubuntu 22.04
     - ensure that all packages are up to date
     - ensure that the `git` client is installed 
   - 8-core CPU            
