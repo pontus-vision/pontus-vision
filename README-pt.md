@@ -98,16 +98,27 @@ Pontus Vision tem os seguintes benefícios:
   - 32GB de RAM
   - Disco de 250 GB + espaço para os dados ingeridos (~1KB/registro)
 
-**<details><summary>Removendo Snap (opcional - não necessário para WSL)</summary>**
+**Antes de tudo, vamos configurar a máquina com as ferramentas necessárias para rodar o Demo.**
 
-  Antes da instalação do `k3s`, remova o gerenciador de pacotes `Snap`, pois ele consome muita CPU em servidores pequenos; isso pode ser feito executando os seguintes comandos:
+Clone este repositório:
+
+```bash
+cd ~/work
+git clone --depth=1 https://github.com/pontus-vision/pontus-vision.git
+cd pontus-vision/k3s
+```
+
+Então ...
+
+**<details><summary>Remover Snap (opcional - não necessário para WSL)</summary>**
+
+  Remova o gerenciador de pacotes `Snap`, pois ele consome muita CPU em servidores pequenos; isso pode ser feito executando o seguinte comando:
 
   ```bash
-  export SNAP_LIST=$(snap list) && \
-  sudo ls
-                              
+  ./pre-requisites/remove_snap.sh                
   ```
 
+<!--
   **execute os loops abaixo duas vezes; isso NÃO é um erro de digitação:**
 
   ```bash
@@ -126,9 +137,11 @@ Pontus Vision tem os seguintes benefícios:
   rm -fr ~/snap && sudo apt-mark hold snapd
                                              
   ```
+-->
 
 </details>
 
+<!--
 **<details><summary>Atualizar o servidor e baixar ferramentas:</summary>**
 
   ```
@@ -229,6 +242,17 @@ Pontus Vision tem os seguintes benefícios:
   ```
 
 </details>
+-->
+
+Execute este script **OBRIGATÓRIO** para configurar todos os pré-requisitos:
+
+> Atenção! Pode pedir a senha SUDO e outros inputs!
+
+```bash
+./pre_requisites.sh
+# this updates and installs tools necessary for running this Demo,
+# for more details, cat and check it
+```
 
 <br/>
 
@@ -316,6 +340,8 @@ Note que terá que ser usado o mesmo nome exatamente aqui e no Browser, portanto
   Se você quiser experimentar dados próprios, será necessária a CONFIGURAÇÃO de segredos, apis e armazenamento. Substitua as pastas storage/ e secrets/ seguindo as instruções da próxima seção MINUCIOSAMENTE.
 
   O _helm chart_ usado para configurar a plataforma Pontus Vision existe neste repositório. Clone este repositório e utilize a Demo GDPR ou LGPD:
+
+  > Se você já executou **git clone**, pule este próximo comando.
 
   ```bash
   cd && cd work &&
@@ -413,6 +439,8 @@ Note que terá que ser usado o mesmo nome exatamente aqui e no Browser, portanto
 <br/>
 
   O _helm chart_ usado para configurar a plataforma Pontus Vision existe neste repositório. Clone este repositório e utilize a Demo GDPR ou LGPD:
+
+  > Se você já executou **git clone**, pule este próximo comando.
 
   ```bash
   cd && cd work &&
