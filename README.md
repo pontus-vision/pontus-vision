@@ -97,38 +97,31 @@ Pontus Vision has the following benefits:
   - 32GB RAM
   - 250GB Disk + ~1KB of storage / record
 
-**<details><summary>Removing Snap (optional - not required for WSL)</summary>**
 
-  Before the `k3s` installation, remove `Snap` package manager, as it consumes too much CPU on small servers; this can be done by running the following:
+**Before hand, let's configure the machine with the necessary tools to run the Demo.**
+
+Clone this repo:
 
   ```bash
-  export SNAP_LIST=$(snap list) && \
-  sudo ls
-                                         
+  cd ~/work
+  git clone --depth=1 https://github.com/pontus-vision/pontus-vision.git
+  cd pontus-vision/k3s
+
   ```
 
-  **run the loops below twice; this is NOT A TYPO:**
+Then ...
+
+**<details><summary>Remove Snap (optional - not required for WSL)</summary>**
+
+  Remove `Snap` package manager, as it consumes too much CPU on small servers; this can be done by running the following:
 
   ```bash
-  for i in ${SNAP_LIST}; do
-    sudo snap remove --purge $i
-  done
-
-  for i in ${SNAP_LIST}; do
-    sudo snap remove --purge $i
-  done
-
-  sudo rm -rf /var/cache/snapd/
-
-  yes | sudo apt autoremove --purge snapd gnome-software-plugin-snap
-
-  rm -fr ~/snap &&  sudo apt-mark hold snapd
-                                               
-  ```  
+  ./pre-requisites/remove_snap.sh
+  ```
 
 </details>
 
-
+<!--
 **<details><summary>Update the server and install tools:</summary>**
 
   ```
@@ -227,6 +220,17 @@ Pontus Vision has the following benefits:
   ```
 
 </details>
+-->
+
+Run this **COMPULSORY** script to config all pre-requisites:
+
+> Attention! It may ask for SUDO password and other inputs!
+
+  ```bash
+  ./pre_requisites.sh
+  # this updates and installs tools necessary for running this Demo,
+  # for more details, cat and check it
+  ```
 
 <br/>
 
@@ -314,6 +318,8 @@ Note that you *MUST* use the exactly the same name here and in the next session.
   If you want to use your own data, you must configure secrets, apis and storage settings in the folders storage/ and secrets/, following the instructions in the next section THOROUGHLY.
 
   The helm chart used to configure the Pontus Vision platform exists in this repository. Clone this repository and use either the GDPR or LGPD Demo:
+
+  > If you already ran **git clone**, skip this next command.
 
   ```bash
   cd ~/work 
@@ -411,6 +417,8 @@ Note that you *MUST* use the exactly the same name here and in the next session.
 <br/>
 
   The helm chart used to configure the Pontus Vision platform exists in this repository. Clone this repository and use either the GDPR or LGPD Demo:
+
+  > If you already ran **git clone**, skip this next command.
 
   ```bash
   cd ~/work
