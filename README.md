@@ -227,7 +227,8 @@ Then ...
 
 Run this **COMPULSORY** script to config all pre-requisites:
 
-> Attention! It may ask for SUDO password and other inputs!
+> Attention! It may ask for SUDO password and other inputs! <br>
+> If command doesn't run, then make it executable with `sudo chmod +x *`
 
   ```bash
   ./pre_requisites.sh

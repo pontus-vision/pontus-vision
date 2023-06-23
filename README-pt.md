@@ -249,7 +249,8 @@ Então ...
 
 Execute este script **OBRIGATÓRIO** para configurar todos os pré-requisitos:
 
-> Atenção! Pode pedir a senha SUDO e outros inputs!
+> Atenção! Pode pedir a senha SUDO e outros inputs! <br>
+> Se o comando não rodar, torne-o executável com `sudo chmod +x *`
 
 ```bash
 ./pre_requisites.sh
