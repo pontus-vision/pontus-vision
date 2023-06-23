@@ -333,7 +333,7 @@ Note that you *MUST* use the exactly the same name here and in the next session.
                                    
   ```
 
-  To run the GDPR Demo, run the following command:
+  To run the GDPR Demo, run the following command from `work/pontus-vision/k3s`:
 
   ```bash
   ./start-env-gdpr.sh
@@ -342,7 +342,7 @@ Note that you *MUST* use the exactly the same name here and in the next session.
   # If that happens, run it again
   ```
 
-  Or... Run the following to start the LGPD Demo:
+  Or... Run the following to start the LGPD Demo from `work/pontus-vision/k3s`:
 
   ```bash
   ./start-env-lgpd.sh

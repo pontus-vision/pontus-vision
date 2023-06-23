@@ -355,7 +355,7 @@ Note que terá que ser usado o mesmo nome exatamente aqui e no Browser, portanto
                                     
   ```
 
-  Execute o seguinte para iniciar a demonstração do GDPR:
+  Execute o seguinte script para iniciar a demonstração do GDPR, a partir do path `work/pontus-vision/k3s`:
 
   ```bash
   ./start-env-gdpr.sh
@@ -364,7 +364,7 @@ Note que terá que ser usado o mesmo nome exatamente aqui e no Browser, portanto
   # Se isso acontecer, execute-o novamente
   ```
 
-  Ou... Execute o seguinte para iniciar a demonstração da LGPD:
+  Ou... Execute o seguinte script para iniciar a demonstração da LGPD, a partir do path `work/pontus-vision/k3s`:
 
   ```bash
   ./start-env-lgpd.sh
