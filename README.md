@@ -106,7 +106,7 @@ Clone this repo:
   mkdir -p ~/work/client/
   cd ~/work
   git clone --depth=1 https://github.com/pontus-vision/pontus-vision.git
-  cd pontus-vision/k3s
+  cd pontus-vision/
 
   ```
 
@@ -115,6 +115,8 @@ Then ...
 **<details><summary>Remove Snap (optional - not required for WSL)</summary>**
 
   Remove `Snap` package manager, as it consumes too much CPU on small servers; this can be done by running the following:
+
+  > If command doesn't run, then make it executable with `sudo chmod +x *`
 
   ```bash
   ./pre-requisites/remove_snap.sh
