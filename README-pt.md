@@ -103,6 +103,7 @@ Pontus Vision tem os seguintes benefícios:
 Clone este repositório:
 
 ```bash
+mkdir -p ~/work/client/
 cd ~/work
 git clone --depth=1 https://github.com/pontus-vision/pontus-vision.git
 cd pontus-vision/k3s
@@ -344,6 +345,7 @@ Note que terá que ser usado o mesmo nome exatamente aqui e no Browser, portanto
   > Se você já executou **git clone**, pule este próximo comando.
 
   ```bash
+  mkdir -p ~/work/client/
   cd && cd work &&
   git clone --depth=1 https://github.com/pontus-vision/pontus-vision.git && \
   cd pontus-vision/k3s
@@ -443,6 +445,7 @@ Note que terá que ser usado o mesmo nome exatamente aqui e no Browser, portanto
   > Se você já executou **git clone**, pule este próximo comando.
 
   ```bash
+  mkdir -p ~/work/client/
   cd && cd work &&
   git clone --depth=1 https://github.com/pontus-vision/pontus-vision.git && \
   cd pontus-vision/k3s
