@@ -100,6 +100,16 @@ Pontus Vision tem os seguintes benefícios:
 
 **Antes de tudo, vamos configurar a máquina com as ferramentas necessárias para rodar o Demo.**
 
+> **AVISO**: Certifique-se de que a VM usada para a demonstração se chama **pv-demo** rodando o comando:
+
+  ```bash
+  hostnamectl set-hostname pv-demo
+  ```
+
+  verifique o hostname da máquina rodando o comando `$ hostname`
+
+  <br>
+
 Clone este repositório:
 
 ```bash

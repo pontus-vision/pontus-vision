@@ -97,8 +97,18 @@ Pontus Vision has the following benefits:
   - 32GB RAM
   - 250GB Disk + ~1KB of storage / record
 
+<br>
 
 **Before hand, let's configure the machine with the necessary tools to run the Demo.**
+
+> **WARNING**: Please ensure that the VM used for the demo is called **pv-demo** by running:
+
+  ```bash
+  hostnamectl set-hostname pv-demo
+  ```
+  check machine's hostname with command `$ hostname`
+
+<br>
 
 Clone this repo:
 
